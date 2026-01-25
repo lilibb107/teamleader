@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rituales de Liderazgo CEO - Team Leader Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .font-serif {
+            font-family: 'Playfair Display', serif;
+        }
+        .ritual-card.completed {
+            opacity: 0.6;
+            background-color: #f9fafb;
+            border-color: #e5e7eb;
+        }
+        .ritual-card.completed .title {
+            text-decoration: line-through;
+            color: #9ca3af;
+        }
+        .ritual-card.completed .check-icon {
+            color: #064e3b;
+        }
+        .progress-glow {
+            box-shadow: 0 0 15px rgba(197, 160, 89, 0.4);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-2xl mx-auto">
+        <!-- Contenedor Principal -->
+        <div class="bg-white rounded-[2rem] shadow-2xl overflow-hidden border border-gray-100">
+            
+            <!-- Header Premium -->
+            <div class="bg-[#064e3b] p-8 text-white relative overflow-hidden">
+                <!-- Decoración Dorada -->
+                <div class="absolute top-0 right-0 w-32 h-32 bg-[#c5a059] opacity-10 rounded-full -mr-16 -mt-16"></div>
+                
+                <div class="flex justify-between items-start mb-8 relative z-10">
+                    <div>
+                        <h4 class="text-[#c5a059] font-bold tracking-[0.3em] uppercase text-[10px] mb-2">Team Leader Academy</h4>
+                        <h1 class="text-3xl font-serif font-bold tracking-tight">Rituales de Liderazgo</h1>
+                        <p class="text-emerald-100/60 text-[10px] mt-1 font-light tracking-[0.2em] uppercase">Edición CEO 1M€</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md p-3 rounded-2xl border border-white/20">
+                        <i data-lucide="award" class="text-[#c5a059]"></i>
+                    </div>
+                </div>
+                
+                <div class="space-y-3 relative z-10">
+                    <div class="flex justify-between text-[10px] mb-1 uppercase tracking-[0.2em] font-semibold">
+                        <span class="text-emerald-100">Nivel de Ejecución Estratégica</span>
+                        <span id="progress-text" class="text-[#c5a059]">0%</span>
+                    </div>
+                    <div class="w-full bg-black/30 h-2 rounded-full overflow-hidden border border-white/5">
+                        <div id="progress-bar" class="bg-[#c5a059] h-full transition-all duration-700 ease-in-out progress-glow" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenido del Checklist -->
+            <div class="p-6 md:p-10">
+                <div class="flex items-center gap-4 mb-10 p-5 bg-emerald-50/50 rounded-2xl border-l-4 border-[#c5a059]">
+                    <i data-lucide="clock" class="text-[#064e3b] shrink-0" size="18"></i>
+                    <p class="text-sm text-[#064e3b] italic leading-relaxed">
+                        "Tus rituales determinan tu realidad. Deja de operar por urgencia y empieza a liderar por diseño."
+                    </p>
+                </div>
+
+                <div id="rituals-container" class="space-y-12">
+                    <!-- Las categorías se inyectan aquí con JS -->
+                </div>
+
+                <!-- Mantra de Identidad -->
+                <div class="mt-14 p-8 bg-[#0f172a] rounded-[1.5rem] text-center relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-[#c5a059]"></div>
+                    <p class="text-[10px] uppercase tracking-[0.4em] font-bold text-[#c5a059] mb-4">Mantra de Identidad</p>
+                    <p class="text-lg font-serif italic text-white leading-relaxed">
+                        "Hoy no seré la técnica de mi negocio,<br>seré la <span class="text-[#c5a059]">arquitecta de mi libertad</span>."
+                    </p>
+                </div>
+            </div>
+
+            <!-- Footer Acción -->
+            <button onclick="window.print()" class="w-full bg-[#064e3b] text-[#c5a059] py-6 font-bold uppercase tracking-[0.3em] text-xs hover:bg-black transition-all flex items-center justify-center gap-3 border-t border-[#c5a059]/20">
+                Finalizar Jornada CEO <i data-lucide="chevron-right" size="16"></i>
+            </button>
+        </div>
+
+        <div class="flex flex-col items-center mt-10 space-y-4">
+            <div class="h-px w-12 bg-[#c5a059]"></div>
+            <p class="text-[9px] text-gray-400 uppercase tracking-[0.5em] font-medium text-center">
+                Arquitectura Mental para Empresarias • Módulo 1
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const rituals = [
+            { id: 1, category: 'Mañana', title: 'Revisión de Visión CEO', desc: 'Leer los 3 objetivos no-negociables de los 90 días.', icon: 'target', completed: false },
+            { id: 2, category: 'Mañana', title: 'Protección de Agenda', desc: 'Bloquear 90 min de "Trabajo Profundo" antes de abrir el email.', icon: 'coffee', completed: false },
+            { id: 3, category: 'Tarde', title: 'Check-in con el Equipo', desc: '15 min de feedback o alineación con mandos intermedios.', icon: 'zap', completed: false },
+            { id: 4, category: 'Tarde', title: 'Auditoría de Delegación', desc: 'Identificar una tarea operativa para sistematizar hoy.', icon: 'star', completed: false },
+            { id: 5, category: 'Noche', title: 'Cierre de Ciclo', desc: 'Anotar la victoria del día y la prioridad número 1 de mañana.', icon: 'moon', completed: false },
+        ];
+
+        function updateProgress() {
+            const completed = rituals.filter(r => r.completed).length;
+            const percentage = Math.round((completed / rituals.length) * 100);
+            document.getElementById('progress-bar').style.width = percentage + '%';
+            document.getElementById('progress-text').innerText = percentage + '%';
+        }
+
+        function toggleRitual(id) {
+            const ritual = rituals.find(r => r.id === id);
+            ritual.completed = !ritual.completed;
+            renderRituals();
+            updateProgress();
+        }
+
+        function renderRituals() {
+            const container = document.getElementById('rituals-container');
+            container.innerHTML = '';
+
+            const categories = ['Mañana', 'Tarde', 'Noche'];
+            const icons = { 'Mañana': 'sun', 'Tarde': 'zap', 'Noche': 'moon' };
+
+            categories.forEach(cat => {
+                const catRituals = rituals.filter(r => r.category === cat);
+                
+                const catSection = document.createElement('div');
+                catSection.className = 'space-y-5';
+                catSection.innerHTML = `
+                    <div class="flex items-center gap-3 text-[#064e3b] uppercase tracking-[0.25em] text-[11px] font-bold">
+                        <span class="w-8 h-[1px] bg-[#c5a059]"></span>
+                        <i data-lucide="${icons[cat]}" class="text-[#c5a059]" width="14" height="14"></i>
+                        ${cat}
+                    </div>
+                    <div class="space-y-4" id="list-${cat}"></div>
+                `;
+                
+                const list = catSection.querySelector(`#list-${cat}`);
+                catRituals.forEach(r => {
+                    const card = document.createElement('div');
+                    card.className = `ritual-card group cursor-pointer p-5 rounded-xl border transition-all duration-300 flex items-center gap-5 ${r.completed ? 'completed' : 'bg-white border-gray-100 hover:border-[#c5a059] hover:shadow-xl hover:-translate-y-1'}`;
+                    card.onclick = () => toggleRitual(r.id);
+                    card.innerHTML = `
+                        <div class="check-icon transition-all transform ${r.completed ? 'scale-110' : 'text-gray-300 group-hover:text-[#c5a059]'}">
+                            <i data-lucide="${r.completed ? 'check-circle-2' : 'circle'}" stroke-width="1.5" width="26" height="26"></i>
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="title text-[15px] font-bold tracking-tight ${r.completed ? '' : 'text-[#0f172a]'}">${r.title}</h3>
+                            <p class="text-xs text-gray-500 mt-1 leading-relaxed font-light">${r.desc}</p>
+                        </div>
+                        <div class="p-2.5 rounded-xl transition-colors ${r.completed ? 'bg-gray-100 text-gray-400' : 'bg-emerald-50 text-[#064e3b] group-hover:bg-[#c5a059] group-hover:text-white'}">
+                            <i data-lucide="${r.icon}" width="18" height="18"></i>
+                        </div>
+                    `;
+                    list.appendChild(card);
+                });
+                container.appendChild(catSection);
+            });
+            lucide.createIcons();
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', () => {
+            renderRituals();
+            updateProgress();
+        });
+    </script>
+</body>
+</html>

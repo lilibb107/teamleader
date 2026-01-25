@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diario de Auditoría de Creencias - Team Leader Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #c5a059;
+            --emerald: #064e3b;
+            --dark: #0f172a;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: var(--dark);
+        }
+
+        .serif-title {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .bg-gold { background-color: var(--gold); }
+        .text-gold { color: var(--gold); }
+        .bg-dark { background-color: var(--dark); }
+
+        textarea, input[type="text"] {
+            width: 100%;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            padding: 12px;
+            background-color: #ffffff;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 1px var(--gold);
+        }
+
+        .matrix-header {
+            background-color: var(--dark);
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        .identity-card {
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            border-top: 4px solid var(--gold);
+        }
+
+        @media print {
+            .no-print { display: none; }
+            body { background: white; padding: 0; }
+            .shadow-container { box-shadow: none; border: 1px solid #eee; }
+            .page-break { page-break-before: always; }
+        }
+    </style>
+</head>
+<body class="py-10 px-4">
+
+    <div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-sm overflow-hidden shadow-container">
+        
+        <!-- HEADER -->
+        <header class="relative bg-dark text-white p-10 md:p-16 border-b-8 border-gold overflow-hidden">
+            <!-- Imagen de fondo representativa de lujo/oficina -->
+            <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=1200" 
+                 alt="Entorno Ejecutivo Moderno" 
+                 class="absolute inset-0 w-full h-full object-cover opacity-15 pointer-events-none">
+            
+            <div class="relative z-10 flex flex-col md:flex-row justify-between items-end gap-8">
+                <div>
+                    <p class="text-gold tracking-[0.4em] uppercase text-xs font-bold mb-4">Team Leader Academy</p>
+                    <h1 class="serif-title text-5xl md:text-6xl leading-tight">
+                        Diario de Auditoría<br>de <span class="text-gold">Creencias</span>
+                    </h1>
+                </div>
+                <div class="text-right hidden md:block">
+                    <p class="text-gray-500 text-xs tracking-widest uppercase italic">Mentalidad de Resultados CEO</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- SECCIÓN 1: MATRIZ -->
+        <main class="p-8 md:p-14">
+            <div class="mb-10">
+                <h2 class="serif-title text-3xl mb-2 italic">Matriz de Transformación</h2>
+                <div class="h-1 w-20 bg-gold mb-6"></div>
+                <p class="text-gray-600 leading-relaxed max-w-2xl">
+                    "Identifica las creencias que hoy bloquean tu camino hacia el millón de euros. El trabajo de sombras es el puente hacia tu libertad financiera."
+                </p>
+            </div>
+
+            <div class="overflow-hidden rounded-lg border border-gray-200 shadow-sm">
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr>
+                            <th class="matrix-header p-5 border-r border-gray-800 text-center">Creencia Limitante (Saboteador)</th>
+                            <th class="matrix-header p-5 border-r border-gray-800 text-center">Evidencia de Falsedad</th>
+                            <th class="matrix-header p-5 text-center">Nueva Creencia (Mentalidad CEO)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr class="bg-gray-50/50 italic text-gray-400 text-[10px]">
+                            <td class="p-4 border-r border-gray-100">Ej: "Si no estoy presente, el negocio se cae".</td>
+                            <td class="p-4 border-r border-gray-100">Mis sistemas funcionaron cuando me ausenté 3 días.</td>
+                            <td class="p-4">Diseño sistemas que funcionan sin mi presencia técnica.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-0 border-r border-gray-100"><textarea rows="4" class="border-none focus:ring-0" placeholder="1."></textarea></td>
+                            <td class="p-0 border-r border-gray-100"><textarea rows="4" class="border-none focus:ring-0"></textarea></td>
+                            <td class="p-0"><textarea rows="4" class="border-none focus:ring-0"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td class="p-0 border-r border-gray-100"><textarea rows="4" class="border-none focus:ring-0" placeholder="2."></textarea></td>
+                            <td class="p-0 border-r border-gray-100"><textarea rows="4" class="border-none focus:ring-0"></textarea></td>
+                            <td class="p-0"><textarea rows="4" class="border-none focus:ring-0"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td class="p-0 border-r border-gray-100"><textarea rows="4" class="border-none focus:ring-0" placeholder="3."></textarea></td>
+                            <td class="p-0 border-r border-gray-100"><textarea rows="4" class="border-none focus:ring-0"></textarea></td>
+                            <td class="p-0"><textarea rows="4" class="border-none focus:ring-0"></textarea></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- SECCIÓN 2: DINERO Y DECLARACIÓN -->
+            <div class="grid md:grid-cols-2 gap-16 mt-20 page-break">
+                
+                <!-- Auditoría de Dinero -->
+                <div class="space-y-10">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1559523161-0fc0d8b38a7a?auto=format&fit=crop&q=80&w=800" 
+                             alt="Estrategia CEO" 
+                             class="w-full h-56 object-cover rounded-sm mb-6 shadow-sm border border-gray-100">
+                        <div class="absolute top-4 left-4 bg-dark text-gold text-[10px] font-bold px-3 py-1 uppercase tracking-widest">Auditoría</div>
+                    </div>
+
+                    <h3 class="serif-title text-2xl flex items-center gap-3">
+                        Relación con el Dinero
+                    </h3>
+                    
+                    <div class="space-y-8">
+                        <div>
+                            <label class="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 mb-3">¿Cuál es tu mayor miedo respecto a invertir en equipo?</label>
+                            <textarea rows="3" class="bg-gray-50 border-gray-100 focus:bg-white" placeholder="Describe el bloqueo..."></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 mb-3">¿Qué significa para ti "ser una mujer rica"?</label>
+                            <textarea rows="3" class="bg-gray-50 border-gray-100 focus:bg-white" placeholder="Escribe conceptos positivos y negativos..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Declaración de Identidad -->
+                <div class="flex flex-col">
+                    <div class="identity-card p-10 text-white rounded-sm flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="serif-title text-3xl text-gold mb-8 italic">Declaración de Identidad</h3>
+                            
+                            <div class="space-y-8 text-sm leading-relaxed">
+                                <p class="text-gray-400 italic">"Basándote en la página 20 de tu presentación, escribe tu nueva identidad en presente:"</p>
+                                
+                                <div class="space-y-6">
+                                    <p>Hoy, yo <input type="text" class="bg-transparent border-b border-white/30 text-gold p-1 w-full focus:border-gold rounded-none" placeholder="[Nombre completo]">, actúo desde mi versión de 1 millón de euros.</p>
+                                    
+                                    <p>Esta versión de mí ya NO <textarea rows="2" class="bg-white/5 border-none mt-2 text-white placeholder:text-gray-600 focus:bg-white/10" placeholder="[Hábito o acción que dejas atrás]"></textarea></p>
+                                    
+                                    <p>Y se atreve a <textarea rows="2" class="bg-white/5 border-none mt-2 text-white placeholder:text-gray-600 focus:bg-white/10" placeholder="[Acción valiente de liderazgo]"></textarea></p>
+                                    
+                                    <p>Mi tiempo vale <input type="text" class="bg-transparent border-b border-white/30 text-gold p-1 w-28 focus:border-gold rounded-none inline-block text-center" placeholder="1.000€"> / hora y lo protejo delegando lo técnico.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-12 pt-8 border-t border-white/10">
+                            <div class="h-12 border-b border-white/20 mb-2 font-signature text-xl italic text-gold/80 flex items-center justify-center">
+                                Firma de la CEO
+                            </div>
+                            <p class="text-[9px] uppercase tracking-widest text-center text-gray-500">Compromiso Inquebrantable</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="bg-dark text-white p-10 border-t-4 border-gold">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="text-center md:text-left">
+                    <p class="text-[11px] text-gold uppercase tracking-[0.3em] font-bold mb-1">Team Leader Academy</p>
+                    <p class="text-[9px] text-gray-500 uppercase tracking-widest">Transformación Empresarial de Alto Nivel</p>
+                </div>
+                <div class="no-print">
+                    <button onclick="window.print()" class="border border-gold text-gold px-10 py-3 text-[10px] font-bold hover:bg-gold hover:text-dark transition-all uppercase tracking-[0.2em]">
+                        Exportar Auditoría
+                    </button>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <div class="mt-8 text-center no-print">
+        <p class="text-[10px] text-gray-400 uppercase tracking-widest italic">"Tu negocio crece hasta donde crece tu mentalidad"</p>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora ADN Empresarial - Team Leader Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-gold: #c5a059;
+            --color-green: #064e3b;
+            --color-black: #111827;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fcfcfc;
+        }
+
+        .serif-title {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .score-btn.active {
+            background-color: var(--color-green);
+            color: white;
+            border-color: var(--color-gold);
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(6, 78, 59, 0.3);
+        }
+
+        .score-btn:hover:not(.active) {
+            border-color: var(--color-gold);
+            color: var(--color-gold);
+        }
+
+        .block-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid #e5e7eb;
+        }
+
+        .block-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+            border-color: var(--color-gold);
+        }
+
+        .bg-gradient-gold {
+            background: linear-gradient(135deg, #d4af37 0%, #c5a059 100%);
+        }
+
+        .logo-box {
+            border: 2px solid var(--color-gold);
+            background-color: var(--color-black);
+        }
+
+        .progress-bar-gold {
+            background: linear-gradient(90deg, #c5a059, #d4af37);
+        }
+
+        /* Personalización de la barra lateral de los bloques */
+        .border-tecnico { border-left: 5px solid var(--color-black); }
+        .border-gerente { border-left: 5px solid var(--color-gold); }
+        .border-visionario { border-left: 5px solid var(--color-green); }
+    </style>
+</head>
+<body class="text-slate-900">
+
+    <div class="max-w-4xl mx-auto px-4 py-12">
+        <!-- Logotipo y Encabezado -->
+        <header class="text-center mb-16">
+            <div class="inline-block mb-8">
+                <div class="logo-box px-8 py-4 rounded-sm shadow-2xl relative overflow-hidden">
+                    <!-- Efecto de brillo dorado -->
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-gold"></div>
+                    <h2 class="serif-title text-2xl font-bold tracking-tight text-white uppercase">
+                        TEAM LEADER <span class="text-[#c5a059]">ACADEMY</span>
+                    </h2>
+                    <p class="text-[9px] text-gray-400 tracking-[0.4em] font-semibold uppercase mt-1">
+                        Estrategia · Optimización · Liderazgo
+                    </p>
+                </div>
+            </div>
+            
+            <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tighter uppercase">
+                Calculadora <span class="text-[#c5a059]">ADN</span> Empresarial
+            </h1>
+            <p class="text-gray-500 max-w-xl mx-auto leading-relaxed text-lg">
+                Descubre tu perfil dominante y optimiza tu rol para el máximo rendimiento fiscal y operativo.
+            </p>
+        </header>
+
+        <!-- Contenedor del Test -->
+        <div id="quiz-container" class="space-y-10">
+            <!-- Bloque Técnico -->
+            <section class="block-card border-tecnico bg-white rounded-xl overflow-hidden shadow-sm">
+                <div class="bg-gray-900 px-6 py-4 flex items-center justify-between">
+                    <h3 class="text-white font-bold tracking-widest uppercase text-xs">I. Bloque Técnico (Operatividad)</h3>
+                    <span class="text-[#c5a059] text-[10px] font-bold border border-[#c5a059] px-2 py-0.5 rounded">EJECUCIÓN</span>
+                </div>
+                <div class="p-8 space-y-10" id="tecnico-questions"></div>
+            </section>
+
+            <!-- Bloque Gerente -->
+            <section class="block-card border-gerente bg-white rounded-xl overflow-hidden shadow-sm">
+                <div class="bg-[#c5a059] px-6 py-4 flex items-center justify-between">
+                    <h3 class="text-white font-bold tracking-widest uppercase text-xs">II. Bloque Gerente (Sistemas)</h3>
+                    <span class="bg-white text-[#c5a059] text-[10px] font-bold px-2 py-0.5 rounded">CONTROL</span>
+                </div>
+                <div class="p-8 space-y-10" id="gerente-questions"></div>
+            </section>
+
+            <!-- Bloque Visionario -->
+            <section class="block-card border-visionario bg-white rounded-xl overflow-hidden shadow-sm">
+                <div class="bg-[#064e3b] px-6 py-4 flex items-center justify-between">
+                    <h3 class="text-white font-bold tracking-widest uppercase text-xs">III. Bloque Visionario (Estrategia)</h3>
+                    <span class="text-green-200 text-[10px] font-bold border border-green-700 px-2 py-0.5 rounded">FUTURO</span>
+                </div>
+                <div class="p-8 space-y-10" id="visionario-questions"></div>
+            </section>
+
+            <!-- Acción Final -->
+            <div class="text-center pt-8 pb-20">
+                <button onclick="calculateResults()" class="bg-gray-900 hover:bg-black text-[#c5a059] border-2 border-[#c5a059] font-black py-5 px-12 rounded-full transition-all shadow-2xl hover:scale-105 uppercase tracking-widest text-sm">
+                    Generar Diagnóstico Profesional
+                </button>
+            </div>
+        </div>
+
+        <!-- Resultados -->
+        <div id="results-container" class="hidden animate-fade-in pb-20">
+            <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-14 border border-gray-100 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-gray-50 rounded-bl-full -mr-16 -mt-16 opacity-50"></div>
+                
+                <div class="text-center mb-12">
+                    <div class="bg-[#c5a059] text-white text-[10px] font-black px-4 py-1 rounded-full inline-block mb-4 tracking-[0.3em] uppercase">
+                        Resultado del Análisis
+                    </div>
+                    <h2 class="serif-title text-4xl font-bold text-gray-900">Tu Perfil de ADN Empresarial</h2>
+                </div>
+                
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="bg-gray-50 p-8 rounded-3xl border border-gray-100 shadow-inner">
+                        <canvas id="resultsChart"></canvas>
+                    </div>
+                    
+                    <div class="space-y-8">
+                        <div id="breakdown" class="space-y-8"></div>
+                        
+                        <div class="mt-10 p-8 bg-gray-900 rounded-2xl border-l-4 border-[#c5a059] shadow-xl">
+                            <h4 class="font-bold text-[#c5a059] mb-4 flex items-center uppercase text-xs tracking-widest">
+                                <span class="mr-2">✦</span> Benchmarking del CEO Ideal:
+                            </h4>
+                            <div class="space-y-3">
+                                <div class="flex justify-between text-xs text-gray-400 font-bold">
+                                    <span>TÉCNICO: 10-15%</span>
+                                    <span>GERENTE: 30%</span>
+                                    <span>VISIONARIO: 55%</span>
+                                </div>
+                                <div class="w-full h-1.5 bg-gray-800 rounded-full flex overflow-hidden">
+                                    <div class="h-full bg-white opacity-20" style="width: 15%"></div>
+                                    <div class="h-full bg-[#c5a059]" style="width: 30%"></div>
+                                    <div class="h-full bg-[#064e3b]" style="width: 55%"></div>
+                                </div>
+                            </div>
+                            <p class="text-gray-400 text-[11px] mt-6 italic leading-relaxed">
+                                El éxito escalable reside en delegar la operatividad para potenciar la visión estratégica y el control sistémico.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-16 pt-10 border-t border-gray-100 flex flex-col sm:flex-row gap-6 justify-center items-center">
+                    <button onclick="window.print()" class="flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-gray-900 transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+                        Exportar Reporte (PDF)
+                    </button>
+                    <button onclick="window.location.reload()" class="bg-gray-100 text-gray-800 font-bold py-3 px-8 rounded-full hover:bg-gray-200 transition-all text-xs uppercase tracking-widest">
+                        Realizar nuevo test
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questionsData = {
+            tecnico: [
+                "Siento que si no hago yo el trabajo final, la calidad no será la misma.",
+                "Paso más del 70% de mi jornada realizando tareas que podría explicarle a otra persona en una tarde.",
+                "Me cuesta mucho desconectar porque siempre hay 'fuegos' operativos que solo yo sé apagar.",
+                "Prefiero 'hacer' que sentarme a planificar o analizar números.",
+                "Mi mayor orgullo es ser la persona que más sabe de la parte técnica en mi negocio."
+            ],
+            gerente: [
+                "Me obsesiona que cada proceso en mi negocio esté documentado en un manual o checklist.",
+                "Dedico tiempo semanal a revisar métricas, presupuestos y el rendimiento del equipo.",
+                "Mi prioridad es que el negocio funcione de forma predecible y eficiente, sin sobresaltos.",
+                "Me siento cómoda delegando porque confío en los sistemas que he creado.",
+                "Paso gran parte de mi tiempo organizando el trabajo de los demás y ajustando el calendario."
+            ],
+            visionario: [
+                "Paso al menos un día a la semana pensando en dónde estará mi negocio dentro de 3 años.",
+                "Me emociona más crear nuevas oportunidades de negocio que mantener las actuales.",
+                "Paso mucho tiempo estudiando el mercado, las tendencias y buscando alianzas estratégicas.",
+                "No me asusta el cambio; de hecho, busco constantemente cómo transformar mi modelo actual.",
+                "Mi foco principal es cómo el negocio puede aportar más valor e impacto a largo plazo."
+            ]
+        };
+
+        const scores = { tecnico: {}, gerente: {}, visionario: {} };
+        let chartInstance = null;
+
+        function init() {
+            Object.keys(questionsData).forEach(block => {
+                const container = document.getElementById(`${block}-questions`);
+                questionsData[block].forEach((q, idx) => {
+                    const qDiv = document.createElement('div');
+                    qDiv.className = "flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b border-gray-50 pb-6 last:border-0 last:pb-0";
+                    qDiv.innerHTML = `
+                        <p class="text-gray-800 font-medium leading-snug flex-1">
+                            <span class="text-[#c5a059] font-bold mr-3 tabular-nums">${idx + 1}.</span>${q}
+                        </p>
+                        <div class="flex justify-between sm:justify-start gap-3">
+                            ${[1, 2, 3, 4, 5].map(num => `
+                                <button type="button" 
+                                    onclick="setScore('${block}', ${idx}, ${num}, this)" 
+                                    class="score-btn w-12 h-12 rounded-lg border-2 border-gray-100 bg-white font-bold text-gray-400 transition-all flex items-center justify-center text-sm shadow-sm">
+                                    ${num}
+                                </button>
+                            `).join('')}
+                        </div>
+                    `;
+                    container.appendChild(qDiv);
+                });
+            });
+        }
+
+        function setScore(block, idx, val, btn) {
+            scores[block][idx] = val;
+            btn.parentElement.querySelectorAll('.score-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        function calculateResults() {
+            const totalQuestions = 15;
+            const answeredCount = Object.values(scores).reduce((acc, b) => acc + Object.keys(b).length, 0);
+            
+            if (answeredCount < totalQuestions) {
+                alert("Por favor, complete todas las valoraciones para obtener un análisis fidedigno.");
+                return;
+            }
+
+            const sums = {
+                tecnico: Object.values(scores.tecnico).reduce((a, b) => a + b, 0),
+                gerente: Object.values(scores.gerente).reduce((a, b) => a + b, 0),
+                visionario: Object.values(scores.visionario).reduce((a, b) => a + b, 0)
+            };
+
+            const totalScore = sums.tecnico + sums.gerente + sums.visionario;
+            const percentages = {
+                tecnico: Math.round((sums.tecnico / totalScore) * 100),
+                gerente: Math.round((sums.gerente / totalScore) * 100),
+                visionario: Math.round((sums.visionario / totalScore) * 100)
+            };
+
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('results-container').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            renderChart(percentages);
+            renderBreakdown(percentages);
+        }
+
+        function renderChart(p) {
+            const ctx = document.getElementById('resultsChart').getContext('2d');
+            if (chartInstance) chartInstance.destroy();
+            
+            chartInstance = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['TÉCNICO', 'GERENTE', 'VISIONARIO'],
+                    datasets: [{
+                        label: 'Tu ADN Actual',
+                        data: [p.tecnico, p.gerente, p.visionario],
+                        backgroundColor: 'rgba(197, 160, 89, 0.2)',
+                        borderColor: '#c5a059',
+                        borderWidth: 4,
+                        pointBackgroundColor: '#111827',
+                        pointBorderColor: '#c5a059',
+                        pointBorderWidth: 2,
+                        pointRadius: 6
+                    }]
+                },
+                options: {
+                    scales: {
+                        r: {
+                            angleLines: { color: '#e5e7eb' },
+                            grid: { color: '#e5e7eb' },
+                            suggestedMin: 0,
+                            suggestedMax: 60,
+                            ticks: { display: false },
+                            pointLabels: {
+                                font: { size: 11, weight: '900', family: 'Inter' },
+                                color: '#111827'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+
+        function renderBreakdown(p) {
+            const breakdown = document.getElementById('breakdown');
+            const data = [
+                { label: 'Técnico (Operatividad)', key: 'tecnico', color: 'progress-bar-gold', icon: '⚙️' },
+                { label: 'Gerente (Sistemas)', key: 'gerente', color: 'bg-gray-800', icon: '📊' },
+                { label: 'Visionario (Estrategia)', key: 'visionario', color: 'bg-emerald-900', icon: '👁️' }
+            ];
+
+            breakdown.innerHTML = data.map(item => `
+                <div class="group">
+                    <div class="flex justify-between items-end mb-3">
+                        <span class="font-black text-gray-900 text-[10px] uppercase tracking-widest flex items-center">
+                            <span class="mr-2 opacity-50 text-base">${item.icon}</span> ${item.label}
+                        </span>
+                        <span class="text-2xl font-black text-gray-900">${p[item.key]}%</span>
+                    </div>
+                    <div class="w-full bg-gray-100 h-2.5 rounded-full overflow-hidden shadow-inner">
+                        <div class="${item.color} h-full transition-all duration-1000 ease-out rounded-full" style="width: ${p[item.key]}%"></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
