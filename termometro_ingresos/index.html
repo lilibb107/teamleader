@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditoría Crítica: El Termómetro de Ingresos</title>
+    <style>
+        :root {
+            --dorado: #c5a059;
+            --verde: #2e7d32;
+            --fondo: #f4f4f2;
+            --texto: #1a1a1a;
+            --blanco: #ffffff;
+            --gris-borde: #d1d1d1;
+        }
+
+        body {
+            background-color: var(--fondo);
+            color: var(--texto);
+            font-family: 'Montserrat', sans-serif, Arial;
+            margin: 0;
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+            background-color: var(--blanco);
+            padding: 50px;
+            border-radius: 2px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid var(--gris-borde);
+        }
+
+        header {
+            border-left: 8px solid var(--dorado);
+            padding-left: 25px;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 1.6em;
+            margin: 0;
+        }
+
+        .subtitle {
+            color: var(--verde);
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+
+        .intro-text {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        h2 {
+            color: var(--dorado);
+            font-size: 1.1em;
+            margin-top: 30px;
+        }
+
+        /* Bloques de Auditoría */
+        .audit-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .audit-card {
+            background: #fafafa;
+            padding: 20px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+        }
+
+        .audit-card label {
+            display: block;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            min-height: 40px;
+        }
+
+        .range-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            accent-color: var(--verde);
+        }
+
+        textarea {
+            width: 100%;
+            border: 1px solid #ddd;
+            padding: 10px;
+            font-family: inherit;
+            font-size: 0.85em;
+            resize: vertical;
+            background: #fff;
+        }
+
+        .highlight-box {
+            background: #fdf8ed;
+            border: 1px solid var(--dorado);
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 0.75em;
+            color: #888;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="subtitle">Análisis Crítico • Nivel 2</div>
+        <h1>El Termómetro de Ingresos</h1>
+    </header>
+
+    <p class="intro-text">
+        "Si no entra dinero, no es un negocio". Realiza esta auditoría sin buscar respuestas correctas, solo la verdad actual de tu sistema.
+    </p>
+
+    <div class="audit-grid">
+        <div class="audit-card">
+            <label>1. ¿Qué tan claro es tu producto principal hoy?</label>
+            <div class="range-container">
+                <small>Difuso</small>
+                <input type="range" min="1" max="10" value="5">
+                <small>Cristalino</small>
+            </div>
+            <textarea rows="2" placeholder="¿Tu audiencia sabe exactamente qué comprarte?"></textarea>
+        </div>
+
+        <div class="audit-card">
+            <label>2. ¿Dependes de un algoritmo que no controlas?</label>
+            <div class="range-container">
+                <small>100% Redes</small>
+                <input type="range" min="1" max="10" value="5">
+                <small>Sistema Propio</small>
+            </div>
+            <textarea rows="2" placeholder="¿Qué haces si Instagram desaparece mañana?"></textarea>
+        </div>
+
+        <div class="audit-card">
+            <label>3. ¿Vendes tiempo o vendes resultados?</label>
+            <textarea rows="3" placeholder="Analiza si tu cobro es por entregables o por la transformación que generas..."></textarea>
+        </div>
+
+        <div class="audit-card">
+            <label>4. Retención: Segunda y tercera compra</label>
+            <textarea rows="3" placeholder="¿Qué estás haciendo para que un cliente vuelva a confiar en ti?"></textarea>
+        </div>
+    </div>
+
+    <div class="highlight-box">
+        <h2>Simulacro de Estrés Financiero</h2>
+        <p style="font-size: 0.9em;"><strong>El reto del 2x:</strong> Si duplicaras tus precios hoy mismo...</p>
+        <div style="display: flex; gap: 20px; margin-top: 10px;">
+            <div style="flex: 1;">
+                <label style="font-size: 0.8em;">¿Qué % de clientes se iría?</label>
+                <input type="text" style="width: 100%; padding: 5px; border: 1px solid #ccc;">
+            </div>
+            <div style="flex: 2;">
+                <label style="font-size: 0.8em;">¿Por qué se irían o por qué se quedarían?</label>
+                <textarea rows="2"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <section style="margin-top: 30px;">
+        <h2>Cuello de Botella</h2>
+        <p style="font-size: 0.9em; color: #444;">Identifica el factor principal que impide que tu facturación crezca un 200% este trimestre:</p>
+        <textarea rows="3" placeholder="Ej: Falta de tráfico, falta de sistema de seguimiento, miedo a vender caro..."></textarea>
+    </section>
+
+    <div class="footer">
+        TEAM LEADER ACADEMY &copy; 2026 | "DISEÑANDO EL SISTEMA DESDE EL DÍA 1"
+    </div>
+</div>
+
+</body>
+</html>
