@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Libertad CEO - Módulo 4</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+        .card-gradient { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); }
+        .input-focus:focus { border-color: #38bdf8; box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2); }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <header class="flex items-center justify-between mb-8">
+            <div>
+                <h1 class="text-3xl font-bold text-slate-900">Calculadora de Libertad</h1>
+                <p class="text-slate-500">Módulo 4: Estructura y Bases del Negocio</p>
+            </div>
+            <div class="hidden md:block">
+                <span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs font-bold uppercase tracking-wider">Activo vs Pasivo</span>
+            </div>
+        </header>
+
+        <!-- Bloque 1: El Valor de tu Tiempo -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <div class="md:col-span-2 bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
+                <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+                    <span class="text-indigo-500">01.</span> Diagnóstico de Valor
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-400 uppercase mb-2">Ingreso Mensual Deseado (€)</label>
+                        <input type="number" id="targetIncome" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl outline-none input-focus transition" placeholder="5000" oninput="calculate()">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-400 uppercase mb-2">Horas de Trabajo / Mes</label>
+                        <input type="number" id="targetHours" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl outline-none input-focus transition" placeholder="120" oninput="calculate()">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card-gradient p-8 rounded-3xl text-white shadow-xl flex flex-col justify-center text-center">
+                <p class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-2">Tu Hora CEO vale:</p>
+                <div class="text-5xl font-extrabold text-sky-400" id="hourlyRate">0€</div>
+                <p class="text-slate-500 text-[10px] mt-4 uppercase">Menos de este valor es perder dinero.</p>
+            </div>
+        </div>
+
+        <!-- Bloque 2: Auditoría de Tareas (Filtro 10€ vs 1000€) -->
+        <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 mb-10">
+            <h2 class="text-xl font-bold mb-2 flex items-center gap-2">
+                <span class="text-indigo-500">02.</span> El Filtro de los 10€/hora
+            </h2>
+            <p class="text-sm text-slate-500 mb-8">Identifica tareas que un asistente o sistema debería estar haciendo hoy.</p>
+            
+            <div id="taskContainer" class="space-y-4">
+                <div class="flex flex-col md:flex-row gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 task-row">
+                    <input type="text" class="flex-1 p-3 bg-white border border-slate-200 rounded-xl text-sm outline-none" placeholder="Tarea (Ej: Responder emails de soporte)">
+                    <select class="p-3 bg-white border border-slate-200 rounded-xl text-sm outline-none w-full md:w-48">
+                        <option value="10">Tarea de 10€/h</option>
+                        <option value="100">Tarea de 100€/h</option>
+                        <option value="1000">Tarea de 1000€/h</option>
+                    </select>
+                    <button class="bg-red-50 text-red-400 p-3 rounded-xl hover:bg-red-100 transition" onclick="removeRow(this)">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <button onclick="addRow()" class="mt-6 flex items-center gap-2 text-indigo-600 font-bold text-sm hover:text-indigo-800 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+                </svg>
+                Añadir Tarea
+            </button>
+        </div>
+
+        <!-- Bloque 3: Esqueleto de Proceso (SOP) -->
+        <div class="bg-indigo-50 p-8 rounded-3xl border border-indigo-100 mb-10">
+            <h2 class="text-xl font-bold mb-6 text-indigo-900 flex items-center gap-2">
+                <span class="text-indigo-500 text-2xl">⚡</span> Creador de Manual de Procesos (SOP)
+            </h2>
+            <div class="space-y-6">
+                <p class="text-sm text-indigo-700/80">Convierte una de tus tareas de 10€ en un <b>activo</b> escribiendo el proceso para que alguien más lo haga.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <label class="block text-xs font-bold text-indigo-900 uppercase">1. Trigger (¿Cuándo empieza?)</label>
+                        <textarea class="w-full p-4 rounded-2xl border-none shadow-sm h-24 text-sm" placeholder="Ej: Cada lunes a las 9:00am al recibir el reporte..."></textarea>
+                    </div>
+                    <div class="space-y-4">
+                        <label class="block text-xs font-bold text-indigo-900 uppercase">2. Output (¿Qué resultado esperamos?)</label>
+                        <textarea class="w-full p-4 rounded-2xl border-none shadow-sm h-24 text-sm" placeholder="Ej: Un informe en Excel con los leads filtrados."></textarea>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <label class="block text-xs font-bold text-indigo-900 uppercase">3. Pasos del Proceso</label>
+                    <textarea class="w-full p-4 rounded-2xl border-none shadow-sm h-32 text-sm" placeholder="Paso 1: Entrar a CRM... Paso 2: Exportar... Paso 3: Limpiar duplicados..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Actions -->
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4 py-8 border-t border-slate-200">
+            <p class="text-slate-400 text-xs italic">"Tu libertad depende de la calidad de tus manuales de procesos."</p>
+            <div class="flex gap-4">
+                <button onclick="window.print()" class="px-6 py-3 bg-white border border-slate-300 rounded-xl text-sm font-bold text-slate-700 hover:bg-slate-50 transition">Imprimir Hoja de Ruta</button>
+                <button class="px-6 py-3 bg-indigo-600 text-white rounded-xl text-sm font-bold shadow-lg hover:bg-indigo-700 transition">Guardar Activo</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calculate() {
+            const income = document.getElementById('targetIncome').value || 0;
+            const hours = document.getElementById('targetHours').value || 1;
+            const hourly = (income / hours).toFixed(2);
+            document.getElementById('hourlyRate').innerText = hourly + '€';
+        }
+
+        function addRow() {
+            const container = document.getElementById('taskContainer');
+            const newRow = document.createElement('div');
+            newRow.className = 'flex flex-col md:flex-row gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 task-row';
+            newRow.innerHTML = `
+                <input type="text" class="flex-1 p-3 bg-white border border-slate-200 rounded-xl text-sm outline-none" placeholder="Tarea">
+                <select class="p-3 bg-white border border-slate-200 rounded-xl text-sm outline-none w-full md:w-48">
+                    <option value="10">Tarea de 10€/h</option>
+                    <option value="100">Tarea de 100€/h</option>
+                    <option value="1000">Tarea de 1000€/h</option>
+                </select>
+                <button class="bg-red-50 text-red-400 p-3 rounded-xl hover:bg-red-100 transition" onclick="removeRow(this)">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            `;
+            container.appendChild(newRow);
+        }
+
+        function removeRow(btn) {
+            btn.closest('.task-row').remove();
+        }
+    </script>
+</body>
+</html>

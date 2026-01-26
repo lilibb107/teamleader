@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Sistemas - Team Leader Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
+        }
+
+        .sop-card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: #1e293b;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.875rem;
+        }
+
+        .input-sop {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.5rem;
+            background: #f8fafc;
+            transition: all 0.2s;
+        }
+
+        .input-sop:focus {
+            border-color: #0ea5e9;
+            background: white;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+        }
+
+        .gradient-sidebar {
+            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+        }
+
+        @media print {
+            .no-print { display: none; }
+            body { background: white; padding: 0; }
+            .sop-card { box-shadow: none; border: 1px solid #eee; margin-bottom: 2rem; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-10">
+
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <header class="mb-10 flex flex-col md:flex-row justify-between items-end border-b border-slate-300 pb-6">
+            <div>
+                <span class="text-sky-600 font-bold tracking-widest text-sm uppercase">Módulo 4: Estructura y Bases</span>
+                <h1 class="text-4xl font-extrabold text-slate-900 mt-2">Sistemas que Operan Sin Ti</h1>
+                <p class="text-slate-500 mt-2 text-lg">De "Autoempleada" a Dueña de un Activo Financiero.</p>
+            </div>
+            <div class="mt-6 md:mt-0 no-print">
+                <button onclick="window.print()" class="bg-slate-900 text-white px-6 py-3 rounded-xl font-semibold hover:bg-slate-800 transition shadow-lg">
+                    Guardar Manual (PDF)
+                </button>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- Columna Izquierda: El Generador de SOP -->
+            <div class="lg:col-span-2 space-y-8">
+                <section class="sop-card">
+                    <div class="p-6 bg-slate-50 border-b border-slate-200">
+                        <h2 class="text-xl font-bold text-slate-800">1. Tu Primer SOP (Proceso Estándar)</h2>
+                        <p class="text-sm text-slate-500 italic">"Si no está escrito, no existe. Si no existe, no es delegable."</p>
+                    </div>
+                    <div class="p-6 space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Nombre del Proceso</label>
+                                <input type="text" class="input-sop" placeholder="Ej: Onboarding de Clientes">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Responsable Final</label>
+                                <input type="text" class="input-sop" placeholder="Ej: Asistente Operativa">
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <label class="block text-xs font-bold text-slate-500 uppercase mb-1">Pasos Críticos (Secuenciales)</label>
+                            <div class="flex items-start gap-4">
+                                <div class="step-number mt-2">1</div>
+                                <input type="text" class="input-sop" placeholder="¿Qué es lo primero que ocurre?">
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="step-number mt-2">2</div>
+                                <input type="text" class="input-sop" placeholder="Acción técnica necesaria...">
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="step-number mt-2">3</div>
+                                <input type="text" class="input-sop" placeholder="Punto de control o validación...">
+                            </div>
+                        </div>
+
+                        <div class="bg-sky-50 p-4 rounded-lg border border-sky-100 mt-4">
+                            <h4 class="text-sm font-bold text-sky-800 mb-2 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                                </svg>
+                                El "Loom" es tu mejor amigo
+                            </h4>
+                            <p class="text-xs text-sky-700">Graba un video de 5 min haciendo la tarea. Pégalo aquí o en tu manual. No expliques 10 veces, graba una vez.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="sop-card">
+                    <div class="p-6 bg-slate-50 border-b border-slate-200">
+                        <h2 class="text-xl font-bold text-slate-800">2. Delegación al 80%: Mata tu Ego Técnico</h2>
+                        <p class="text-sm text-slate-500">Acepta que el 80% de un colaborador es mejor que el 100% tuyo si eso te libera 10 horas.</p>
+                    </div>
+                    <div class="p-6">
+                        <table class="w-full text-left text-sm">
+                            <thead>
+                                <tr class="text-slate-400 uppercase text-[10px] tracking-widest border-b">
+                                    <th class="pb-3">Tarea de "Ego"</th>
+                                    <th class="pb-3">¿Por qué crees que nadie lo hace mejor?</th>
+                                    <th class="pb-3 text-center">Nivel de Riesgo (1-5)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y">
+                                <tr>
+                                    <td class="py-4"><input type="text" class="bg-transparent border-none focus:ring-0 w-full" placeholder="Ej: Responder emails VIP"></td>
+                                    <td class="py-4"><input type="text" class="bg-transparent border-none focus:ring-0 w-full" placeholder="Ej: Mi tono es único..."></td>
+                                    <td class="py-4 text-center"><input type="number" min="1" max="5" class="w-12 bg-slate-100 rounded p-1 text-center" value="3"></td>
+                                </tr>
+                                <tr>
+                                    <td class="py-4"><input type="text" class="bg-transparent border-none focus:ring-0 w-full" placeholder="Ej: Revisar diseños"></td>
+                                    <td class="py-4"><input type="text" class="bg-transparent border-none focus:ring-0 w-full" placeholder="Ej: Tengo el ojo entrenado"></td>
+                                    <td class="py-4 text-center"><input type="number" min="1" max="5" class="w-12 bg-slate-100 rounded p-1 text-center" value="2"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Columna Derecha: Automatización y Checklist -->
+            <div class="space-y-8">
+                <section class="sop-card gradient-sidebar text-white p-8">
+                    <h3 class="text-lg font-bold mb-6 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        Checklist de Automatización
+                    </h3>
+                    <div class="space-y-5">
+                        <div class="flex items-start gap-3">
+                            <input type="checkbox" class="mt-1 w-5 h-5 rounded bg-slate-700 border-none">
+                            <div>
+                                <p class="font-semibold text-sm">Agendamiento (Calendly/TidyCal)</p>
+                                <p class="text-xs text-slate-400">Cero emails de "¿Cuándo te viene bien?"</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <input type="checkbox" class="mt-1 w-5 h-5 rounded bg-slate-700 border-none">
+                            <div>
+                                <p class="font-semibold text-sm">Facturación (Holded/Stripe)</p>
+                                <p class="text-xs text-slate-400">Cobros y facturas automáticas.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <input type="checkbox" class="mt-1 w-5 h-5 rounded bg-slate-700 border-none">
+                            <div>
+                                <p class="font-semibold text-sm">CRM/Leads (Zapier/Make)</p>
+                                <p class="text-xs text-slate-400">Mueve datos entre apps sin mover un dedo.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <input type="checkbox" class="mt-1 w-5 h-5 rounded bg-slate-700 border-none">
+                            <div>
+                                <p class="font-semibold text-sm">IA (ChatGPT/Claude)</p>
+                                <p class="text-xs text-slate-400">Borradores de contenido y análisis.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-10 pt-10 border-t border-slate-700">
+                        <p class="text-xs font-bold uppercase tracking-widest text-sky-400 mb-4">Regla de Oro</p>
+                        <div class="bg-slate-800 p-4 rounded-xl">
+                            <p class="text-sm italic">"Si haces algo más de 3 veces, merece un sistema. Si es repetitivo y predecible, merece una automatización."</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="sop-card p-6 bg-white">
+                    <h3 class="font-bold text-slate-800 mb-4">Filtro de Micro-management</h3>
+                    <div class="space-y-4">
+                        <div class="p-3 bg-red-50 rounded-lg text-xs text-red-800">
+                            <strong>¿Estás pidiendo que te pongan en copia en cada email?</strong> Si la respuesta es sí, sigues siendo la operadora, no la CEO.
+                        </div>
+                        <div class="p-3 bg-emerald-50 rounded-lg text-xs text-emerald-800">
+                            <strong>Tu objetivo:</strong> Que el equipo venga a ti con 1 problema y 2 soluciones propuestas, no a preguntarte qué hacer.
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <footer class="mt-12 text-center text-slate-400 text-sm">
+            <p>Team Leader Academy - Módulo 4: Construyendo Activos Financieros</p>
+        </footer>
+    </div>
+
+</body>
+</html>
