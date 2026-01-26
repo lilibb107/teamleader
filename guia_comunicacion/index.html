@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diccionario de Scripts de Alto Estatus - CEO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #f8fafc; 
+            color: #1e293b;
+        }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        
+        .script-card {
+            transition: all 0.2s ease;
+        }
+        .script-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .badge-low { @apply bg-red-50 text-red-600 border border-red-100; }
+        .badge-high { @apply bg-emerald-50 text-emerald-700 border border-emerald-100; }
+
+        @media print {
+            .no-print { display: none !important; }
+            .script-card { break-inside: avoid; border: 1px solid #e2e8f0 !important; }
+        }
+
+        .copy-feedback {
+            animation: fadeInOut 2s ease-in-out forwards;
+        }
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateY(10px); }
+            20% { opacity: 1; transform: translateY(0); }
+            80% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body class="pb-20">
+
+    <!-- Header Fijo -->
+    <header class="bg-[#064e3b] text-white sticky top-0 z-50 shadow-lg no-print">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-4">
+                <div class="bg-[#c5a059] p-2 rounded-lg">
+                    <i data-lucide="message-square" class="text-[#064e3b]"></i>
+                </div>
+                <h1 class="font-serif text-xl">Scripts de Alto Estatus</h1>
+            </div>
+            <div class="relative w-full md:w-96">
+                <i data-lucide="search" class="absolute left-3 top-1/2 -translate-y-1/2 text-emerald-200" size="16"></i>
+                <input type="text" id="searchInput" placeholder="Buscar situación (ej. equipo, límites, precio)..." 
+                       class="w-full bg-emerald-900/40 border border-emerald-700 rounded-full py-2 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#c5a059] placeholder-emerald-300">
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 mt-10">
+        
+        <!-- Intro -->
+        <div class="mb-12">
+            <h2 class="text-3xl font-serif text-slate-800 mb-2">Guía de Comunicación CEO</h2>
+            <p class="text-slate-500 text-sm">Elimina el "lo siento", el "quizás" y las justificaciones innecesarias. Pasa de pedir permiso a marcar el estándar.</p>
+        </div>
+
+        <!-- Categorías -->
+        <div id="scriptsContainer" class="space-y-16">
+            
+            <!-- SECCIÓN: GESTIÓN DE EQUIPO -->
+            <section data-category="equipo">
+                <div class="flex items-center gap-3 mb-6 border-b border-slate-200 pb-2">
+                    <i data-lucide="users" class="text-[#c5a059]"></i>
+                    <h3 class="uppercase tracking-widest text-xs font-bold text-slate-400">Gestión de Equipo y Liderazgo</h3>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Item 1 -->
+                    <div class="script-card bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col">
+                        <div class="p-5 bg-slate-50 border-b border-slate-100">
+                            <h4 class="font-semibold text-sm">Puntualidad o Incumplimiento</h4>
+                        </div>
+                        <div class="p-5 space-y-4 flex-grow">
+                            <div class="space-y-1">
+                                <span class="text-[10px] uppercase font-bold text-red-400">Lenguaje Débil</span>
+                                <p class="text-sm text-slate-500 italic">"Lo siento, ¿podrías quizás intentar llegar antes mañana? Es que nos retrasa un poco a todos si no te importa..."</p>
+                            </div>
+                            <div class="space-y-2 bg-emerald-50/50 p-4 rounded-xl border border-emerald-100">
+                                <span class="text-[10px] uppercase font-bold text-emerald-600">Script CEO</span>
+                                <p id="script1" class="text-sm font-semibold text-slate-800 italic">"Para mantener el estándar de excelencia del equipo, la puntualidad no es negociable. ¿Qué necesitas ajustar para que esto no vuelva a ocurrir?"</p>
+                                <button onclick="copyToClipboard('script1')" class="text-[10px] text-[#c5a059] font-bold hover:underline flex items-center gap-1">
+                                    <i data-lucide="copy" size="10"></i> COPIAR SCRIPT
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="script-card bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col">
+                        <div class="p-5 bg-slate-50 border-b border-slate-100">
+                            <h4 class="font-semibold text-sm">Error en una Tarea Entregada</h4>
+                        </div>
+                        <div class="p-5 space-y-4 flex-grow">
+                            <div class="space-y-1">
+                                <span class="text-[10px] uppercase font-bold text-red-400">Lenguaje Débil</span>
+                                <p class="text-sm text-slate-500 italic">"Ay, creo que esto no está del todo bien... ¿te importa revisarlo cuando puedas? No quiero molestarte."</p>
+                            </div>
+                            <div class="space-y-2 bg-emerald-50/50 p-4 rounded-xl border border-emerald-100">
+                                <span class="text-[10px] uppercase font-bold text-emerald-600">Script CEO</span>
+                                <p id="script2" class="text-sm font-semibold text-slate-800 italic">"Este entregable no cumple con el estándar de calidad acordado. Por favor, revísalo y asegúrate de que la versión final esté lista para las 16:00."</p>
+                                <button onclick="copyToClipboard('script2')" class="text-[10px] text-[#c5a059] font-bold hover:underline flex items-center gap-1">
+                                    <i data-lucide="copy" size="10"></i> COPIAR SCRIPT
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN: LÍMITES CON CLIENTES -->
+            <section data-category="clientes">
+                <div class="flex items-center gap-3 mb-6 border-b border-slate-200 pb-2">
+                    <i data-lucide="shield-check" class="text-[#c5a059]"></i>
+                    <h3 class="uppercase tracking-widest text-xs font-bold text-slate-400">Límites y Relación con Clientes</h3>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Item 3 -->
+                    <div class="script-card bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col">
+                        <div class="p-5 bg-slate-50 border-b border-slate-100">
+                            <h4 class="font-semibold text-sm">Cliente escribiendo por WhatsApp/Fuera de hora</h4>
+                        </div>
+                        <div class="p-5 space-y-4 flex-grow">
+                            <div class="space-y-1">
+                                <span class="text-[10px] uppercase font-bold text-red-400">Lenguaje Débil</span>
+                                <p class="text-sm text-slate-500 italic">"Hola, perdona que no te contesté anoche, es que estaba cenando... ahora mismo te miro lo que me pediste."</p>
+                            </div>
+                            <div class="space-y-2 bg-emerald-50/50 p-4 rounded-xl border border-emerald-100">
+                                <span class="text-[10px] uppercase font-bold text-emerald-600">Script CEO</span>
+                                <p id="script3" class="text-sm font-semibold text-slate-800 italic">"Para garantizar la mejor atención a cada proyecto, gestionamos todas las consultas por los canales oficiales en horario comercial. He recibido tu mensaje y lo procesaremos hoy."</p>
+                                <button onclick="copyToClipboard('script3')" class="text-[10px] text-[#c5a059] font-bold hover:underline flex items-center gap-1">
+                                    <i data-lucide="copy" size="10"></i> COPIAR SCRIPT
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="script-card bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col">
+                        <div class="p-5 bg-slate-50 border-b border-slate-100">
+                            <h4 class="font-semibold text-sm">Cuando piden un "descuentito"</h4>
+                        </div>
+                        <div class="p-5 space-y-4 flex-grow">
+                            <div class="space-y-1">
+                                <span class="text-[10px] uppercase font-bold text-red-400">Lenguaje Débil</span>
+                                <p class="text-sm text-slate-500 italic">"Bueno, si te parece muy caro puedo ver si te quito algo de la propuesta para que te encaje el precio..."</p>
+                            </div>
+                            <div class="space-y-2 bg-emerald-50/50 p-4 rounded-xl border border-emerald-100">
+                                <span class="text-[10px] uppercase font-bold text-emerald-600">Script CEO</span>
+                                <p id="script4" class="text-sm font-semibold text-slate-800 italic">"Mi tarifa refleja el valor y los resultados que entregamos. No realizamos descuentos, pero podemos ajustar el alcance si tu presupuesto actual es diferente."</p>
+                                <button onclick="copyToClipboard('script4')" class="text-[10px] text-[#c5a059] font-bold hover:underline flex items-center gap-1">
+                                    <i data-lucide="copy" size="10"></i> COPIAR SCRIPT
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN: NEGOCIACIONES Y TOMA DE DECISIONES -->
+            <section data-category="negociacion">
+                <div class="flex items-center gap-3 mb-6 border-b border-slate-200 pb-2">
+                    <i data-lucide="briefcase" class="text-[#c5a059]"></i>
+                    <h3 class="uppercase tracking-widest text-xs font-bold text-slate-400">Negociaciones y Decisiones</h3>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Item 5 -->
+                    <div class="script-card bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col">
+                        <div class="p-5 bg-slate-50 border-b border-slate-100">
+                            <h4 class="font-semibold text-sm">Decir "No" a una propuesta</h4>
+                        </div>
+                        <div class="p-5 space-y-4 flex-grow">
+                            <div class="space-y-1">
+                                <span class="text-[10px] uppercase font-bold text-red-400">Lenguaje Débil</span>
+                                <p class="text-sm text-slate-500 italic">"Muchas gracias, me encantaría pero ahora mismo estoy súper liada y no creo que pueda, lo siento mil veces."</p>
+                            </div>
+                            <div class="space-y-2 bg-emerald-50/50 p-4 rounded-xl border border-emerald-100">
+                                <span class="text-[10px] uppercase font-bold text-emerald-600">Script CEO</span>
+                                <p id="script5" class="text-sm font-semibold text-slate-800 italic">"Gracias por la propuesta. En este momento mi foco estratégico está en otros proyectos y no puedo darle la prioridad que merece. Suerte con ello."</p>
+                                <button onclick="copyToClipboard('script5')" class="text-[10px] text-[#c5a059] font-bold hover:underline flex items-center gap-1">
+                                    <i data-lucide="copy" size="10"></i> COPIAR SCRIPT
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 6 -->
+                    <div class="script-card bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden flex flex-col">
+                        <div class="p-5 bg-slate-50 border-b border-slate-100">
+                            <h4 class="font-semibold text-sm">Pedir tiempo para decidir</h4>
+                        </div>
+                        <div class="p-5 space-y-4 flex-grow">
+                            <div class="space-y-1">
+                                <span class="text-[10px] uppercase font-bold text-red-400">Lenguaje Débil</span>
+                                <p class="text-sm text-slate-500 italic">"Ehm... no sé, déjame que le dé una vuelta y te digo algo, es que tengo que consultarlo con la almohada..."</p>
+                            </div>
+                            <div class="space-y-2 bg-emerald-50/50 p-4 rounded-xl border border-emerald-100">
+                                <span class="text-[10px] uppercase font-bold text-emerald-600">Script CEO</span>
+                                <p id="script6" class="text-sm font-semibold text-slate-800 italic">"Analizaré la viabilidad de esto con mis métricas actuales. Tendrás mi decisión final el próximo martes a primera hora."</p>
+                                <button onclick="copyToClipboard('script6')" class="text-[10px] text-[#c5a059] font-bold hover:underline flex items-center gap-1">
+                                    <i data-lucide="copy" size="10"></i> COPIAR SCRIPT
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <!-- Footer / Recordatorio -->
+        <div class="mt-20 p-8 bg-emerald-900 rounded-3xl text-white text-center relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
+                <i data-lucide="zap" class="absolute -top-10 -left-10" size="200"></i>
+            </div>
+            <h3 class="font-serif text-2xl mb-4 relative z-10">La Regla de Oro del Alto Estatus</h3>
+            <p class="text-emerald-100/70 text-sm max-w-2xl mx-auto mb-6 relative z-10">
+                La autoridad no se grita, se emite a través de la economía de palabras. Cuanto más te justificas, más bajo es tu estatus percibido. <strong>Sé breve, sé clara, sé firme.</strong>
+            </p>
+            <div class="inline-flex items-center gap-2 bg-emerald-800 px-4 py-2 rounded-full text-[10px] uppercase tracking-widest font-bold">
+                <span class="w-2 h-2 rounded-full bg-[#c5a059] animate-pulse"></span>
+                Team Leader Academy • Módulo 2
+            </div>
+        </div>
+    </main>
+
+    <!-- Feedback de Copiado -->
+    <div id="copyToast" class="fixed bottom-10 left-1/2 -translate-x-1/2 bg-slate-800 text-white px-6 py-3 rounded-full text-xs font-bold shadow-2xl hidden z-[100]">
+        <div class="flex items-center gap-2">
+            <i data-lucide="check-circle" class="text-emerald-400" size="16"></i>
+            SCRIPT COPIADO AL PORTAPAPELES
+        </div>
+    </div>
+
+    <script>
+        // Inicializar Iconos
+        lucide.createIcons();
+
+        // Función de Búsqueda
+        const searchInput = document.getElementById('searchInput');
+        const cards = document.querySelectorAll('.script-card');
+        const sections = document.querySelectorAll('section');
+
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                if (text.includes(term)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Ocultar secciones vacías
+            sections.forEach(section => {
+                const visibleCards = section.querySelectorAll('.script-card[style="display: flex;"]');
+                const allCardsInside = section.querySelectorAll('.script-card');
+                
+                if (term === "") {
+                   section.style.display = 'block';
+                   allCardsInside.forEach(c => c.style.display = 'flex');
+                } else if (visibleCards.length === 0) {
+                    section.style.display = 'none';
+                } else {
+                    section.style.display = 'block';
+                }
+            });
+        });
+
+        // Función para copiar
+        function copyToClipboard(id) {
+            const text = document.getElementById(id).innerText;
+            const tempInput = document.createElement("textarea");
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+
+            // Mostrar Toast
+            const toast = document.getElementById('copyToast');
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
