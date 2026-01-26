@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditoría de Escalabilidad - Team Leader Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+        
+        :root {
+            --gold: #D4AF37;
+            --dark-bg: #0A0A0A;
+            --card-bg: #151515;
+            --border: #2A2A2A;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #FFFFFF;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .gold-text { color: var(--gold); }
+        .gold-bg { background-color: var(--gold); }
+        .gold-border { border-color: var(--gold); }
+
+        .check-container {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .check-container:hover {
+            border-color: var(--gold);
+        }
+
+        .check-container.selected {
+            background: rgba(212, 175, 55, 0.05);
+            border-color: var(--gold);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
+        }
+
+        .traffic-light {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #D4AF37 0%, #B8962E 100%);
+            color: black;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: transform 0.2s;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-12">
+
+    <div class="max-w-4xl mx-auto">
+        <!-- Encabezado Estilo Academy -->
+        <div class="text-center mb-12">
+            <h2 class="text-xs font-bold tracking-[0.4em] gold-text uppercase mb-2">Engranajes de la Libertad</h2>
+            <h1 class="text-3xl md:text-5xl font-900 uppercase italic tracking-tighter mb-4">
+                Auditoría de <span class="gold-text">Escalabilidad</span>
+            </h1>
+            <p class="text-gray-400 max-w-2xl mx-auto text-sm md:text-base">
+                Identifica qué productos son <strong>Motores</strong> de crecimiento y cuáles son <strong>Lastres</strong> que consumen tu libertad.
+            </p>
+        </div>
+
+        <!-- Formulario de Auditoría -->
+        <div class="space-y-4" id="auditForm">
+            <!-- Pregunta 1 -->
+            <div class="check-container p-5 rounded-xl flex items-center gap-4" onclick="toggleCheck(this)">
+                <input type="checkbox" class="hidden" data-score="20">
+                <div class="w-6 h-6 border-2 border-gray-600 rounded flex items-center justify-center check-box">
+                    <span class="text-black font-bold hidden">✓</span>
+                </div>
+                <div>
+                    <p class="font-bold text-sm md:text-base">¿Puedo entregar este servicio a 100 personas a la vez sin multiplicar mis horas?</p>
+                    <p class="text-[10px] text-gray-500 uppercase tracking-wider">Capacidad de Entrega Masiva</p>
+                </div>
+            </div>
+
+            <!-- Pregunta 2 -->
+            <div class="check-container p-5 rounded-xl flex items-center gap-4" onclick="toggleCheck(this)">
+                <input type="checkbox" class="hidden" data-score="20">
+                <div class="w-6 h-6 border-2 border-gray-600 rounded flex items-center justify-center check-box">
+                    <span class="text-black font-bold hidden">✓</span>
+                </div>
+                <div>
+                    <p class="font-bold text-sm md:text-base">¿Existe un manual (SOP) para que otra persona entregue el 80% del valor?</p>
+                    <p class="text-[10px] text-gray-500 uppercase tracking-wider">Sostenibilidad Operativa</p>
+                </div>
+            </div>
+
+            <!-- Pregunta 3 -->
+            <div class="check-container p-5 rounded-xl flex items-center gap-4" onclick="toggleCheck(this)">
+                <input type="checkbox" class="hidden" data-score="20">
+                <div class="w-6 h-6 border-2 border-gray-600 rounded flex items-center justify-center check-box">
+                    <span class="text-black font-bold hidden">✓</span>
+                </div>
+                <div>
+                    <p class="font-bold text-sm md:text-base">¿El coste de vender 10 unidades extra es casi cero (sin nuevas contrataciones)?</p>
+                    <p class="text-[10px] text-gray-500 uppercase tracking-wider">Crecimiento Exponencial</p>
+                </div>
+            </div>
+
+            <!-- Pregunta 4 -->
+            <div class="check-container p-5 rounded-xl flex items-center gap-4" onclick="toggleCheck(this)">
+                <input type="checkbox" class="hidden" data-score="20">
+                <div class="w-6 h-6 border-2 border-gray-600 rounded flex items-center justify-center check-box">
+                    <span class="text-black font-bold hidden">✓</span>
+                </div>
+                <div>
+                    <p class="font-bold text-sm md:text-base">¿La venta está automatizada (embudo) sin depender de una llamada 1 a 1 tuya?</p>
+                    <p class="text-[10px] text-gray-500 uppercase tracking-wider">Engranaje de Ventas</p>
+                </div>
+            </div>
+
+            <!-- Pregunta 5 -->
+            <div class="check-container p-5 rounded-xl flex items-center gap-4" onclick="toggleCheck(this)">
+                <input type="checkbox" class="hidden" data-score="20">
+                <div class="w-6 h-6 border-2 border-gray-600 rounded flex items-center justify-center check-box">
+                    <span class="text-black font-bold hidden">✓</span>
+                </div>
+                <div>
+                    <p class="font-bold text-sm md:text-base">¿El margen de contribución de este producto es superior al 40%?</p>
+                    <p class="text-[10px] text-gray-500 uppercase tracking-wider">Sostenibilidad Financiera</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botón de Acción -->
+        <div class="mt-10 text-center">
+            <button onclick="calculate()" class="btn-primary px-10 py-4 rounded-full shadow-lg shadow-gold/20">
+                Ver Diagnóstico de Escala
+            </button>
+        </div>
+
+        <!-- Resultados (Ocultos inicialmente) -->
+        <div id="resultCard" class="mt-12 hidden">
+            <div class="p-1 bg-gradient-to-r from-transparent via-gold/50 to-transparent mb-8"></div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="text-center md:text-left">
+                    <h3 id="resultStatus" class="text-3xl font-900 uppercase italic mb-2">Diagnóstico</h3>
+                    <div class="flex items-center justify-center md:justify-start gap-2 mb-4">
+                        <div id="lightR" class="traffic-light bg-gray-700"></div>
+                        <div id="lightY" class="traffic-light bg-gray-700"></div>
+                        <div id="lightG" class="traffic-light bg-gray-700"></div>
+                        <span id="scoreTag" class="text-xs font-bold text-gray-500 ml-2">PUNTUACIÓN: 0/100</span>
+                    </div>
+                    <p id="resultText" class="text-gray-400 text-sm leading-relaxed">
+                        Analizando la viabilidad de tu estructura...
+                    </p>
+                </div>
+
+                <div id="actionPlan" class="bg-white/5 p-6 rounded-2xl border border-white/10 italic text-sm text-gold">
+                    <!-- Se llena dinámicamente -->
+                </div>
+            </div>
+        </div>
+
+        <footer class="mt-20 text-center opacity-30 text-[9px] uppercase tracking-[0.5em]">
+            Propiedad de Team Leader Academy • Manual de Sistemas
+        </footer>
+    </div>
+
+    <script>
+        function toggleCheck(el) {
+            const checkbox = el.querySelector('input');
+            const box = el.querySelector('.check-box');
+            const tick = el.querySelector('span');
+            
+            checkbox.checked = !checkbox.checked;
+            
+            if (checkbox.checked) {
+                el.classList.add('selected');
+                box.classList.add('gold-bg', 'gold-border');
+                tick.classList.remove('hidden');
+            } else {
+                el.classList.remove('selected');
+                box.classList.remove('gold-bg', 'gold-border');
+                tick.classList.add('hidden');
+            }
+        }
+
+        function calculate() {
+            const checks = document.querySelectorAll('input[type="checkbox"]');
+            let total = 0;
+            checks.forEach(c => { if(c.checked) total += parseInt(c.getAttribute('data-score')); });
+
+            const resultCard = document.getElementById('resultCard');
+            const status = document.getElementById('resultStatus');
+            const text = document.getElementById('resultText');
+            const plan = document.getElementById('actionPlan');
+            const scoreTag = document.getElementById('scoreTag');
+            
+            const lightR = document.getElementById('lightR');
+            const lightY = document.getElementById('lightY');
+            const lightG = document.getElementById('lightG');
+
+            resultCard.classList.remove('hidden');
+            scoreTag.innerText = `PUNTUACIÓN: ${total}/100`;
+
+            // Reset luces
+            lightR.className = "traffic-light bg-gray-700";
+            lightY.className = "traffic-light bg-gray-700";
+            lightG.className = "traffic-light bg-gray-700";
+
+            if (total >= 80) {
+                status.innerText = "Motor de Escala";
+                status.className = "text-3xl font-900 uppercase italic mb-2 text-green-500";
+                lightG.classList.add('bg-green-500', 'shadow-[0_0_10px_#22c55e]');
+                text.innerText = "Este producto es un activo real. Cumple con los 3 engranajes de la libertad. El coste de servir a un cliente más es marginal.";
+                plan.innerHTML = "🎯 ESTRATEGIA: Inyecta todo tu presupuesto de marketing aquí. Este producto financiará tu libertad.";
+            } else if (total >= 40) {
+                status.innerText = "Híbrido Manual";
+                status.className = "text-3xl font-900 uppercase italic mb-2 text-yellow-500";
+                lightY.classList.add('bg-yellow-500', 'shadow-[0_0_10px_#eab308]');
+                text.innerText = "Tienes un negocio, pero todavía depende demasiado de procesos manuales o de tu criterio. No puedes escalar sin quemarte.";
+                plan.innerHTML = "🛠️ ESTRATEGIA: Documenta el 80% de las tareas en SOPs y delega la entrega antes de subir el volumen de ventas.";
+            } else {
+                status.innerText = "Lastre Operativo";
+                status.className = "text-3xl font-900 uppercase italic mb-2 text-red-500";
+                lightR.classList.add('bg-red-500', 'shadow-[0_0_10px_#ef4444]');
+                text.innerText = "Este servicio es un cuello de botella. Vendes 'tu tiempo' disfrazado de producto. Si escalas esto, colapsarás tú y tu equipo.";
+                plan.innerHTML = "✂️ ESTRATEGIA: Simplifica, estandariza o elimina este servicio del catálogo. No es escalable.";
+            }
+
+            resultCard.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

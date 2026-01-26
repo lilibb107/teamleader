@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plantilla Maestra de SOP - Team Leader Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --brand-gold: #D4AF37;
+            --brand-dark: #1A1A1A;
+            --brand-light: #F9F9F9;
+        }
+        body {
+            background-color: var(--brand-light);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        .gold-accent { color: var(--brand-gold); }
+        .gold-bg { background-color: var(--brand-gold); }
+        .dark-bg { background-color: var(--brand-dark); }
+        .border-gold { border-color: var(--brand-gold); }
+        
+        .sop-container {
+            max-width: 850px;
+            margin: 2rem auto;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            margin-top: 0.25rem;
+        }
+        
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--brand-gold);
+            ring: 1px solid var(--brand-gold);
+        }
+
+        @media print {
+            .no-print { display: none; }
+            body { background: white; padding: 0; }
+            .sop-container { box-shadow: none; margin: 0; max-width: 100%; }
+        }
+    </style>
+</head>
+<body class="p-4">
+
+    <div class="sop-container border border-gray-100">
+        <!-- Header -->
+        <header class="dark-bg text-white p-8 flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-black uppercase tracking-tighter">SOP: Procedimiento Operativo Estándar</h1>
+                <p class="gold-accent text-sm font-bold mt-1">Sostenibilidad Operativa • Team Leader Academy</p>
+            </div>
+            <div class="text-right no-print">
+                <button onclick="window.print()" class="gold-bg text-black text-xs font-bold px-4 py-2 rounded hover:opacity-90 transition">IMPRIMIR / PDF</button>
+            </div>
+        </header>
+
+        <main class="p-8">
+            <!-- Sección 1: Identificación -->
+            <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div>
+                    <label class="block text-xs font-bold uppercase text-gray-500">Título de la Tarea</label>
+                    <input type="text" placeholder="Ej: Publicación de Contenido en IG">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-gray-500">Objetivo del Proceso</label>
+                    <input type="text" placeholder="¿Para qué sirve esta tarea?">
+                </div>
+            </section>
+
+            <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div>
+                    <label class="block text-xs font-bold uppercase text-gray-500">Frecuencia</label>
+                    <select class="w-full mt-1 p-2 border border-gray-200 rounded text-sm">
+                        <option>Diaria</option>
+                        <option>Semanal</option>
+                        <option>Mensual</option>
+                        <option>Bajo demanda</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-gray-500">Herramientas / Software</label>
+                    <input type="text" placeholder="Ej: Notion, Canva, Meta Business Suite">
+                </div>
+            </section>
+
+            <!-- Sección 2: El Algoritmo (Paso a paso) -->
+            <section class="mb-8">
+                <div class="flex items-center mb-4">
+                    <div class="gold-bg text-black font-bold px-2 py-0.5 text-xs mr-3">PASO A PASO</div>
+                    <h2 class="font-bold text-gray-800 uppercase tracking-wide">Algoritmo de Ejecución</h2>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-lg border-l-4 border-gold">
+                    <p class="text-xs text-gray-500 mb-4 italic italic">Describe los pasos de forma que un extraño pueda ejecutarlos sin preguntarte.</p>
+                    <textarea rows="8" class="bg-white text-sm" placeholder="1. Entrar en...&#10;2. Seleccionar la opción...&#10;3. Verificar que..."></textarea>
+                </div>
+            </section>
+
+            <!-- Sección 3: Definición de Éxito -->
+            <section class="mb-8">
+                <div class="flex items-center mb-4">
+                    <div class="bg-green-600 text-white font-bold px-2 py-0.5 text-xs mr-3">CONTROL</div>
+                    <h2 class="font-bold text-gray-800 uppercase tracking-wide">Definición de "Éxito"</h2>
+                </div>
+                <div class="bg-white border-2 border-dashed border-gray-200 p-4 rounded-lg">
+                    <label class="block text-sm text-gray-600 mb-2 font-medium italic">¿Cómo sé que la tarea está BIEN hecha? (Evita la subjetividad)</label>
+                    <textarea rows="3" class="text-sm" placeholder="Ej: El post está programado con el copy revisado y los 5 hashtags correspondientes."></textarea>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer / Regla de Oro -->
+        <footer class="gold-bg p-6 text-center">
+            <p class="text-[10px] uppercase font-bold text-black opacity-50 mb-1">Cultura de Sistemas</p>
+            <p class="text-lg font-black text-black leading-tight italic">
+                "Documentar hoy es comprar tu libertad de mañana."
+            </p>
+        </footer>
+    </div>
+
+    <div class="max-w-[850px] mx-auto mt-4 text-center no-print">
+        <p class="text-gray-400 text-xs italic">Completa los campos y usa el botón superior para guardar como PDF o imprimir.</p>
+    </div>
+
+</body>
+</html>

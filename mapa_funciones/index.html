@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Funciones - Bloque 2</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --brand-gold: #D4AF37;
+            --brand-dark: #1A1A1A;
+            --brand-light: #F4F4F4;
+        }
+        body {
+            background-color: var(--brand-light);
+            font-family: 'Inter', sans-serif;
+        }
+        .gold-border { border-color: var(--brand-gold); }
+        .gold-bg { background-color: var(--brand-gold); }
+        .dark-bg { background-color: var(--brand-dark); }
+        
+        .card-function {
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--brand-gold);
+        }
+        .card-function:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        @media print {
+            .no-print { display: none; }
+            body { background: white; }
+            .page-break { page-break-after: always; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-10">
+
+    <!-- Header -->
+    <header class="max-w-5xl mx-auto mb-10 border-b-2 gold-border pb-6 flex justify-between items-end">
+        <div>
+            <p class="text-sm font-bold tracking-widest uppercase dark-bg text-white inline-block px-2 py-1 mb-2">Team Leader Academy</p>
+            <h1 class="text-4xl font-extrabold text-gray-900">El Mapa de Funciones</h1>
+            <p class="text-gray-600 mt-2 italic">"La empresa son funciones, no personas."</p>
+        </div>
+        <div class="text-right no-print">
+            <button onclick="window.print()" class="gold-bg text-white px-4 py-2 rounded font-bold hover:opacity-90 transition">Descargar PDF</button>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto">
+        
+        <!-- Concepto Clave -->
+        <section class="bg-white p-6 rounded-lg shadow-sm mb-10 border border-gray-200">
+            <h2 class="text-xl font-bold mb-4 flex items-center">
+                <span class="gold-bg text-white w-8 h-8 rounded-full flex items-center justify-center mr-3 text-sm">!</span>
+                El Objetivo
+            </h2>
+            <p class="text-gray-700 leading-relaxed">
+                Esta herramienta sirve para que dibujes tu <strong>estructura actual</strong> frente a la <strong>estructura necesaria</strong> para escalar. Identifica dónde estás siendo el cuello de botella (duplicando roles) y dónde falta un sistema o software que te libere.
+            </p>
+        </section>
+
+        <!-- Organigrama por Procesos -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            
+            <!-- Marketing y Ventas -->
+            <div class="card-function bg-white p-6 rounded-r-lg shadow-sm">
+                <div class="flex items-center mb-4">
+                    <div class="p-2 bg-yellow-100 rounded-lg mr-3">
+                        <svg class="w-6 h-6 text-yellow-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.068-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z"></path></svg>
+                    </div>
+                    <h3 class="font-bold text-lg">Marketing y Ventas</h3>
+                </div>
+                <ul class="text-sm text-gray-600 space-y-4">
+                    <li>
+                        <label class="block font-semibold text-gray-800">Captación (Leads):</label>
+                        <input type="text" placeholder="¿Quién o qué software?" class="w-full mt-1 p-2 border-b gold-border focus:outline-none bg-gray-50">
+                    </li>
+                    <li>
+                        <label class="block font-semibold text-gray-800">Cierre de Clientes:</label>
+                        <input type="text" placeholder="¿Quién o qué software?" class="w-full mt-1 p-2 border-b gold-border focus:outline-none bg-gray-50">
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Operaciones -->
+            <div class="card-function bg-white p-6 rounded-r-lg shadow-sm">
+                <div class="flex items-center mb-4">
+                    <div class="p-2 bg-blue-100 rounded-lg mr-3">
+                        <svg class="w-6 h-6 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    </div>
+                    <h3 class="font-bold text-lg text-gray-900">Operaciones</h3>
+                </div>
+                <ul class="text-sm text-gray-600 space-y-4">
+                    <li>
+                        <label class="block font-semibold text-gray-800">Entrega de Valor:</label>
+                        <input type="text" placeholder="¿Quién entrega el servicio?" class="w-full mt-1 p-2 border-b gold-border focus:outline-none bg-gray-50">
+                    </li>
+                    <li>
+                        <label class="block font-semibold text-gray-800">Soporte y Calidad:</label>
+                        <input type="text" placeholder="¿Quién atiende dudas?" class="w-full mt-1 p-2 border-b gold-border focus:outline-none bg-gray-50">
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Finanzas / Admin -->
+            <div class="card-function bg-white p-6 rounded-r-lg shadow-sm">
+                <div class="flex items-center mb-4">
+                    <div class="p-2 bg-green-100 rounded-lg mr-3">
+                        <svg class="w-6 h-6 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="font-bold text-lg text-gray-900">Finanzas / Admin</h3>
+                </div>
+                <ul class="text-sm text-gray-600 space-y-4">
+                    <li>
+                        <label class="block font-semibold text-gray-800">Facturación / Cobros:</label>
+                        <input type="text" placeholder="¿Software o Persona?" class="w-full mt-1 p-2 border-b gold-border focus:outline-none bg-gray-50">
+                    </li>
+                    <li>
+                        <label class="block font-semibold text-gray-800">Flujo de Caja / Análisis:</label>
+                        <input type="text" placeholder="¿Quién vigila el margen?" class="w-full mt-1 p-2 border-b gold-border focus:outline-none bg-gray-50">
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Matriz Comparativa -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div class="bg-gray-100 p-6 rounded-lg border-2 border-dashed border-gray-300">
+                <h3 class="font-bold mb-4 uppercase text-sm text-gray-500 tracking-wider">Hoy (Realidad Actual)</h3>
+                <div class="space-y-4">
+                    <div class="bg-white p-4 rounded shadow-sm">
+                        <p class="text-xs font-bold text-gray-700 mb-1">FUNCIÓN: TODAS</p>
+                        <p class="text-sm italic text-gray-400">Ejemplo: "Yo hago los reels, yo atiendo los mails, yo doy la sesión..."</p>
+                    </div>
+                    <textarea rows="4" class="w-full p-3 rounded border-gray-200 text-sm focus:ring-gold-500" placeholder="Anota aquí las funciones que HOY dependen 100% de tus horas físicas..."></textarea>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg border-2 gold-border shadow-lg">
+                <h3 class="font-bold mb-4 uppercase text-sm text-gray-900 tracking-wider">Mañana (Estructura Escalable)</h3>
+                <div class="space-y-4">
+                    <div class="bg-gray-50 p-4 rounded border-l-4 gold-border">
+                        <p class="text-xs font-bold text-gray-900 mb-1">LA CEO DISEÑA</p>
+                        <p class="text-sm text-gray-600">Sustituye tu nombre por una herramienta o un perfil de equipo.</p>
+                    </div>
+                    <textarea rows="4" class="w-full p-3 rounded border-gray-200 text-sm focus:ring-gold-500" placeholder="Anota qué sillas vas a dejar libres primero (Ej: Facturación -> Holded, Soporte -> Asistente)..."></textarea>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer / Regla de Oro -->
+        <footer class="mt-12 text-center p-8 gold-bg rounded-xl">
+            <p class="text-lg font-bold text-black opacity-60 mb-2 uppercase tracking-widest">Regla de Oro</p>
+            <p class="text-2xl font-black text-black leading-tight">
+                "Si una función depende de una persona específica y no de un proceso, no tienes un sistema, tienes una dependencia."
+            </p>
+        </footer>
+    </main>
+
+</body>
+</html>
