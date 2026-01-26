@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Visión Temporal - CEO Vision</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #fdfdfb; 
+            color: #1a1a1a;
+        }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        
+        .timeline-line {
+            position: absolute;
+            top: 24px;
+            bottom: 0;
+            left: 20px;
+            width: 2px;
+            background: linear-gradient(to bottom, #c5a059 0%, #e5e7eb 100%);
+        }
+
+        .step-node {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border: 2px solid #c5a059;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: all 0.4s ease;
+        }
+
+        .card-vision {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+        .card-vision:hover {
+            transform: translateX(8px);
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
+        }
+
+        .active-1yr { border-left-color: #c5a059; }
+        .active-3yr { border-left-color: #064e3b; }
+        .active-5yr { border-left-color: #1a1a1a; }
+
+        input[type="text"], textarea {
+            border: none;
+            background: transparent;
+            width: 100%;
+            outline: none;
+            padding: 4px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus, textarea:focus {
+            border-bottom-color: #c5a059;
+        }
+
+        @media print {
+            .no-print { display: none !important; }
+            .card-vision { transform: none !important; border: 1px solid #eee !important; margin-bottom: 20px; }
+            .timeline-line { background: #c5a059; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-10">
+
+    <div class="max-w-4xl mx-auto">
+        
+        <!-- Header -->
+        <div class="mb-12 text-center md:text-left">
+            <div class="flex items-center justify-center md:justify-start gap-2 mb-3">
+                <span class="h-px w-8 bg-[#c5a059]"></span>
+                <p class="text-[#c5a059] uppercase tracking-[0.3em] text-[10px] font-bold">Módulo 3: Visión y Propósito</p>
+            </div>
+            <h1 class="text-4xl md:text-5xl font-serif text-[#064e3b] mb-4">Mapa de Visión Temporal</h1>
+            <p class="text-gray-500 max-w-xl text-sm leading-relaxed">
+                No diseñes solo un negocio, diseña tu libertad. Mapea la evolución de tu facturación, tu equipo y, sobre todo, tu transformación como líder.
+            </p>
+        </div>
+
+        <!-- Contenedor de la Línea de Tiempo -->
+        <div class="relative pl-12 md:pl-20">
+            <div class="timeline-line no-print"></div>
+
+            <!-- AÑO 1: Consolidación -->
+            <div class="relative mb-16">
+                <div class="absolute -left-12 md:-left-20 flex flex-col items-center">
+                    <div class="step-node bg-[#c5a059] text-white">
+                        <span class="text-xs font-bold">1Y</span>
+                    </div>
+                </div>
+                
+                <div class="card-vision active-1yr bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                        <h2 class="font-serif text-2xl text-[#064e3b]">Fase de Consolidación</h2>
+                        <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest bg-gray-50 px-3 py-1 rounded-full">Meta Actual / Próximo Año</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="space-y-2">
+                            <label class="text-[9px] uppercase tracking-tighter text-[#c5a059] font-bold">Facturación Anual</label>
+                            <input type="text" placeholder="Ej: 250.000€" class="text-lg font-semibold text-gray-800">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[9px] uppercase tracking-tighter text-[#c5a059] font-bold">Tamaño del Equipo</label>
+                            <input type="text" placeholder="Ej: 2 fijos + 3 freelance" class="text-lg font-semibold text-gray-800">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[9px] uppercase tracking-tighter text-[#c5a059] font-bold">Horas en Operativa</label>
+                            <input type="text" placeholder="Ej: 25h / semana" class="text-lg font-semibold text-gray-800">
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-gray-50">
+                        <label class="text-[9px] uppercase tracking-tighter text-gray-400 font-bold block mb-2">Rol de la CEO en esta etapa</label>
+                        <textarea rows="2" placeholder="¿Qué funciones específicas dejas de hacer para empezar a liderar?" class="italic text-sm text-gray-600"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AÑO 3: Escalado -->
+            <div class="relative mb-16">
+                <div class="absolute -left-12 md:-left-20 flex flex-col items-center">
+                    <div class="step-node border-[#064e3b]">
+                        <i data-lucide="trending-up" class="text-[#064e3b]" size="16"></i>
+                    </div>
+                </div>
+                
+                <div class="card-vision active-3yr bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                        <h2 class="font-serif text-2xl text-[#064e3b]">Fase de Escalado</h2>
+                        <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest bg-gray-50 px-3 py-1 rounded-full">Visión a 3 Años</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="space-y-2">
+                            <label class="text-[9px] uppercase tracking-tighter text-[#064e3b] font-bold">Facturación Anual</label>
+                            <input type="text" placeholder="Ej: 1.000.000€" class="text-lg font-semibold text-gray-800">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[9px] uppercase tracking-tighter text-[#064e3b] font-bold">Estructura de Mandos</label>
+                            <input type="text" placeholder="Ej: 1 Dir. Ops + 2 Lideres" class="text-lg font-semibold text-gray-800">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[9px] uppercase tracking-tighter text-[#064e3b] font-bold">Presencia en el Negocio</label>
+                            <input type="text" placeholder="Ej: 100% Estrategia" class="text-lg font-semibold text-gray-800">
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-gray-50">
+                        <label class="text-[9px] uppercase tracking-tighter text-gray-400 font-bold block mb-2">El Hito de Libertad</label>
+                        <textarea rows="2" placeholder="¿Qué gran cambio ha ocurrido en tu vida personal gracias a este crecimiento?" class="italic text-sm text-gray-600"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AÑO 5: Legado -->
+            <div class="relative mb-8">
+                <div class="absolute -left-12 md:-left-20 flex flex-col items-center">
+                    <div class="step-node border-black bg-black text-white">
+                        <i data-lucide="award" size="18"></i>
+                    </div>
+                </div>
+                
+                <div class="card-vision active-5yr bg-[#1a1a1a] text-white rounded-2xl p-6 md:p-8 shadow-2xl">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                        <h2 class="font-serif text-2xl text-[#c5a059]">Fase de Legado</h2>
+                        <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-full">Visión a 5 Años</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="space-y-2">
+                            <label class="text-[9px] uppercase tracking-tighter text-[#c5a059] font-bold">Impacto del Negocio</label>
+                            <input type="text" placeholder="Ej: Referente en el sector" class="text-lg font-semibold text-white placeholder:text-gray-700">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[9px] uppercase tracking-tighter text-[#c5a059] font-bold">Tu Rol Principal</label>
+                            <input type="text" placeholder="Ej: Board Member / Mentora" class="text-lg font-semibold text-white placeholder:text-gray-700">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[9px] uppercase tracking-tighter text-[#c5a059] font-bold">Estilo de Vida</label>
+                            <input type="text" placeholder="Ej: 4 meses de viaje/año" class="text-lg font-semibold text-white placeholder:text-gray-700">
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-white/10">
+                        <label class="text-[9px] uppercase tracking-tighter text-gray-500 font-bold block mb-2">Propósito Cumplido</label>
+                        <textarea rows="2" placeholder="¿Cómo ha cambiado el mundo (o tu comunidad) gracias a tu empresa?" class="italic text-sm text-gray-400"></textarea>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Footer / Action -->
+        <div class="mt-16 flex flex-col md:flex-row items-center justify-between gap-8 no-print">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 rounded-full bg-emerald-50 flex items-center justify-center text-[#064e3b]">
+                    <i data-lucide="info" size="20"></i>
+                </div>
+                <p class="text-xs text-gray-400 max-w-xs italic">
+                    "La visión sin ejecución es alucinación. Pero la ejecución sin visión es burnout."
+                </p>
+            </div>
+            <button onclick="window.print()" class="group relative px-10 py-5 bg-[#064e3b] text-white rounded-full text-[10px] font-bold uppercase tracking-[0.2em] overflow-hidden transition-all hover:scale-105 active:scale-95">
+                <span class="relative z-10 flex items-center gap-2">
+                    <i data-lucide="file-text" size="14"></i> Exportar Hoja de Ruta
+                </span>
+                <div class="absolute inset-0 bg-[#c5a059] translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
