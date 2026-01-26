@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoja de Ruta: Espejo del Líder</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .mirror-card { 
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+        .mirror-card:hover { 
+            border-color: #c5a059;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .gradient-border {
+            border-left: 5px solid;
+            border-image: linear-gradient(to bottom, #064e3b, #c5a059) 1;
+        }
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white; }
+            .print-shadow { box-shadow: none !important; border: 1px solid #eee !important; }
+        }
+    </style>
+</head>
+<body class="py-8 px-4 md:px-0">
+
+    <div class="max-w-4xl mx-auto">
+        <!-- Encabezado -->
+        <header class="text-center mb-12 no-print">
+            <div class="inline-block p-3 bg-[#064e3b] rounded-2xl mb-4">
+                <i data-lucide="scan-eye" class="text-[#c5a059]" size="32"></i>
+            </div>
+            <h1 class="font-serif text-4xl md:text-5xl text-slate-900 mb-3">Espejo del Líder</h1>
+            <p class="text-slate-500 max-w-xl mx-auto italic text-lg">
+                "El comportamiento de tu equipo es el síntoma; tu liderazgo es la causa."
+            </p>
+            <div class="mt-6 flex justify-center gap-4">
+                <button onclick="window.print()" class="flex items-center gap-2 bg-white border border-slate-200 px-4 py-2 rounded-full text-sm font-semibold hover:bg-slate-50 transition-all">
+                    <i data-lucide="download" size="16"></i> Descargar PDF
+                </button>
+            </div>
+        </header>
+
+        <!-- Instrucciones Rápidas -->
+        <section class="bg-white p-6 rounded-2xl shadow-sm mb-10 border-l-4 border-[#c5a059] print-shadow">
+            <h2 class="font-bold text-slate-800 flex items-center gap-2 mb-2">
+                <i data-lucide="info" size="18" class="text-[#c5a059]"></i> 
+                Cómo completar esta auditoría:
+            </h2>
+            <p class="text-sm text-slate-600 leading-relaxed">
+                Anota aquello que hoy te "saca de quicio" de tu equipo. Luego, haz el ejercicio de honestidad radical: busca dónde estás permitiendo eso, dónde estás dando el ejemplo opuesto o qué sistema (o falta de él) está creando ese resultado.
+            </p>
+        </section>
+
+        <!-- Tabla de Auditoría -->
+        <div class="space-y-6">
+            <!-- Headers (Visible en Desktop) -->
+            <div class="hidden md:grid grid-cols-2 gap-6 px-4">
+                <div class="text-[10px] uppercase font-bold tracking-widest text-slate-400">Lo que me molesta de mi equipo</div>
+                <div class="text-[10px] uppercase font-bold tracking-widest text-[#c5a059]">El cambio interno que debo realizar</div>
+            </div>
+
+            <!-- Fila de Ejemplo -->
+            <div class="mirror-card bg-white rounded-2xl overflow-hidden print-shadow">
+                <div class="grid grid-cols-1 md:grid-cols-2">
+                    <div class="p-6 bg-slate-50/50 border-b md:border-b-0 md:border-r border-slate-100">
+                        <label class="md:hidden text-[10px] font-bold text-slate-400 uppercase block mb-2">Molestia</label>
+                        <p class="text-sm font-semibold text-slate-700 italic">"Siempre llegan tarde o entregan los reportes fuera de plazo."</p>
+                    </div>
+                    <div class="p-6 bg-white">
+                        <label class="md:hidden text-[10px] font-bold text-[#c5a059] uppercase block mb-2">Cambio Interno</label>
+                        <p class="text-sm text-[#064e3b] font-medium">
+                            <i data-lucide="check-circle-2" size="14" class="inline mr-1"></i>
+                            Debo dejar de ser flexible con los plazos por "miedo a caer mal" y empezar a usar el Script de Autoridad: "La puntualidad no es negociable".
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bloques para completar -->
+            <script>
+                for(let i = 1; i <= 4; i++) {
+                    document.write(`
+                    <div class="mirror-card bg-white rounded-2xl overflow-hidden print-shadow">
+                        <div class="grid grid-cols-1 md:grid-cols-2">
+                            <div class="p-6 border-b md:border-b-0 md:border-r border-slate-100">
+                                <label class="text-[10px] font-bold text-slate-400 uppercase block mb-3">Situación #0${i}</label>
+                                <textarea placeholder="Ej: No toman iniciativa, esperan a que yo les diga todo..." class="w-full bg-transparent border-none focus:outline-none text-sm text-slate-600 resize-none" rows="3"></textarea>
+                            </div>
+                            <div class="p-6 bg-[#fcfcfd]">
+                                <label class="text-[10px] font-bold text-[#c5a059] uppercase block mb-3">Reflexión: ¿Qué estoy proyectando?</label>
+                                <textarea placeholder="Ej: ¿Soy yo una CEO indecisa? ¿He castigado el error antes? ¿Falta un proceso claro?" class="w-full bg-transparent border-none focus:outline-none text-sm text-[#064e3b] italic resize-none font-medium" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    `);
+                }
+            </script>
+        </div>
+
+        <!-- El Compromiso del Líder -->
+        <section class="mt-12 bg-[#064e3b] p-8 md:p-12 rounded-[2rem] text-white relative overflow-hidden print-break print-shadow">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-[#c5a059] opacity-10 rounded-full -mr-32 -mt-32"></div>
+            
+            <div class="relative z-10">
+                <h3 class="font-serif text-3xl mb-6">Declaración de Responsabilidad Radical</h3>
+                <p class="text-emerald-100/80 mb-8 text-sm leading-relaxed max-w-2xl">
+                    Reconozco que mi equipo es un reflejo de mi claridad, mi energía y mis sistemas. A partir de hoy, antes de juzgar un resultado externo, auditaré mi estándar interno.
+                </p>
+                
+                <div class="space-y-6">
+                    <div class="border-b border-emerald-800 pb-2">
+                        <label class="text-[10px] uppercase tracking-tighter text-emerald-400 font-bold block mb-1">El comportamiento que voy a dejar de tolerar en mí misma hoy es:</label>
+                        <input type="text" placeholder="Escribe aquí..." class="w-full bg-transparent border-none focus:outline-none text-lg placeholder-emerald-900 text-white">
+                    </div>
+                    
+                    <div class="pt-4">
+                        <p class="text-xs italic text-emerald-300">"La autoridad no se impone, se reconoce a través de la integridad constante."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-12 text-center pb-12 no-print">
+            <p class="text-slate-400 text-[10px] uppercase tracking-[0.2em]">Módulo 2: Liderazgo Personal e Identidad • Team Leader Academy</p>
+        </footer>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
