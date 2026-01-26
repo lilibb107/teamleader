@@ -1,0 +1,269 @@
+HTML
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Precio de la Libertad - CEO Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #f8f7f3; 
+            color: #1a1a1a;
+        }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        
+        .input-gold {
+            border: none;
+            border-bottom: 2px solid #e5e7eb;
+            background: transparent;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        .input-gold:focus {
+            outline: none;
+            border-bottom-color: #c5a059;
+            color: #064e3b;
+        }
+        
+        .card-glass {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .result-gradient {
+            background: linear-gradient(135deg, #064e3b 0%, #0a2e24 100%);
+        }
+
+        @media print {
+            .no-print { display: none !important; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-10">
+
+    <div class="max-w-5xl mx-auto">
+        
+        <div class="mb-10 text-center md:text-left flex flex-col md:flex-row justify-between items-end gap-6">
+            <div>
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="h-px w-8 bg-[#c5a059]"></span>
+                    <p class="text-[#c5a059] uppercase tracking-[0.3em] text-[10px] font-bold">Módulo 3: Finanzas y Libertad</p>
+                </div>
+                <h1 class="text-4xl font-serif text-[#064e3b]">Precio de la Libertad</h1>
+                <p class="text-gray-500 mt-2 text-sm">Define tu estilo de vida ideal y descubre qué necesita tu negocio para sostenerlo.</p>
+            </div>
+            <div class="no-print">
+                <button onclick="window.print()" class="text-[10px] uppercase tracking-widest font-bold text-gray-400 hover:text-[#c5a059] flex items-center gap-2 transition-colors">
+                    <i data-lucide="printer" size="14"></i> Imprimir Auditoría
+                </button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <div class="lg:col-span-2 space-y-6">
+                
+                <div class="card-glass p-6 md:p-8 rounded-3xl shadow-sm">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center text-[#064e3b]">
+                            <i data-lucide="home" size="20"></i>
+                        </div>
+                        <h2 class="font-serif text-xl">Gastos Fijos e Imprescindibles</h2>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Vivienda (Alquiler/Hipoteca + Suministros)</label>
+                            <div class="relative">
+                                <span class="absolute left-0 top-1 text-gray-400">€</span>
+                                <input type="number" data-category="fixed" class="input-gold pl-5 w-full py-1 text-lg" placeholder="0">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Alimentación y Bienestar</label>
+                            <div class="relative">
+                                <span class="absolute left-0 top-1 text-gray-400">€</span>
+                                <input type="number" data-category="fixed" class="input-gold pl-5 w-full py-1 text-lg" placeholder="0">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Transporte y Seguros</label>
+                            <div class="relative">
+                                <span class="absolute left-0 top-1 text-gray-400">€</span>
+                                <input type="number" data-category="fixed" class="input-gold pl-5 w-full py-1 text-lg" placeholder="0">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Otros (Educación, hijos, etc.)</label>
+                            <div class="relative">
+                                <span class="absolute left-0 top-1 text-gray-400">€</span>
+                                <input type="number" data-category="fixed" class="input-gold pl-5 w-full py-1 text-lg" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-glass p-6 md:p-8 rounded-3xl shadow-sm border-l-4 border-l-[#c5a059]">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-full bg-amber-50 flex items-center justify-center text-[#c5a059]">
+                            <i data-lucide="palmtree" size="20"></i>
+                        </div>
+                        <h2 class="font-serif text-xl text-[#c5a059]">Lifestyle & Expansión</h2>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Viajes y Ocio (Media Mensual)</label>
+                            <div class="relative">
+                                <span class="absolute left-0 top-1 text-gray-400">€</span>
+                                <input type="number" data-category="life" class="input-gold pl-5 w-full py-1 text-lg" placeholder="0">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Cuidado Personal (Spa, Estilista, etc.)</label>
+                            <div class="relative">
+                                <span class="absolute left-0 top-1 text-gray-400">€</span>
+                                <input type="number" data-category="life" class="input-gold pl-5 w-full py-1 text-lg" placeholder="0">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Restaurantes y Experiencias</label>
+                            <div class="relative">
+                                <span class="absolute left-0 top-1 text-gray-400">€</span>
+                                <input type="number" data-category="life" class="input-gold pl-5 w-full py-1 text-lg" placeholder="0">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Compras y Caprichos</label>
+                            <div class="relative">
+                                <span class="absolute left-0 top-1 text-gray-400">€</span>
+                                <input type="number" data-category="life" class="input-gold pl-5 w-full py-1 text-lg" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-glass p-6 md:p-8 rounded-3xl shadow-sm border-l-4 border-l-black">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-black">
+                            <i data-lucide="trending-up" size="20"></i>
+                        </div>
+                        <h2 class="font-serif text-xl">Ahorro e Inversión (Págate a ti primero)</h2>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Fondo de Libertad (Ahorro mensual)</label>
+                            <div class="relative">
+                                <span class="absolute left-0 top-1 text-gray-400">€</span>
+                                <input type="number" data-category="invest" class="input-gold pl-5 w-full py-1 text-lg" placeholder="0">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase font-bold text-gray-400 mb-1">Inversión Activos (Bolsa, Inmuebles...)</label>
+                            <div class="relative">
+                                <span class="absolute left-0 top-1 text-gray-400">€</span>
+                                <input type="number" data-category="invest" class="input-gold pl-5 w-full py-1 text-lg" placeholder="0">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="lg:col-span-1">
+                <div class="sticky top-10 space-y-6">
+                    
+                    <div class="result-gradient text-white rounded-[2rem] p-8 shadow-2xl relative overflow-hidden">
+                        <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/5 rounded-full blur-3xl"></div>
+                        
+                        <h3 class="text-[#c5a059] uppercase tracking-[0.2em] text-[10px] font-bold mb-8">Tu Sueldo Neto Ideal</h3>
+                        
+                        <div class="mb-10">
+                            <span class="text-4xl md:text-5xl font-serif" id="totalNeto">0€</span>
+                            <p class="text-white/40 text-xs mt-2 uppercase">Mensuales después de impuestos</p>
+                        </div>
+
+                        <div class="space-y-4 pt-6 border-t border-white/10">
+                            <div class="flex justify-between items-end">
+                                <span class="text-[10px] uppercase text-white/60">Sueldo Bruto Est. (inc. IRPF)</span>
+                                <span class="font-semibold" id="sueldoBruto">0€</span>
+                            </div>
+                            
+                            <div class="bg-black/20 p-4 rounded-xl space-y-3">
+                                <label class="block text-[9px] uppercase font-bold text-[#c5a059]">Tu Margen de Beneficio Actual</label>
+                                <div class="flex items-center gap-2">
+                                    <input type="range" id="margenNegocio" min="5" max="80" value="30" class="w-full accent-[#c5a059]">
+                                    <span class="text-sm font-bold w-12 text-right" id="margenValue">30%</span>
+                                </div>
+                            </div>
+
+                            <div class="pt-6">
+                                <label class="block text-[10px] uppercase text-white/60 mb-2">Facturación Mensual Requerida</label>
+                                <div class="text-2xl font-serif text-[#c5a059]" id="factRequerida">0€</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 border border-gray-100 italic text-sm text-gray-500 leading-relaxed shadow-sm">
+                        "Como CEO, tu primera responsabilidad es ser rentable. Si tu negocio no puede pagarte la vida que deseas, no tienes un negocio, tienes un autoempleo de alto riesgo."
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mt-12 pt-8 border-t border-gray-200 text-center text-xs text-gray-400 no-print">
+            Team Leader Academy &copy; 2026 - Herramienta de Auditoría Financiera CEO
+        </div>
+
+    </div>
+
+    <script>
+        const inputs = document.querySelectorAll('input[type="number"]');
+        const margenRange = document.getElementById('margenNegocio');
+        const margenValue = document.getElementById('margenValue');
+        
+        const totalNetoDisplay = document.getElementById('totalNeto');
+        const sueldoBrutoDisplay = document.getElementById('sueldoBruto');
+        const factRequeridaDisplay = document.getElementById('factRequerida');
+
+        function formatMoney(amount) {
+            return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(amount);
+        }
+
+        function calculate() {
+            let totalNeto = 0;
+            inputs.forEach(input => {
+                totalNeto += Number(input.value) || 0;
+            });
+
+            // Cálculo estimado de IRPF (Simplificado para el ejercicio: ~30% si es sueldo alto)
+            const factorImpuestos = 1.35; 
+            const sueldoBruto = totalNeto * factorImpuestos;
+            
+            // Cálculo de facturación necesaria basada en el margen de beneficio
+            const margen = Number(margenRange.value) / 100;
+            const facturacion = sueldoBruto / margen;
+
+            // Update UI
+            totalNetoDisplay.innerText = formatMoney(totalNeto);
+            sueldoBrutoDisplay.innerText = formatMoney(sueldoBruto);
+            factRequeridaDisplay.innerText = formatMoney(facturacion);
+            margenValue.innerText = margenRange.value + '%';
+        }
+
+        inputs.forEach(input => input.addEventListener('input', calculate));
+        margenRange.addEventListener('input', calculate);
+
+        // Init Lucide
+        lucide.createIcons();
+    </script>
+</body>
+</html>
