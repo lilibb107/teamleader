@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worksheet: El Semáforo de Rentabilidad</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --tl-green: #1a4731;
+            --tl-gold: #c5a059;
+            --tl-black: #000000;
+            --tl-red: #ef4444;
+            --tl-yellow: #f59e0b;
+            --tl-bright-green: #10b981;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: #f0f2f5; color: var(--tl-black); }
+        .serif { font-family: 'Playfair Display', serif; }
+        .bg-tl-green { background-color: var(--tl-green); }
+        .text-tl-gold { color: var(--tl-gold); }
+        .bg-tl-gold { background-color: var(--tl-gold); }
+        
+        /* Asegurar texto negro en la tabla para máxima legibilidad */
+        table, th, td, input, select {
+            color: #000000 !important;
+        }
+
+        .chart-container { position: relative; height: 180px; width: 180px; margin: auto; }
+        
+        .input-cell { 
+            width: 100%; 
+            background: transparent; 
+            border: none; 
+            border-bottom: 1px solid #d1d5db; 
+            padding: 8px; 
+            font-size: 0.9rem; 
+            transition: border-color 0.3s;
+            color: #000000;
+        }
+        .input-cell:focus { outline: none; border-color: var(--tl-gold); }
+        
+        .status-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.5rem center;
+            background-size: 1em;
+        }
+
+        @media print {
+            .no-print { display: none; }
+            body { background-color: white; padding: 0; }
+            .container-main { box-shadow: none; border: none; max-width: 100%; width: 100%; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="container-main max-w-5xl mx-auto bg-white shadow-2xl overflow-hidden min-h-screen flex flex-col">
+        
+        <!-- HEADER -->
+        <div class="p-6 md:p-12 pb-0">
+            <div class="flex flex-col md:flex-row justify-between items-start mb-10 gap-4">
+                <div class="border-l-4 border-tl-gold pl-6">
+                    <h1 class="serif text-4xl italic text-tl-green mb-1">El Semáforo de Rentabilidad</h1>
+                    <p class="uppercase tracking-[0.3em] text-[10px] font-bold text-slate-500">Bloque 1: Limpieza de Catálogo (Nivel 2)</p>
+                </div>
+                <div class="text-right flex flex-col items-end">
+                    <div class="font-bold text-2xl tracking-tighter leading-none text-black">TEAM LEADER</div>
+                    <div class="text-tl-gold font-light tracking-[0.3em] text-[10px]">ACADEMY</div>
+                </div>
+            </div>
+
+            <!-- TABLA DE EVALUACIÓN (TEXTO NEGRO) -->
+            <div class="overflow-x-auto rounded-lg border border-slate-300 mb-8">
+                <table class="w-full text-left border-collapse" id="servicesTable">
+                    <thead>
+                        <tr class="bg-slate-100 text-black text-[10px] uppercase tracking-widest border-b border-slate-300">
+                            <th class="p-4 font-bold">Servicio / Producto</th>
+                            <th class="p-4 font-bold text-center">Esfuerzo (1-10)</th>
+                            <th class="p-4 font-bold text-center">Rentabilidad (1-10)</th>
+                            <th class="p-4 font-bold text-center">Estado Semáforo</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200">
+                        <script>
+                            for(let i=0; i<6; i++) {
+                                document.write(`
+                                <tr class="service-row">
+                                    <td class="p-4 w-1/2"><input type="text" class="input-cell font-medium" placeholder="Nombre del servicio..."></td>
+                                    <td class="p-4 text-center"><input type="number" min="0" max="10" class="input-cell text-center" placeholder="-"></td>
+                                    <td class="p-4 text-center"><input type="number" min="0" max="10" class="input-cell text-center" placeholder="-"></td>
+                                    <td class="p-4 text-center">
+                                        <select onchange="updateCharts()" class="status-select text-[10px] font-bold uppercase border border-slate-300 p-2 rounded w-full cursor-pointer bg-white">
+                                            <option value="">Seleccionar...</option>
+                                            <option value="rojo">🔴 ROJO (Eliminar)</option>
+                                            <option value="amarillo">🟡 AMARILLO (Sistematizar)</option>
+                                            <option value="verde">🟢 VERDE (Escalar)</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                `);
+                            }
+                        </script>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- NOTA DE OBJETIVO IDEAL (NUEVA SECCIÓN) -->
+            <div class="bg-amber-50 border-l-4 border-amber-400 p-4 mb-6 rounded-r-lg">
+                <div class="flex items-center gap-2 mb-2">
+                    <svg class="w-4 h-4 text-amber-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                    <span class="text-[11px] font-bold uppercase tracking-wider text-amber-800 italic">Objetivo de Salud de Cartera (Benchmark CEO)</span>
+                </div>
+                <p class="text-[11px] text-amber-900 leading-relaxed">
+                    Para un negocio escalable, el ratio ideal es: <strong class="text-emerald-700">Verde > 70%</strong> (Tu motor de escala), <strong class="text-amber-700">Amarillo < 20%</strong> (Servicios en transición) y <strong class="text-red-700">Rojo = 0%</strong> (Fugas de energía eliminadas).
+                </p>
+            </div>
+
+            <!-- DASHBOARD VISUAL (DEBAJO DE LA TABLA) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 flex flex-col items-center justify-center">
+                    <h4 class="text-[10px] font-bold uppercase text-slate-500 mb-4 tracking-widest text-center">Distribución Visual</h4>
+                    <div class="chart-container">
+                        <canvas id="rentabilityChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="md:col-span-2 bg-tl-green text-white p-8 rounded-xl flex flex-col justify-center shadow-lg">
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="w-2 h-2 rounded-full bg-tl-gold animate-pulse"></div>
+                        <h4 class="text-[11px] font-bold uppercase text-tl-gold tracking-[0.2em] italic">Análisis en Tiempo Real</h4>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 gap-6">
+                        <div class="group">
+                            <div class="flex justify-between text-[10px] uppercase mb-2 font-bold tracking-wider">
+                                <span class="text-emerald-400">Zona de Escala (Verde) - Meta: 70%+</span>
+                                <span id="val-verde" class="text-lg">0%</span>
+                            </div>
+                            <div class="w-full bg-black/40 h-3 rounded-full overflow-hidden border border-white/10">
+                                <div id="bar-verde" class="bg-emerald-500 h-full transition-all duration-700 ease-out shadow-[0_0_10px_rgba(16,185,129,0.3)]" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="group">
+                            <div class="flex justify-between text-[10px] uppercase mb-2 font-bold tracking-wider">
+                                <span class="text-amber-400">Zona de Riesgo (Amarillo) - Meta: < 20%</span>
+                                <span id="val-amarillo" class="text-lg">0%</span>
+                            </div>
+                            <div class="w-full bg-black/40 h-3 rounded-full overflow-hidden border border-white/10">
+                                <div id="bar-amarillo" class="bg-amber-400 h-full transition-all duration-700 ease-out shadow-[0_0_10px_rgba(245,158,11,0.3)]" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="group">
+                            <div class="flex justify-between text-[10px] uppercase mb-2 font-bold tracking-wider">
+                                <span class="text-red-400">Fuga de Tiempo (Rojo) - Meta: 0%</span>
+                                <span id="val-rojo" class="text-lg">0%</span>
+                            </div>
+                            <div class="w-full bg-black/40 h-3 rounded-full overflow-hidden border border-white/10">
+                                <div id="bar-rojo" class="bg-red-500 h-full transition-all duration-700 ease-out shadow-[0_0_10px_rgba(239,68,68,0.3)]" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN DE ESTRATEGIA -->
+        <div class="p-6 md:p-12 bg-slate-50 border-t border-slate-200">
+            <div class="flex items-center gap-3 mb-8">
+                <span class="bg-tl-gold text-white px-3 py-1 rounded text-[10px] font-bold uppercase tracking-widest">Plan Maestro</span>
+                <h2 class="serif text-3xl text-tl-green italic font-bold">Estrategia de Evolución</h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                <div class="space-y-6">
+                    <div class="p-6 bg-white border border-slate-200 rounded-lg shadow-sm">
+                        <h3 class="text-xs font-bold uppercase text-tl-green mb-3">1. Prioridad de Sistematización</h3>
+                        <p class="text-[11px] text-slate-500 mb-4">Nombra el servicio Amarillo que transformaremos en Verde:</p>
+                        <input type="text" class="w-full border-b-2 border-slate-100 p-2 text-sm italic text-black outline-none focus:border-tl-gold transition-colors" placeholder="Escribe aquí...">
+                    </div>
+                    
+                    <div class="bg-white p-6 rounded-lg border border-slate-200">
+                         <h3 class="text-xs font-bold uppercase text-tl-green mb-4 italic">Checklist de Activos Requeridos</h3>
+                         <div class="space-y-3">
+                            <label class="flex items-center gap-3 text-sm text-black">
+                                <input type="checkbox" class="w-4 h-4 accent-tl-gold"> Manual de Procedimientos (SOP)
+                            </label>
+                            <label class="flex items-center gap-3 text-sm text-black">
+                                <input type="checkbox" class="w-4 h-4 accent-tl-gold"> Video Tutoriales para el Cliente
+                            </label>
+                            <label class="flex items-center gap-3 text-sm text-black">
+                                <input type="checkbox" class="w-4 h-4 accent-tl-gold"> Plantillas de entrega repetibles
+                            </label>
+                         </div>
+                    </div>
+                </div>
+
+                <div class="bg-tl-green text-white p-8 rounded-xl flex flex-col shadow-inner">
+                    <h4 class="serif text-xl mb-4 text-tl-gold">Notas del Estratega</h4>
+                    <textarea class="flex-grow bg-black/20 border border-white/10 rounded-lg p-4 text-sm text-white placeholder:text-white/30 focus:bg-black/30 outline-none transition-all resize-none min-h-[150px]" placeholder="¿Qué decisiones drásticas tomarás hoy con tus servicios rojos?"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="bg-black p-6 no-print flex justify-between items-center text-white mt-auto">
+            <p class="text-[9px] uppercase tracking-[0.3em] font-light text-slate-500 italic">Academy CEO Strategy • Bloque 1</p>
+            <button onclick="window.print()" class="bg-tl-gold text-white px-8 py-2 rounded font-bold text-[10px] uppercase tracking-widest hover:scale-105 transition-all">
+                Exportar Reporte
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let rentabilityChart;
+
+        function initChart() {
+            const ctx = document.getElementById('rentabilityChart').getContext('2d');
+            rentabilityChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Rojo', 'Amarillo', 'Verde', 'Pendiente'],
+                    datasets: [{
+                        data: [0, 0, 0, 1],
+                        backgroundColor: ['#ef4444', '#f59e0b', '#10b981', '#f1f5f9'],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    cutout: '80%',
+                    plugins: { legend: { display: false } },
+                    animation: { duration: 1500, easing: 'easeOutQuart' }
+                }
+            });
+        }
+
+        function updateCharts() {
+            const selects = document.querySelectorAll('.status-select');
+            let rojo = 0, amarillo = 0, verde = 0, total = 0;
+
+            selects.forEach(select => {
+                const val = select.value;
+                if (val === 'rojo') rojo++;
+                else if (val === 'amarillo') amarillo++;
+                else if (val === 'verde') verde++;
+                
+                if (val !== "") total++;
+            });
+
+            const data = total > 0 ? [rojo, amarillo, verde, 0] : [0, 0, 0, 1];
+            rentabilityChart.data.datasets[0].data = data;
+            rentabilityChart.update();
+
+            if (total > 0) {
+                const pRojo = Math.round((rojo / total) * 100);
+                const pAmarillo = Math.round((amarillo / total) * 100);
+                const pVerde = Math.round((verde / total) * 100);
+
+                document.getElementById('val-rojo').innerText = pRojo + '%';
+                document.getElementById('bar-rojo').style.width = pRojo + '%';
+                
+                document.getElementById('val-amarillo').innerText = pAmarillo + '%';
+                document.getElementById('bar-amarillo').style.width = pAmarillo + '%';
+                
+                document.getElementById('val-verde').innerText = pVerde + '%';
+                document.getElementById('bar-verde').style.width = pVerde + '%';
+            }
+        }
+
+        window.onload = initChart;
+    </script>
+</body>
+</html>

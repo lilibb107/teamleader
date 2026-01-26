@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worksheet: Auditoría de Fugas CEO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --tl-green: #1a4731;
+            --tl-gold: #c5a059;
+            --tl-black: #111111;
+        }
+        body { font-family: 'Inter', sans-serif; background-color: #f8f9fa; color: var(--tl-black); }
+        .serif { font-family: 'Playfair Display', serif; }
+        .bg-tl-green { background-color: var(--tl-green); }
+        .text-tl-gold { color: var(--tl-gold); }
+        .border-tl-gold { border-color: var(--tl-gold); }
+        .bg-tl-gold { background-color: var(--tl-gold); }
+        
+        input[type="checkbox"]:checked {
+            accent-color: var(--tl-gold);
+        }
+
+        .input-premium {
+            border-bottom: 2px solid #e2e8f0;
+            transition: border-color 0.3s ease;
+        }
+        .input-premium:focus {
+            outline: none;
+            border-color: var(--tl-gold);
+        }
+
+        @media print {
+            .no-print { display: none; }
+            body { background-color: white; }
+            .shadow-2xl { box-shadow: none; }
+        }
+    </style>
+</head>
+<body class="p-4 md:p-10 leading-relaxed">
+
+    <div class="max-w-4xl mx-auto bg-white shadow-2xl rounded-sm overflow-hidden border border-slate-200">
+        
+        <!-- Header -->
+        <div class="bg-tl-green p-8 md:p-12 text-white relative">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-tl-gold opacity-10 -mr-16 -mt-16 rounded-full"></div>
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                <div>
+                    <h1 class="serif text-4xl md:text-5xl italic text-tl-gold mb-2">Auditoría de Fugas CEO</h1>
+                    <p class="uppercase tracking-[0.2em] text-sm font-light opacity-80">Bloque 1: Mentalidad y Diseño de Empresa</p>
+                </div>
+                <div class="text-right border-l border-tl-gold pl-6">
+                    <div class="font-bold text-xl tracking-tighter leading-none">TEAM LEADER</div>
+                    <div class="text-tl-gold font-light tracking-[0.3em] text-xs">ACADEMY</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-8 md:p-12">
+            <!-- Introducción -->
+            <div class="mb-12 border-b border-slate-100 pb-8">
+                <h2 class="text-xs uppercase font-bold tracking-widest text-tl-gold mb-4">Objetivo Estratégico</h2>
+                <p class="text-lg text-slate-700 italic">
+                    Identificar las "tareas de 10€" que están robando tiempo de escala para proteger tu rol de diseñadora de activos.
+                </p>
+            </div>
+
+            <!-- Sección 1: Clasificación -->
+            <section class="mb-16">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="bg-tl-black text-tl-gold w-8 h-8 flex items-center justify-center rounded-full font-bold">1</span>
+                    <h3 class="text-xl font-bold uppercase tracking-tight text-tl-green">Inventario de Tareas Diarias</h3>
+                </div>
+                
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b-2 border-tl-black">
+                            <th class="py-3 font-bold text-sm uppercase">Descripción de la Tarea</th>
+                            <th class="py-3 text-center text-[10px] uppercase font-bold px-2">Técnica</th>
+                            <th class="py-3 text-center text-[10px] uppercase font-bold px-2 text-tl-green">Gestora</th>
+                            <th class="py-3 text-center text-[10px] uppercase font-bold px-2 text-tl-gold">Estratega</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        <tr class="border-b border-slate-100">
+                            <td class="py-4"><input type="text" class="w-full focus:outline-none italic" placeholder="Ej: Responder dudas por WhatsApp..."></td>
+                            <td class="text-center px-2"><input type="checkbox"></td>
+                            <td class="text-center px-2"><input type="checkbox"></td>
+                            <td class="text-center px-2"><input type="checkbox"></td>
+                        </tr>
+                        <tr class="border-b border-slate-100">
+                            <td class="py-4"><input type="text" class="w-full focus:outline-none" placeholder="Tarea 1..."></td>
+                            <td class="text-center px-2"><input type="checkbox"></td>
+                            <td class="text-center px-2"><input type="checkbox"></td>
+                            <td class="text-center px-2"><input type="checkbox"></td>
+                        </tr>
+                        <tr class="border-b border-slate-100">
+                            <td class="py-4"><input type="text" class="w-full focus:outline-none" placeholder="Tarea 2..."></td>
+                            <td class="text-center px-2"><input type="checkbox"></td>
+                            <td class="text-center px-2"><input type="checkbox"></td>
+                            <td class="text-center px-2"><input type="checkbox"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Sección 2: Calculadora -->
+            <section class="mb-16 bg-slate-50 p-8 rounded-lg border-l-4 border-tl-gold">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="bg-tl-black text-tl-gold w-8 h-8 flex items-center justify-center rounded-full font-bold">2</span>
+                    <h3 class="text-xl font-bold uppercase tracking-tight text-tl-green">Calculadora de Pérdida CEO</h3>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white p-4 shadow-sm border border-slate-100">
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase mb-2">Valor de tu hora CEO (€)</label>
+                        <input type="number" id="valorHora" class="text-2xl font-bold text-slate-900 w-full focus:outline-none" placeholder="0" oninput="calcularPerdida()">
+                    </div>
+                    <div class="bg-white p-4 shadow-sm border border-slate-100">
+                        <label class="block text-[10px] font-bold text-slate-400 uppercase mb-2">Horas/semana en operativa</label>
+                        <input type="number" id="horasSemana" class="text-2xl font-bold text-slate-900 w-full focus:outline-none" placeholder="0" oninput="calcularPerdida()">
+                    </div>
+                    <div class="bg-white p-4 shadow-sm border border-slate-100 flex flex-col justify-center">
+                        <label class="block text-[10px] font-bold text-tl-gold uppercase mb-1">Pérdida Semanal</label>
+                        <div id="resultadoPerdida" class="text-2xl font-black text-slate-900">0,00 €</div>
+                    </div>
+                </div>
+                <div class="mt-6 bg-white p-4 rounded border border-slate-200 text-xs text-slate-600">
+                    <p class="font-bold text-tl-gold uppercase mb-1">Impacto Anual Proyectado:</p>
+                    <span id="resultadoAnual" class="text-lg font-bold text-tl-green">0,00 €</span>
+                    <span class="ml-2 italic text-slate-400">(Basado en 48 semanas laborales)</span>
+                </div>
+            </section>
+
+            <!-- Sección 3: Checklist Ampliado -->
+            <section class="mb-8">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="bg-tl-black text-tl-gold w-8 h-8 flex items-center justify-center rounded-full font-bold">3</span>
+                    <h3 class="text-xl font-bold uppercase tracking-tight text-tl-green">Checklist de Caza-Incendios</h3>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <label class="flex items-center gap-4 p-3 border border-slate-100 rounded-md hover:bg-slate-50 transition-colors cursor-pointer group">
+                        <input type="checkbox" class="w-4 h-4">
+                        <span class="text-xs text-slate-700">Dudas de acceso o logística (Falta de Onboarding).</span>
+                    </label>
+                    <label class="flex items-center gap-4 p-3 border border-slate-100 rounded-md hover:bg-slate-50 transition-colors cursor-pointer group">
+                        <input type="checkbox" class="w-4 h-4">
+                        <span class="text-xs text-slate-700">Persecución de facturas (Falta de Pasarela).</span>
+                    </label>
+                    <label class="flex items-center gap-4 p-3 border border-slate-100 rounded-md hover:bg-slate-50 transition-colors cursor-pointer group">
+                        <input type="checkbox" class="w-4 h-4">
+                        <span class="text-xs text-slate-700">Gestión de agenda manual (Falta Calendly/Booking).</span>
+                    </label>
+                    <label class="flex items-center gap-4 p-3 border border-slate-100 rounded-md hover:bg-slate-50 transition-colors cursor-pointer group">
+                        <input type="checkbox" class="w-4 h-4">
+                        <span class="text-xs text-slate-700">Edición de contenido básico (Delegable a Editor/VA).</span>
+                    </label>
+                    <label class="flex items-center gap-4 p-3 border border-slate-100 rounded-md hover:bg-slate-50 transition-colors cursor-pointer group">
+                        <input type="checkbox" class="w-4 h-4">
+                        <span class="text-xs text-slate-700">Subida de posts o emails (Falta Programación).</span>
+                    </label>
+                    <label class="flex items-center gap-4 p-3 border border-slate-100 rounded-md hover:bg-slate-50 transition-colors cursor-pointer group">
+                        <input type="checkbox" class="w-4 h-4">
+                        <span class="text-xs text-slate-700">Soporte técnico de primer nivel (Falta Wiki/FAQ).</span>
+                    </label>
+                    <label class="flex items-center gap-4 p-3 border border-slate-100 rounded-md hover:bg-slate-50 transition-colors cursor-pointer group">
+                        <input type="checkbox" class="w-4 h-4">
+                        <span class="text-xs text-slate-700">Filtrado de leads no cualificados (Falta Formulario).</span>
+                    </label>
+                    <label class="flex items-center gap-4 p-3 border border-slate-100 rounded-md hover:bg-slate-50 transition-colors cursor-pointer group">
+                        <input type="checkbox" class="w-4 h-4">
+                        <span class="text-xs text-slate-700">Reportes de métricas manuales (Falta Dashboard).</span>
+                    </label>
+                </div>
+            </section>
+
+            <!-- Firma -->
+            <div class="mt-12 pt-8 border-t border-slate-100 text-center">
+                <h4 class="serif italic text-2xl text-tl-green mb-2">Tu Compromiso CEO</h4>
+                <div class="max-w-md mx-auto mb-8">
+                    <input type="text" class="w-full text-center border-b border-tl-gold focus:outline-none p-2 text-sm italic" placeholder="Escribe la tarea que vas a soltar esta semana...">
+                </div>
+                <div class="w-48 h-px bg-tl-gold mx-auto mb-2"></div>
+                <p class="text-[10px] uppercase tracking-widest font-bold">Firma de la Propietaria</p>
+            </div>
+        </div>
+
+        <!-- Footer (Año 2026 actualizado) -->
+        <div class="bg-slate-50 p-6 flex flex-col md:flex-row justify-between items-center text-[10px] text-slate-400 font-bold tracking-widest border-t border-slate-100">
+            <div>© 2026 TEAM LEADER ACADEMY</div>
+            <div class="text-tl-gold italic">DE EJECUTORA A DISEÑADORA</div>
+        </div>
+    </div>
+
+    <!-- Botón de impresión -->
+    <div class="max-w-4xl mx-auto mt-6 flex justify-end no-print">
+        <button onclick="window.print()" class="bg-tl-green text-white px-6 py-2 rounded-full font-bold text-xs uppercase tracking-widest flex items-center gap-2 hover:bg-black transition-all">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+            </svg>
+            Guardar como PDF
+        </button>
+    </div>
+
+    <script>
+        function calcularPerdida() {
+            const valorHora = parseFloat(document.getElementById('valorHora').value) || 0;
+            const horasSemana = parseFloat(document.getElementById('horasSemana').value) || 0;
+            
+            // Lógica de costo de oportunidad (Valor CEO vs Costo Delegación base)
+            const costoDelegar = 10; 
+            const diferencia = valorHora - costoDelegar;
+            const perdidaSemanal = diferencia > 0 ? diferencia * horasSemana : 0;
+            const perdidaAnual = perdidaSemanal * 48;
+
+            const formatter = new Intl.NumberFormat('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+            document.getElementById('resultadoPerdida').innerText = formatter.format(perdidaSemanal) + ' €';
+            document.getElementById('resultadoAnual').innerText = formatter.format(perdidaAnual) + ' €';
+        }
+    </script>
+</body>
+</html>

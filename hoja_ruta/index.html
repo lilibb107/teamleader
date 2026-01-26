@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoja de Ruta CEO - Bloque 1</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --soft-cream: #f9f7f2;
+            --deep-forest: #1a2e25;
+            --muted-gold: #b59451;
+            --text-main: #2d2d2d;
+        }
+        body {
+            background-color: var(--soft-cream);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+        }
+        .serif { font-family: 'Bodoni Moda', serif; }
+        .bg-forest { background-color: var(--deep-forest); }
+        .text-gold { color: var(--muted-gold); }
+        .border-gold { border-color: var(--muted-gold); }
+        
+        .shadow-elegant {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+        }
+
+        .input-line {
+            border: none;
+            border-bottom: 1px solid #e5e7eb;
+            background: transparent;
+            width: 100%;
+            padding: 4px 0;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .input-line:focus {
+            border-bottom-color: var(--muted-gold);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+        }
+
+        @media print {
+            .no-print { display: none; }
+            body { background: white; }
+            .shadow-elegant { box-shadow: none; border: 1px solid #eee; }
+        }
+    </style>
+</head>
+<body class="p-6 md:p-16">
+
+    <div class="max-w-5xl mx-auto">
+        <!-- HEADER -->
+        <header class="flex flex-col md:flex-row justify-between items-start mb-16 border-b border-black/5 pb-8 gap-4">
+            <div>
+                <span class="text-[10px] tracking-[0.3em] uppercase text-gold font-semibold italic">Bloque 1: Mentalidad & Diseño de Empresa</span>
+                <h1 class="serif text-5xl mt-2 italic">Metamorfosis CEO</h1>
+                <p class="text-sm text-gray-500 mt-2 italic">De fabricar el servicio a fabricar la máquina.</p>
+            </div>
+            <div class="text-right no-print">
+                <button onclick="window.print()" class="bg-forest text-white px-8 py-3 rounded-sm text-xs tracking-widest uppercase hover:opacity-90 transition-all">Imprimir Guía de Trabajo</button>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+            
+            <!-- COLUMNA IZQUIERDA: SILLAS Y AGENDA -->
+            <div class="space-y-8">
+                <!-- SECCIÓN A: LAS 4 SILLAS -->
+                <section class="bg-white p-10 rounded-sm shadow-elegant border border-black/[0.02]">
+                    <h2 class="serif text-2xl mb-6 flex items-center gap-3">
+                        <span class="text-gold text-sm italic">01.</span> Las 4 Sillas de la Empresa
+                    </h2>
+                    <p class="text-xs text-gray-400 mb-8 leading-relaxed">Define qué funciones asumes hoy y cuáles vas a documentar para delegar.</p>
+                    
+                    <div class="space-y-8">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <label class="text-[10px] uppercase tracking-wider font-bold">Dirección (Estrategia)</label>
+                                <span class="text-[10px] text-gold italic">Visión 3 años</span>
+                            </div>
+                            <input type="text" placeholder="¿Qué día y hora te sientas aquí?" class="input-line text-sm italic">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <label class="text-[10px] uppercase tracking-wider font-bold">Marketing & Ventas</label>
+                                <span class="text-[10px] text-gold italic">Atracción</span>
+                            </div>
+                            <input type="text" placeholder="Meta de captación semanal..." class="input-line text-sm italic">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <label class="text-[10px] uppercase tracking-wider font-bold">Operaciones & Entrega</label>
+                                <span class="text-[10px] text-red-400 italic">ZONA DE RIESGO</span>
+                            </div>
+                            <input type="text" placeholder="Proceso a estandarizar esta semana..." class="input-line text-sm italic">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <label class="text-[10px] uppercase tracking-wider font-bold">Administración & Finanzas</label>
+                                <span class="text-[10px] text-gold italic">Soporte</span>
+                            </div>
+                            <input type="text" placeholder="Gestión de facturación y pagos..." class="input-line text-sm italic">
+                        </div>
+                    </div>
+                </section>
+
+                <!-- NUEVA SECCIÓN: BLOQUEO DE AGENDA (Debajo de las sillas) -->
+                <section class="bg-white p-10 rounded-sm shadow-elegant border border-black/[0.02]">
+                    <h2 class="serif text-xl mb-4 italic">Diseño de Semana Tipo</h2>
+                    <p class="text-[10px] text-gray-400 uppercase tracking-widest mb-6 font-semibold">Time Blocking Estratégico</p>
+                    
+                    <div class="calendar-grid mb-6">
+                        <div class="text-[9px] font-bold text-center border-b pb-2">LUN</div>
+                        <div class="text-[9px] font-bold text-center border-b pb-2">MAR</div>
+                        <div class="text-[9px] font-bold text-center border-b pb-2">MIÉ</div>
+                        <div class="text-[9px] font-bold text-center border-b pb-2">JUE</div>
+                        <div class="text-[9px] font-bold text-center border-b pb-2">VIE</div>
+                        
+                        <div class="h-10 border border-dashed border-gray-100 bg-gray-50/30"></div>
+                        <div class="h-10 border border-dashed border-gray-100 bg-gray-50/30"></div>
+                        <div class="h-10 border border-dashed border-gray-100 bg-gray-50/30"></div>
+                        <div class="h-10 border border-dashed border-gray-100 bg-gray-50/30"></div>
+                        <div class="h-10 border border-dashed border-gray-100 bg-gray-50/30"></div>
+                    </div>
+                    
+                    <div class="bg-cream p-4 border border-gold/20 rounded-sm italic text-xs text-gray-500">
+                        <p><strong>Reto CEO:</strong> Reserva al menos un bloque de 90 minutos el lunes por la mañana para la Silla de Dirección (Estrategia).</p>
+                    </div>
+                </section>
+            </div>
+
+            <!-- COLUMNA DERECHA: ACTIVOS Y NOTION -->
+            <div class="space-y-8">
+                <!-- SECCIÓN B: LA WIKI DE EMPRESA -->
+                <div class="bg-forest text-white p-10 rounded-sm shadow-elegant">
+                    <h2 class="serif text-2xl text-gold mb-4 italic">El Inventario de Activos</h2>
+                    <p class="text-[11px] opacity-70 mb-8">Un negocio real es un activo financiero. Identifica qué tienes hoy:</p>
+                    
+                    <ul class="space-y-5 text-sm">
+                        <li class="flex items-start gap-4 border-b border-white/10 pb-4">
+                            <span class="w-1.5 h-1.5 bg-gold mt-1.5 shrink-0"></span> 
+                            <div>
+                                <span class="font-semibold block">Sistemas</span>
+                                <span class="text-[11px] opacity-60">Manual de operaciones en Notion (Wiki).</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4 border-b border-white/10 pb-4">
+                            <span class="w-1.5 h-1.5 bg-gold mt-1.5 shrink-0"></span> 
+                            <div>
+                                <span class="font-semibold block">Equipo</span>
+                                <span class="text-[11px] opacity-60">Contrataciones actuales o planificadas.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4 border-b border-white/10 pb-4">
+                            <span class="w-1.5 h-1.5 bg-gold mt-1.5 shrink-0"></span> 
+                            <div>
+                                <span class="font-semibold block">Marca & Reputación</span>
+                                <span class="text-[11px] opacity-60">Tu posicionamiento en el mercado de alto valor.</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <span class="w-1.5 h-1.5 bg-gold mt-1.5 shrink-0"></span> 
+                            <div>
+                                <span class="font-semibold block">Base de Datos</span>
+                                <span class="text-[11px] opacity-60">Tu lista de clientes y leads cualificados.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- SECCIÓN C: COMPROMISO -->
+                <div class="bg-white p-10 rounded-sm shadow-elegant border border-black/[0.02]">
+                    <h2 class="serif text-2xl mb-4 italic text-forest">Tu Regla de Oro</h2>
+                    <div class="p-6 bg-cream border-l-2 border-gold italic text-sm text-gray-600 mb-8">
+                        "Cada hora que pasas en tareas de bajo valor es una hora que le robas a la escala."
+                    </div>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <label class="text-[10px] uppercase tracking-wider font-bold block mb-2">Tarea que dejaré de hacer hoy:</label>
+                            <input type="text" class="input-line text-sm italic py-2" placeholder="Ej: Responder DMs básicos...">
+                        </div>
+                        <div>
+                            <label class="text-[10px] uppercase tracking-wider font-bold block mb-2">Primer proceso a documentar en mi Wiki:</label>
+                            <input type="text" class="input-line text-sm italic py-2" placeholder="Ej: Onboarding de nuevos clientes...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="mt-16 text-center border-t border-black/5 pt-8">
+            <p class="serif italic text-gray-400 text-sm">Team Leader Academy - Bloque 1 - Diseñado para la CEO que lidera.</p>
+        </footer>
+    </div>
+
+</body>
+</html>
