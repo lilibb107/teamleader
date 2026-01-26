@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist: Tu Vitrina Digital 2026</title>
+    <style>
+        :root {
+            --dorado: #c5a059;
+            --verde: #2e7d32;
+            --negro: #0b0b0b;
+            --gris-oscuro: #1a1a1a;
+            --blanco: #ffffff;
+        }
+
+        body {
+            background-color: var(--negro);
+            color: var(--blanco);
+            font-family: 'Montserrat', sans-serif, Arial;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 850px;
+            width: 100%;
+            border: 1px solid var(--dorado);
+            background-color: #111111;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--verde);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--dorado);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin: 0;
+            font-size: 2em;
+        }
+
+        .subtitle {
+            color: var(--verde);
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-top: 10px;
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section-header {
+            color: var(--dorado);
+            font-size: 1.2em;
+            font-weight: bold;
+            border-left: 4px solid var(--verde);
+            padding-left: 15px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        /* Estilo de los Items Interactivos */
+        .checklist-item {
+            background: var(--gris-oscuro);
+            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .checklist-item:hover {
+            border-color: var(--verde);
+        }
+
+        /* El truco del Checkbox */
+        .item-row {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        input[type="checkbox"] {
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            accent-color: var(--verde);
+            margin-right: 15px;
+            margin-top: 3px;
+        }
+
+        /* Estilo cuando está marcado */
+        .checklist-item:has(input[type="checkbox"]:checked) {
+            background: #0f1a10;
+            border-color: var(--verde);
+            opacity: 0.8;
+        }
+
+        .checklist-item:has(input[type="checkbox"]:checked) label {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        label {
+            cursor: pointer;
+            font-size: 1.05em;
+            line-height: 1.4;
+            flex: 1;
+        }
+
+        /* Campos de respuesta */
+        .answer-box {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #333;
+            color: var(--dorado);
+            padding: 10px 0;
+            margin-top: 15px;
+            font-size: 1em;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .answer-box:focus {
+            border-bottom-color: var(--dorado);
+        }
+
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 0.8em;
+            color: #555;
+            letter-spacing: 2px;
+        }
+
+        @media print {
+            body { background: white; color: black; }
+            .container { border: none; box-shadow: none; width: 100%; }
+            .checklist-item { border: 1px solid #ccc; page-break-inside: avoid; }
+            .answer-box { border-bottom: 1px solid black; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>TU VITRINA DIGITAL</h1>
+        <div class="subtitle">AUDITORÍA ESTRATÉGICA • NIVEL 2</div>
+    </header>
+
+    <div class="section">
+        <div class="section-header">1. Identidad y SEO (Visibilidad)</div>
+        
+        <div class="checklist-item">
+            <div class="item-row">
+                <input type="checkbox" id="step1">
+                <label for="step1"><strong>Nombre y Perfil:</strong> ¿Tu nombre incluye tu profesión o palabra clave? (Ej: "Coach de Liderazgo")</label>
+            </div>
+            <input type="text" class="answer-box" placeholder="Escribe aquí tus palabras clave actuales...">
+        </div>
+
+        <div class="checklist-item">
+            <div class="item-row">
+                <input type="checkbox" id="step2">
+                <label for="step2"><strong>Biografía Magnética:</strong> ¿Tu descripción responde qué haces por el cliente en menos de 5 segundos?</label>
+            </div>
+            <input type="text" class="answer-box" placeholder="Redacta tu nueva propuesta de valor...">
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-header">2. Conversión y Destino</div>
+        
+        <div class="checklist-item">
+            <div class="item-row">
+                <input type="checkbox" id="step3">
+                <label for="step3"><strong>Link en Bio:</strong> ¿El enlace lleva a un embudo claro o directo a WhatsApp/Agenda?</label>
+            </div>
+            <input type="text" class="answer-box" placeholder="Pega aquí el enlace que usarás...">
+        </div>
+
+        <div class="checklist-item">
+            <div class="item-row">
+                <input type="checkbox" id="step4">
+                <label for="step4"><strong>Llamado a la Acción (CTA):</strong> ¿Hay una instrucción clara justo arriba del link?</label>
+            </div>
+            <input type="text" class="answer-box" placeholder="Ej: 'Agenda tu sesión de diagnóstico aquí 👇'">
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-header">3. Historias Destacadas (Autoridad)</div>
+        
+        <div class="checklist-item">
+            <div class="item-row">
+                <input type="checkbox" id="step5">
+                <label for="step5"><strong>¿Quién eres?:</strong> Historia personal y valores (Conexión Humana).</label>
+            </div>
+            <input type="text" class="answer-box" placeholder="¿Qué tres valores vas a destacar?">
+        </div>
+
+        <div class="checklist-item">
+            <div class="item-row">
+                <input type="checkbox" id="step6">
+                <label for="step6"><strong>¿Qué vendes?:</strong> Detalles del servicio y a quién va dirigido.</label>
+            </div>
+            <input type="text" class="answer-box" placeholder="Nombre de tu producto/servicio principal...">
+        </div>
+
+        <div class="checklist-item">
+            <div class="item-row">
+                <input type="checkbox" id="step7">
+                <label for="step7"><strong>Prueba Social:</strong> Testimonios, pantallazos de resultados o casos de éxito.</label>
+            </div>
+            <input type="text" class="answer-box" placeholder="¿Cuántos testimonios subirás hoy?">
+        </div>
+    </div>
+
+    <div class="footer">
+        TEAM LEADER ACADEMY &copy; 2026 | TRANSFORMANDO LÍDERES EN REFERENTES
+    </div>
+</div>
+
+</body>
+</html>
