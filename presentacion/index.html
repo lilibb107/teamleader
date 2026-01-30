@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocolo de Presentación - Team Leader Academy</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --fondo: #050505;
+            --panel: #111111;
+            --verde: #3d5a2d; 
+            --dorado: #b4973a; 
+            --blanco: #ffffff;
+            --linea: #222;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--fondo);
+            color: var(--blanco);
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: var(--panel);
+            border: 1px solid var(--linea);
+            border-radius: 24px;
+            padding: 50px;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.9);
+        }
+
+        .header {
+            text-align: left;
+            margin-bottom: 40px;
+            border-left: 4px solid var(--dorado);
+            padding-left: 20px;
+        }
+
+        .header h1 {
+            color: var(--dorado);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 1.4rem;
+            margin: 0;
+        }
+
+        .header p {
+            color: var(--verde);
+            font-size: 0.8rem;
+            font-weight: 800;
+            margin-top: 5px;
+            text-transform: uppercase;
+        }
+
+        /* Línea de tiempo vertical */
+        .timeline {
+            position: relative;
+            margin-left: 20px;
+        }
+
+        .step {
+            position: relative;
+            padding-left: 40px;
+            padding-bottom: 30px;
+            border-left: 2px solid var(--linea);
+        }
+
+        .step.last { border-left: 2px solid transparent; }
+
+        .step-marker {
+            position: absolute;
+            left: -11px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background: var(--fondo);
+            border: 2px solid var(--linea);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .step.active .step-marker {
+            background: var(--verde);
+            border-color: var(--verde);
+            box-shadow: 0 0 15px var(--verde);
+        }
+
+        .step-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .step-header h3 {
+            margin: 0;
+            font-size: 0.95rem;
+            color: var(--dorado);
+            text-transform: uppercase;
+        }
+
+        .step-time {
+            font-size: 0.7rem;
+            color: var(--verde);
+            font-weight: bold;
+        }
+
+        .step-desc {
+            font-size: 0.85rem;
+            color: #777;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        textarea {
+            width: 100%;
+            background: #000;
+            border: 1px solid #222;
+            border-radius: 12px;
+            padding: 15px;
+            color: #ccc;
+            font-family: inherit;
+            font-size: 0.85rem;
+            resize: none;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        textarea:focus { border-color: var(--dorado); color: white; }
+
+        /* El Cierre Final */
+        .final-call {
+            margin-top: 50px;
+            background: linear-gradient(135deg, #111, #000);
+            border: 2px solid var(--dorado);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            transition: 0.4s;
+        }
+
+        .final-call:hover {
+            border-color: var(--verde);
+            transform: translateY(-5px);
+        }
+
+        .final-call h2 {
+            font-size: 2.2rem;
+            color: var(--blanco);
+            margin: 0 0 10px 0;
+            letter-spacing: 2px;
+        }
+
+        .final-call p {
+            color: var(--dorado);
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        .footer-logo {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.7rem;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Protocolo de 10 Minutos</h1>
+        <p>Capacitación Constante • Team Leader Academy</p>
+    </div>
+
+    <div class="timeline">
+        <div class="step" id="s1">
+            <div class="step-marker" onclick="toggleStep('s1')"></div>
+            <div class="step-header">
+                <h3>01. El Anclaje Emocional</h3>
+                <span class="step-time">2 MINUTOS</span>
+            </div>
+            <div class="step-desc">Tu historia de transformación. ¿Cuál era el vacío profesional que este sistema vino a llenar?</div>
+            <textarea rows="2" placeholder="Describe tu visión aquí..."></textarea>
+        </div>
+
+        <div class="step" id="s2">
+            <div class="step-marker" onclick="toggleStep('s2')"></div>
+            <div class="step-header">
+                <h3>02. Análisis del Escenario</h3>
+                <span class="step-time">3 MINUTOS</span>
+            </div>
+            <div class="step-desc">El problema. Explica por qué el mercado actual exige una evolución y por qué otros métodos fallan.</div>
+            <textarea rows="2" placeholder="Identifica el dolor del prospecto..."></textarea>
+        </div>
+
+        <div class="step" id="s3">
+            <div class="step-marker" onclick="toggleStep('s3')"></div>
+            <div class="step-header">
+                <h3>03. El Vehículo de Soporte</h3>
+                <span class="step-time">3 MINUTOS</span>
+            </div>
+            <div class="step-desc">Presenta el modelo y las <b>capacitaciones constantes</b> que garantizan que nadie avance solo.</div>
+            <textarea rows="2" placeholder="Define los puntos de apoyo..."></textarea>
+        </div>
+
+        <div class="step last" id="s4">
+            <div class="step-marker" onclick="toggleStep('s4')"></div>
+            <div class="step-header">
+                <h3>04. Verificación de Interés</h3>
+                <span class="step-time">2 MINUTOS</span>
+            </div>
+            <div class="step-desc">Filtro final. Sin presiones, buscando claridad total en la decisión del prospecto.</div>
+        </div>
+    </div>
+
+    <div class="final-call">
+        <p>SENTENCIA FINAL</p>
+        <h2>¿TE UNES AL EQUIPO?</h2>
+    </div>
+
+    <div class="footer-logo">
+        Liderazgo • Duplicación • Libertad
+    </div>
+</div>
+
+<script>
+    function toggleStep(id) {
+        document.getElementById(id).classList.toggle('active');
+    }
+</script>
+
+</body>
+</html>

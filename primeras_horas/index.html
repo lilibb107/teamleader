@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist de Lanzamiento 48h - Team Leader Academy</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --negro: #1a1a1a;
+            --negro-puro: #000000;
+            --verde-logo: #3d5a2d; 
+            --dorado-logo: #b4973a; 
+            --blanco: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--negro-puro);
+            color: var(--blanco);
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .dashboard {
+            width: 100%;
+            max-width: 800px;
+            background: var(--negro);
+            border: 2px solid var(--dorado-logo);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 0 40px rgba(180, 151, 58, 0.2);
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--verde-logo);
+            padding-bottom: 25px;
+            margin-bottom: 35px;
+        }
+
+        .header h1 {
+            color: var(--dorado-logo);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 800;
+        }
+
+        .header p {
+            color: var(--verde-logo);
+            font-weight: 600;
+            margin: 8px 0 0;
+            letter-spacing: 1px;
+        }
+
+        .progress-section {
+            margin-bottom: 45px;
+            background: rgba(0,0,0,0.3);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #333;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-weight: 800;
+            color: var(--dorado-logo);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .progress-bar {
+            background: #000;
+            height: 24px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--verde-logo);
+        }
+
+        #progressFill {
+            background: linear-gradient(90deg, var(--verde-logo), var(--dorado-logo));
+            width: 0%; 
+            height: 100%;
+            transition: width 0.6s ease;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            background: #222;
+            margin-bottom: 18px;
+            padding: 22px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .step:hover { border-color: var(--dorado-logo); }
+
+        .step.active {
+            border-color: var(--verde-logo);
+            background: rgba(61, 90, 45, 0.1);
+        }
+
+        .checkbox-wrapper {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--dorado-logo);
+            border-radius: 8px;
+            margin-right: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            flex-shrink: 0;
+        }
+
+        .step.active .checkbox-wrapper {
+            background: var(--verde-logo);
+            border-color: var(--verde-logo);
+        }
+
+        .checkbox-wrapper i { color: white; display: none; font-size: 1.4rem; }
+        .step.active .checkbox-wrapper i { display: block; }
+
+        .step-info h3 { margin: 0; color: var(--blanco); font-size: 1.15rem; }
+        .step-info p { margin: 6px 0 0; font-size: 0.9rem; color: #999; }
+
+        .contacts-grid {
+            margin-top: 50px;
+            padding: 25px;
+            background: #111;
+            border: 1px solid var(--verde-logo);
+            border-radius: 12px;
+        }
+
+        .contacts-grid h2 {
+            color: var(--dorado-logo);
+            text-align: center;
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+
+        .contact-row {
+            display: grid;
+            grid-template-columns: 40px 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 12px;
+            align-items: center;
+        }
+
+        input {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            padding: 12px;
+            color: white;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        input:focus { border-color: var(--dorado-logo); }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: var(--dorado-logo);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard">
+    <div class="header">
+        <h1>Checklist de Lanzamiento 48h</h1>
+        <p>CONSTRUYENDO TU SISTEMA DE DUPLICACIÓN</p>
+    </div>
+
+    <div class="progress-section">
+        <div class="progress-label">
+            <span>Estatus de Activación</span>
+            <span id="progressPercent">0%</span>
+        </div>
+        <div class="progress-bar">
+            <div id="progressFill"></div>
+        </div>
+    </div>
+
+    <div class="steps-container">
+        <div class="step" onclick="toggleStep(this)">
+            <div class="checkbox-wrapper"><i class="fas fa-check"></i></div>
+            <div class="step-info">
+                <h3>1. Inmersión al Sistema</h3>
+                <p>Configuración de Oficina Virtual y alta en los grupos oficiales del equipo.</p>
+            </div>
+        </div>
+
+        <div class="step" onclick="toggleStep(this)">
+            <div class="checkbox-wrapper"><i class="fas fa-check"></i></div>
+            <div class="step-info">
+                <h3>2. Auditoría de Propósito</h3>
+                <p>Establecer metas claras y el compromiso de horas semanales para el negocio.</p>
+            </div>
+        </div>
+
+        <div class="step" onclick="toggleStep(this)">
+            <div class="checkbox-wrapper"><i class="fas fa-check"></i></div>
+            <div class="step-info">
+                <h3>3. Lista de Oro (Top 10)</h3>
+                <p>Identificar a las 10 personas de mayor confianza e influencia en tu entorno.</p>
+            </div>
+        </div>
+
+        <div class="step" onclick="toggleStep(this)">
+            <div class="checkbox-wrapper"><i class="fas fa-check"></i></div>
+            <div class="step-info">
+                <h3>4. Guiones de Invitación</h3>
+                <p>Practicar y realizar los primeros 5 contactos usando herramientas de duplicación.</p>
+            </div>
+        </div>
+
+        <div class="step" onclick="toggleStep(this)">
+            <div class="checkbox-wrapper"><i class="fas fa-check"></i></div>
+            <div class="step-info">
+                <h3>5. Agendamiento de Lanzamiento</h3>
+                <p>Fijar fecha para tu presentación oficial de negocio (Home Meeting o Zoom).</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="contacts-grid">
+        <h2>Mis Primeros Socios Potenciales</h2>
+        <div class="contact-row">
+            <span style="color:var(--verde-logo); font-weight:bold;">01</span>
+            <input type="text" placeholder="Nombre completo">
+            <input type="text" placeholder="Perfil (Ej: Emprendedor)">
+        </div>
+        <div class="contact-row">
+            <span style="color:var(--verde-logo); font-weight:bold;">02</span>
+            <input type="text" placeholder="Nombre completo">
+            <input type="text" placeholder="Perfil">
+        </div>
+        <div class="contact-row">
+            <span style="color:var(--verde-logo); font-weight:bold;">03</span>
+            <input type="text" placeholder="Nombre completo">
+            <input type="text" placeholder="Perfil">
+        </div>
+        <div class="contact-row">
+            <span style="color:var(--verde-logo); font-weight:bold;">04</span>
+            <input type="text" placeholder="Nombre completo">
+            <input type="text" placeholder="Perfil">
+        </div>
+        <div class="contact-row">
+            <span style="color:var(--verde-logo); font-weight:bold;">05</span>
+            <input type="text" placeholder="Nombre completo">
+            <input type="text" placeholder="Perfil">
+        </div>
+    </div>
+
+    <div class="footer">
+        TEAM LEADER ACADEMY &copy; 2026 - MODO PROFESIONAL ACTIVADO
+    </div>
+</div>
+
+<script>
+    function updateProgress() {
+        const totalSteps = document.querySelectorAll('.step').length;
+        const completedSteps = document.querySelectorAll('.step.active').length;
+        const percentage = Math.round((completedSteps / totalSteps) * 100);
+        document.getElementById('progressFill').style.width = percentage + '%';
+        document.getElementById('progressPercent').innerText = percentage + '%';
+    }
+
+    function toggleStep(element) {
+        element.classList.toggle('active');
+        updateProgress();
+    }
+    updateProgress();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matriz de Habilidades - Team Leader Academy</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --negro: #1a1a1a;
+            --negro-puro: #000000;
+            --verde-logo: #3d5a2d; /* Verde Bosque */
+            --dorado-logo: #b4973a; /* Dorado Champagne */
+            --azul-hace: #2e5984;  /* Azul para diferenciar "Hace" */
+            --blanco: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--negro-puro);
+            color: var(--blanco);
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: var(--negro);
+            border: 2px solid var(--dorado-logo);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 0 40px rgba(180, 151, 58, 0.15);
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--verde-logo);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: var(--dorado-logo);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin: 0;
+            font-size: 1.6rem;
+        }
+
+        /* Tip de Navegación */
+        .click-tip {
+            background: rgba(180, 151, 58, 0.1);
+            border: 1px dashed var(--dorado-logo);
+            color: var(--dorado-logo);
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            font-size: 0.7rem;
+            flex-wrap: wrap;
+            text-transform: uppercase;
+        }
+
+        .legend-item { display: flex; align-items: center; gap: 8px; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; border: 1px solid rgba(255,255,255,0.2); }
+
+        .skill-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        .skill-table th {
+            background: #000;
+            color: var(--dorado-logo);
+            padding: 15px 5px;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            border: 1px solid #333;
+        }
+
+        .skill-table td {
+            padding: 12px 5px;
+            border: 1px solid #333;
+            text-align: center;
+        }
+
+        .name-cell input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #333;
+            color: white;
+            width: 90%;
+            outline: none;
+            font-size: 0.8rem;
+        }
+
+        /* Botón de Habilidad Evolutivo */
+        .skill-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 2px solid #444;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-block;
+        }
+
+        /* Estados de color diferenciados */
+        .skill-btn.lvl-1 { background: #555; border-color: #888; } /* Aprende */
+        .skill-btn.lvl-2 { background: var(--azul-hace); border-color: #5dade2; } /* Hace */
+        .skill-btn.lvl-3 { background: var(--verde-logo); border-color: #a9dfbf; } /* Enseña */
+        .skill-btn.lvl-4 { 
+            background: var(--dorado-logo); 
+            border-color: var(--blanco);
+            box-shadow: 0 0 12px rgba(180, 151, 58, 0.6);
+        } /* Independiente */
+
+        .status-label {
+            font-size: 0.55rem;
+            display: block;
+            margin-top: 5px;
+            color: #666;
+            font-weight: bold;
+        }
+
+        .summary-box {
+            background: #000;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid var(--verde-logo);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .score-display { text-align: center; }
+        .score-display b { font-size: 2rem; color: var(--dorado-logo); display: block; }
+
+        .advice-text { font-size: 0.85rem; color: #ccc; max-width: 60%; line-height: 1.4; }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #444;
+            font-size: 0.7rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Matriz de Transferencia de Habilidades</h1>
+        <p style="color: var(--verde-logo); font-weight: 600; font-size: 0.8rem; margin-top: 5px;">MAPA DE INDEPENDENCIA DEL EQUIPO</p>
+    </div>
+
+    <div class="click-tip">
+        <i class="fas fa-mouse-pointer"></i> &nbsp; HAZ CLIC VARIAS VECES SOBRE LOS CÍRCULOS PARA CAMBIAR EL NIVEL
+    </div>
+
+    <div class="legend">
+        <div class="legend-item"><span class="dot" style="background:#555;"></span> Aprende</div>
+        <div class="legend-item"><span class="dot" style="background:var(--azul-hace);"></span> Hace</div>
+        <div class="legend-item"><span class="dot" style="background:var(--verde-logo);"></span> Enseña</div>
+        <div class="legend-item"><span class="dot" style="background:var(--dorado-logo);"></span> Independiente</div>
+    </div>
+
+    <table class="skill-table">
+        <thead>
+            <tr>
+                <th style="text-align:left; padding-left:15px;">Líder / Socio</th>
+                <th>Invitar</th>
+                <th>Presentar</th>
+                <th>Cierre</th>
+                <th>Arranque</th>
+            </tr>
+        </thead>
+        <tbody id="skillBody">
+            </tbody>
+    </table>
+
+    <div class="summary-box">
+        <div class="advice-text" id="adviceText">
+            Haz clic en las habilidades para medir el progreso. Tu meta: Convertir tu organización en un mapa lleno de <b>Líderes Dorados</b>.
+        </div>
+        <div class="score-display">
+            <span style="font-size: 0.6rem; color: #888;">NIVEL DE LIBERTAD</span>
+            <b id="independenciaGlobal">0%</b>
+        </div>
+    </div>
+
+    <div class="footer">
+        TEAM LEADER ACADEMY &copy; 2026 - SISTEMAS ESCALABLES
+    </div>
+</div>
+
+<script>
+    const skillsCount = 4;
+    const skillBody = document.getElementById('skillBody');
+
+    // Generar 8 filas
+    for(let i=1; i<=8; i++) {
+        let row = `<tr><td class="name-cell" style="padding-left:15px;"><input type="text" placeholder="Socio ${i}"></td>`;
+        
+        for(let j=0; j<skillsCount; j++) {
+            row += `
+                <td>
+                    <button class="skill-btn" onclick="cycleSkill(this)" data-level="0"></button>
+                    <span class="status-label">VACÍO</span>
+                </td>
+            `;
+        }
+        
+        row += `</tr>`;
+        skillBody.innerHTML += row;
+    }
+
+    function cycleSkill(btn) {
+        let level = parseInt(btn.getAttribute('data-level'));
+        level = (level + 1) % 5;
+        btn.setAttribute('data-level', level);
+        
+        const label = btn.nextElementSibling;
+        btn.className = 'skill-btn';
+        
+        switch(level) {
+            case 0: label.innerText = 'VACÍO'; break;
+            case 1: btn.classList.add('lvl-1'); label.innerText = 'APRENDE'; break;
+            case 2: btn.classList.add('lvl-2'); label.innerText = 'HACE'; break;
+            case 3: btn.classList.add('lvl-3'); label.innerText = 'ENSEÑA'; break;
+            case 4: btn.classList.add('lvl-4'); label.innerText = 'INDEP.'; break;
+        }
+        
+        calculateMastery();
+    }
+
+    function calculateMastery() {
+        const btns = document.querySelectorAll('.skill-btn');
+        let totalPossible = btns.length * 4;
+        let currentPoints = 0;
+
+        btns.forEach(b => {
+            currentPoints += parseInt(b.getAttribute('data-level'));
+        });
+
+        const percent = Math.round((currentPoints / totalPossible) * 100) || 0;
+        document.getElementById('independenciaGlobal').innerText = percent + '%';
+
+        const advice = document.getElementById('adviceText');
+        if(percent > 60) {
+            advice.innerHTML = "🚀 <b>SISTEMA ESCALABLE:</b> Estás delegando con éxito. Sigue así para alcanzar la libertad total.";
+        } else if(percent > 20) {
+            advice.innerHTML = "⚖️ <b>EN TRANSICIÓN:</b> Estás enseñando, pero todavía eres necesario en los cierres. ¡Sigue soltando!";
+        } else if(percent > 0) {
+            advice.innerHTML = "⚠️ <b>DEPENDENCIA ALTA:</b> Tu equipo aún está aprendiendo. Enfócate en que empiecen a 'Hacer' solos.";
+        }
+    }
+</script>
+
+</body>
+</html>
