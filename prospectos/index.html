@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cali-Score: Filtro de Activos - Team Leader Academy</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --negro-puro: #000000;
+            --negro-card: #121212;
+            --verde-logo: #3d5a2d; 
+            --dorado-logo: #b4973a; 
+            --blanco: #ffffff;
+            --rojo-descarte: #8b0000;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--negro-puro);
+            color: var(--blanco);
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .master-wrapper {
+            width: 100%;
+            max-width: 900px;
+            background: var(--negro-card);
+            border: 2px solid var(--dorado-logo);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 0 50px rgba(180, 151, 58, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--verde-logo);
+            padding-bottom: 25px;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: var(--dorado-logo);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .header p {
+            color: var(--verde-logo);
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        .instruction {
+            background: rgba(180, 151, 58, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            color: #ccc;
+            text-align: center;
+            margin-bottom: 30px;
+            border: 1px dashed var(--dorado-logo);
+        }
+
+        .cali-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        .cali-table th {
+            text-align: left;
+            padding: 15px;
+            color: var(--dorado-logo);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            border-bottom: 1px solid #333;
+        }
+
+        .cali-table td {
+            padding: 20px 15px;
+            border-bottom: 1px solid #222;
+        }
+
+        .criterion-title {
+            display: block;
+            font-weight: bold;
+            font-size: 1rem;
+            color: var(--blanco);
+        }
+
+        .criterion-desc {
+            display: block;
+            font-size: 0.75rem;
+            color: #777;
+            margin-top: 4px;
+        }
+
+        .selector {
+            background: #000;
+            color: var(--dorado-logo);
+            border: 1px solid #444;
+            padding: 10px;
+            border-radius: 6px;
+            width: 100%;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .selector:focus { border-color: var(--verde-logo); }
+
+        .result-panel {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            background: #000;
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid var(--verde-logo);
+            align-items: center;
+        }
+
+        .score-box {
+            text-align: center;
+            border-right: 1px solid #333;
+        }
+
+        .score-box span { font-size: 0.7rem; color: #888; text-transform: uppercase; }
+        .score-box b { font-size: 3.5rem; color: var(--dorado-logo); display: block; line-height: 1; }
+
+        .diagnosis { padding-left: 10px; }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 4px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .advice-text { font-size: 0.9rem; line-height: 1.4; color: #ccc; }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.7rem;
+            color: #444;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="master-wrapper">
+    <div class="header">
+        <h1>Cali-Score: Matriz de Filtro</h1>
+        <p>INGENIERÍA DE PROSPECTOS • BLOQUE 02</p>
+    </div>
+
+    <div class="instruction">
+        Evalúa objetivamente cada perfil antes de invertir tu tiempo.<br>
+        <strong>Meta:</strong> Filtrar al 80% de curiosos para trabajar solo con líderes.
+    </div>
+
+    <table class="cali-table">
+        <thead>
+            <tr>
+                <th width="65%">Criterio de Selección</th>
+                <th width="35%">Evaluación</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <span class="criterion-title">Mentalidad y Actitud</span>
+                    <span class="criterion-desc">¿Es enseñable o es un perfil crítico/sabelotodo?</span>
+                </td>
+                <td>
+                    <select class="selector" onchange="calculateScore()">
+                        <option value="1">Perfil Crítico / Rojo (1 pt)</option>
+                        <option value="2">Interesado / Amarillo (2 pts)</option>
+                        <option value="3">Abierto al cambio (3 pts)</option>
+                        <option value="4">Enseñable / Verde (4 pts)</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="criterion-title">Capacidad de Inversión</span>
+                    <span class="criterion-desc">¿Dispone de capital o tiene voluntad de conseguirlo?</span>
+                </td>
+                <td>
+                    <select class="selector" onchange="calculateScore()">
+                        <option value="1">Sin intención de invertir (1 pt)</option>
+                        <option value="2">Dinero como impedimento total (2 pts)</option>
+                        <option value="3">Consigue los fondos con esfuerzo (3 pts)</option>
+                        <option value="4">Capital listo / Solvente (4 pts)</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="criterion-title">Disponibilidad de Tiempo</span>
+                    <span class="criterion-desc">¿Sacrificará ocio para construir su libertad?</span>
+                </td>
+                <td>
+                    <select class="selector" onchange="calculateScore()">
+                        <option value="1">Dice no tener tiempo (1 pt)</option>
+                        <option value="2">Muy ocupado / Sin prioridades (2 pts)</option>
+                        <option value="3">1-2 horas diarias enfocadas (3 pts)</option>
+                        <option value="4">Compromiso serio de tiempo (4 pts)</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="criterion-title">Urgencia</span>
+                    <span class="criterion-desc">¿Qué tan insatisfecho está con sus ingresos?</span>
+                </td>
+                <td>
+                    <select class="selector" onchange="calculateScore()">
+                        <option value="1">Está cómodo / Curioso (1 pt)</option>
+                        <option value="2">Deseo vago de mejora (2 pts)</option>
+                        <option value="3">Necesita ingresos extra pronto (3 pts)</option>
+                        <option value="4">Urgencia alta / Cambio inmediato (4 pts)</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="criterion-title">Nivel de Influencia</span>
+                    <span class="criterion-desc">¿Tiene perfil de líder o red de confianza?</span>
+                </td>
+                <td>
+                    <select class="selector" onchange="calculateScore()">
+                        <option value="1">Sin credibilidad social (1 pt)</option>
+                        <option value="2">Perfil promedio (2 pts)</option>
+                        <option value="3">Emprendedor con red activa (3 pts)</option>
+                        <option value="4">Líder con alta influencia (4 pts)</option>
+                    </select>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="result-panel">
+        <div class="score-box">
+            <span>Puntaje Total</span>
+            <b id="totalScore">5</b>
+        </div>
+        <div class="diagnosis" id="diagnosisArea">
+            <span class="status-badge" style="background:#444;">Pendiente</span>
+            <p class="advice-text">Evalúa los criterios para obtener el protocolo de acción profesional.</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        TEAM LEADER ACADEMY &copy; 2026 • SELECCIÓN ESTRATÉGICA
+    </div>
+</div>
+
+<script>
+    function calculateScore() {
+        const selectors = document.querySelectorAll('.selector');
+        let total = 0;
+        selectors.forEach(s => total += parseInt(s.value));
+
+        document.getElementById('totalScore').innerText = total;
+        const diagArea = document.getElementById('diagnosisArea');
+
+        if(total >= 15) {
+            diagArea.innerHTML = `
+                <span class="status-badge" style="background:var(--verde-logo);">PERFIL VERDE (PRIORIDAD 1)</span>
+                <p class="advice-text"><b>Acción:</b> Cierre en menos de 24h. Prospecto con alta enseñabilidad y recursos.</p>
+            `;
+        } else if(total >= 10) {
+            diagArea.innerHTML = `
+                <span class="status-badge" style="background:var(--dorado-logo); color:black;">PERFIL AMARILLO (VALOR)</span>
+                <p class="advice-text"><b>Acción:</b> Seguimiento educativo. Muestra miedo o falta capital; requiere más visión antes del cierre.</p>
+            `;
+        } else {
+            diagArea.innerHTML = `
+                <span class="status-badge" style="background:var(--rojo-descarte);">PERFIL ROJO (DESCARTE)</span>
+                <p class="advice-text"><b>Acción:</b> Eliminar de la lista inmediatamente. No intentes convertir un rojo en verde; es un desperdicio de energía.</p>
+            `;
+        }
+    }
+</script>
+
+</body>
+</html>

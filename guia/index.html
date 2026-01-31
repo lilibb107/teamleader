@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Atracción de Socios - Team Leader Academy</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --fondo-seda: #f4f7f6;
+            --blanco: #ffffff;
+            --verde-ejecutivo: #2d4221; 
+            --dorado-mate: #a68b36;
+            --texto-oscuro: #1a1a1a;
+            --texto-suave: #555555;
+            --borde: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--fondo-seda);
+            color: var(--texto-oscuro);
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            margin: 0;
+        }
+
+        .master-panel {
+            width: 100%;
+            max-width: 900px;
+            background: var(--blanco);
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            overflow: hidden;
+            border: 1px solid var(--borde);
+        }
+
+        .top-bar {
+            background: var(--verde-ejecutivo);
+            padding: 40px;
+            text-align: center;
+        }
+
+        .top-bar h1 {
+            color: var(--blanco);
+            margin: 0;
+            font-size: 1.6rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .top-bar p {
+            color: var(--dorado-mate);
+            margin: 10px 0 0 0;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .content-body {
+            padding: 50px;
+        }
+
+        .intro-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .intro-section h2 {
+            font-size: 1.2rem;
+            color: var(--verde-ejecutivo);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .intro-section p {
+            color: var(--texto-suave);
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .phase-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        .phase-card {
+            border: 1px solid var(--borde);
+            border-radius: 12px;
+            padding: 30px;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .phase-card:hover {
+            border-color: var(--dorado-mate);
+            background: #fafafa;
+        }
+
+        .phase-num {
+            position: absolute;
+            top: -15px;
+            left: 30px;
+            background: var(--dorado-mate);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 900;
+        }
+
+        .phase-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .phase-header i {
+            font-size: 1.5rem;
+            color: var(--verde-ejecutivo);
+        }
+
+        .phase-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            color: var(--texto-oscuro);
+        }
+
+        .strategy-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .strategy-list li {
+            font-size: 0.9rem;
+            color: var(--texto-suave);
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .strategy-list li::before {
+            content: "\f00c";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--verde-ejecutivo);
+        }
+
+        .tip-box {
+            margin-top: 20px;
+            background: rgba(180, 151, 58, 0.05);
+            border-left: 3px solid var(--dorado-mate);
+            padding: 15px;
+            font-size: 0.85rem;
+            font-style: italic;
+            color: var(--verde-ejecutivo);
+        }
+
+        .footer {
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid var(--borde);
+            background: #fcfcfc;
+        }
+
+        .btn-action {
+            display: inline-block;
+            background: var(--verde-ejecutivo);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        .btn-action:hover {
+            background: #1e2d16;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+<div class="master-panel">
+    <div class="top-bar">
+        <h1>Guía de Atracción de Socios</h1>
+        <p>INGENIERÍA DE SELECCIÓN • BLOQUE 02</p>
+    </div>
+
+    <div class="content-body">
+        <div class="intro-section">
+            <h2>Cambio de Paradigma</h2>
+            <p>
+                Atraer no es perseguir. Un socio de alto nivel no entra a un proyecto por "suerte", entra porque ha identificado en ti un sistema y un liderazgo capaz de llevarlo a su siguiente nivel.
+            </p>
+        </div>
+
+        <div class="phase-container">
+            <div class="phase-card">
+                <span class="phase-num">FASE 01</span>
+                <div class="phase-header">
+                    <i class="fas fa-bullseye"></i>
+                    <h3>Posicionamiento de Autoridad</h3>
+                </div>
+                <ul class="strategy-list">
+                    <li>Deja de vender el negocio y empieza a vender el sistema de trabajo.</li>
+                    <li>Muestra resultados de gestión y visión. El socio busca seguridad y dirección.</li>
+                    <li>Actúa como una firma de consultoría: tu tiempo es tu activo más valioso.</li>
+                </ul>
+                <div class="tip-box">
+                    <strong>Postura:</strong> "No estoy buscando personas, estoy seleccionando perfiles para mi próxima expansión."
+                </div>
+            </div>
+
+            <div class="phase-card">
+                <span class="phase-num">FASE 02</span>
+                <div class="phase-header">
+                    <i class="fas fa-filter"></i>
+                    <h3>El Imán de Curiosidad</h3>
+                </div>
+                <ul class="strategy-list">
+                    <li>Usa enunciados de escasez: "Buscando 3 perfiles para un proyecto de 90 días".</li>
+                    <li>Habla de libertad, apalancamiento y sistemas, no de "empleo" o "ventas".</li>
+                    <li>Dirígete a perfiles de alto nivel; gente que ya sea proactiva en su área.</li>
+                </ul>
+                <div class="tip-box">
+                    <strong>Clave:</strong> El socio ideal es el que ya tiene mentalidad de crecimiento y gestión de recursos.
+                </div>
+            </div>
+
+            <div class="phase-card">
+                <span class="phase-num">FASE 03</span>
+                <div class="phase-header">
+                    <i class="fas fa-clipboard-check"></i>
+                    <h3>El Protocolo de Selección</h3>
+                </div>
+                <ul class="strategy-list">
+                    <li>Nunca presentes sin un filtro. Usa el video de 10 minutos como primer punto de control.</li>
+                    <li>Valora tu agenda: Si el perfil no llega puntual, cancela la cita inmediatamente.</li>
+                    <li>Evalúa la enseñabilidad. Si no está dispuesto a desaprender, no es un perfil apto.</li>
+                </ul>
+                <div class="tip-box">
+                    <strong>Compromiso:</strong> "Valoraré mi tiempo por encima de cualquier cierre potencial."
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 50px;">
+            <p style="font-size: 0.9rem; color: var(--texto-suave); margin-bottom: 25px;">
+                ¿Estás listo para dejar de buscar y empezar a seleccionar perfiles de alto nivel?
+            </p>
+            <a href="#" class="btn-action">Finalizar Bloque 02</a>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>"LA NECESIDAD AHUYENTA EL ÉXITO. LA POSTURA LO ATRAE."</p>
+        <div style="font-size: 0.6rem; color: #bbb; margin-top: 10px; letter-spacing: 2px;">
+            TEAM LEADER ACADEMY &copy; 2026 • TODOS LOS DERECHOS RESERVADOS
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

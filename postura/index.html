@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditoría de Liderazgo - Team Leader Academy</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --fondo-seda: #f4f6f8;
+            --panel-blanco: #ffffff;
+            --verde-bosque: #2d4221; 
+            --dorado-metal: #a68b36;
+            --texto-principal: #1a1a1a;
+            --texto-secundario: #5f6368;
+            --borde: #e1e4e8;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--fondo-seda);
+            color: var(--texto-principal);
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            margin: 0;
+        }
+
+        .audit-card {
+            width: 100%;
+            max-width: 850px;
+            background: var(--panel-blanco);
+            border-radius: 4px;
+            border: 1px solid var(--borde);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.03);
+            overflow: hidden;
+        }
+
+        .header-bar {
+            background: var(--verde-bosque);
+            padding: 45px 60px;
+            text-align: left;
+        }
+
+        .header-bar h1 {
+            color: white;
+            margin: 0;
+            font-size: 1.5rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .header-bar p {
+            color: var(--dorado-metal);
+            font-size: 0.75rem;
+            font-weight: 800;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+
+        .content { padding: 50px 60px; }
+
+        .philosophy-note {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--texto-secundario);
+            margin-bottom: 45px;
+            background: #fafafa;
+            padding: 25px;
+            border-left: 4px solid var(--dorado-metal);
+        }
+
+        /* Bloques de Protocolo */
+        .protocol-block {
+            margin-bottom: 40px;
+        }
+
+        .protocol-block h3 {
+            font-size: 0.9rem;
+            color: var(--verde-bosque);
+            text-transform: uppercase;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .protocol-item {
+            display: grid;
+            grid-template-columns: 24px 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .check-circle {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--borde);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            margin-top: 3px;
+        }
+
+        .protocol-item:hover .check-circle { border-color: var(--dorado-metal); }
+
+        .protocol-item.active .check-circle {
+            background: var(--verde-bosque);
+            border-color: var(--verde-bosque);
+        }
+
+        .protocol-item.active .check-circle::after {
+            content: "\f00c";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            color: white;
+            font-size: 0.7rem;
+        }
+
+        .protocol-text b { display: block; font-size: 0.95rem; margin-bottom: 4px; }
+        .protocol-text span { font-size: 0.85rem; color: var(--texto-secundario); line-height: 1.4; }
+
+        .analysis-field {
+            margin-top: 50px;
+            border-top: 1px solid var(--borde);
+            padding-top: 30px;
+        }
+
+        .analysis-field label {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--texto-secundario);
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        textarea {
+            width: 100%;
+            border: 1px solid var(--borde);
+            border-radius: 4px;
+            padding: 15px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            resize: none;
+            outline: none;
+            background: #fcfcfc;
+        }
+
+        .footer {
+            padding: 30px 60px;
+            background: #f8f9fa;
+            border-top: 1px solid var(--borde);
+            text-align: center;
+            font-size: 0.7rem;
+            color: #999;
+            letter-spacing: 1px;
+        }
+
+        .closing-box {
+            background: var(--verde-bosque);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            margin-top: 40px;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="audit-card">
+    <div class="header-bar">
+        <h1>Protocolo del Consultor</h1>
+        <p>AUDITORÍA DE POSTURA • BLOQUE 02</p>
+    </div>
+
+    <div class="content">
+        <div class="philosophy-note">
+            "No evaluamos la billetera del prospecto, evaluamos su <strong>capacidad de gestión</strong>. Un líder no se detiene ante la falta de recursos, sino que sabe cómo generarlos cuando la visión es clara."
+        </div>
+
+        <div class="protocol-block">
+            <h3>I. Filtros de Inteligencia Social</h3>
+            
+            <div class="protocol-item" onclick="this.classList.toggle('active')">
+                <div class="check-circle"></div>
+                <div class="protocol-text">
+                    <b>Validación de Influencia</b>
+                    <span>El prospecto demuestra que tiene personas que confían en su criterio profesional.</span>
+                </div>
+            </div>
+
+            <div class="protocol-item" onclick="this.classList.toggle('active')">
+                <div class="check-circle"></div>
+                <div class="protocol-text">
+                    <b>Mentalidad de Desaprenizaje</b>
+                    <span>Ha confirmado que está dispuesto a seguir un sistema probado por encima de sus propias opiniones.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="protocol-block">
+            <h3>II. Filtros de Gestión de Recursos</h3>
+            
+            <div class="protocol-item" onclick="this.classList.toggle('active')">
+                <div class="check-circle"></div>
+                <div class="protocol-text">
+                    <b>Visión de Inversión vs. Gasto</b>
+                    <span>Entiende que el crecimiento real requiere una inyección de recursos (tiempo, energía o capital).</span>
+                </div>
+            </div>
+
+            <div class="protocol-item" onclick="this.classList.toggle('active')">
+                <div class="check-circle"></div>
+                <div class="protocol-text">
+                    <b>Protección del Activo "Tiempo"</b>
+                    <span>Solo agendo la cita si el prospecto ha demostrado respeto por mis protocolos previos.</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="analysis-field">
+            <label>Evaluación Crítica del Perfil:</label>
+            <textarea rows="3" placeholder="¿Este prospecto tiene la mentalidad necesaria para ser un futuro líder del equipo?"></textarea>
+        </div>
+
+        <div class="closing-box">
+            <h2 style="margin:0; letter-spacing:3px; font-size:1.1rem;">¿TE UNES AL EQUIPO?</h2>
+        </div>
+    </div>
+
+    <div class="footer">
+        PROFESIONALISMO • SELECCIÓN • DUPLICACIÓN <br>
+        TEAM LEADER ACADEMY &copy; 2026
+    </div>
+</div>
+
+</body>
+</html>

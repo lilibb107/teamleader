@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocolo El Colador - Team Leader Academy</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --fondo-gris: #f4f7f6;
+            --blanco: #ffffff;
+            --verde-ejecutivo: #2d4221; 
+            --dorado-mate: #a68b36;
+            --texto-oscuro: #1a1a1a;
+            --texto-suave: #555555;
+            --borde: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--fondo-gris);
+            color: var(--texto-oscuro);
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            margin: 0;
+        }
+
+        .master-panel {
+            width: 100%;
+            max-width: 800px;
+            background: var(--blanco);
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            overflow: hidden;
+            border: 1px solid var(--borde);
+        }
+
+        .top-bar {
+            background: var(--verde-ejecutivo);
+            padding: 30px;
+            text-align: center;
+        }
+
+        .top-bar h1 {
+            color: var(--blanco);
+            margin: 0;
+            font-size: 1.4rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .top-bar p {
+            color: var(--dorado-mate);
+            margin: 5px 0 0 0;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .content-body {
+            padding: 40px;
+        }
+
+        .intro-text {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--texto-suave);
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        /* Simulador de Escenarios */
+        .scenario-box {
+            background: #fafafa;
+            border: 1px solid var(--borde);
+            border-radius: 12px;
+            padding: 30px;
+            position: relative;
+            min-height: 200px;
+            transition: 0.3s;
+        }
+
+        .badge-step {
+            position: absolute;
+            top: -12px;
+            left: 30px;
+            background: var(--dorado-mate);
+            color: white;
+            font-size: 0.65rem;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .prospect-voice {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--texto-oscuro);
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .action-area {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .btn-reveal {
+            background: var(--verde-ejecutivo);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        .btn-reveal:hover { background: #1e2d16; }
+
+        /* Respuesta Oculta */
+        .response-panel {
+            display: none;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid var(--borde);
+            animation: slideIn 0.4s ease-out;
+        }
+
+        .response-panel.active { display: block; }
+
+        .protocol-tag {
+            font-size: 0.7rem;
+            color: var(--dorado-mate);
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .script-quote {
+            background: #f0f2f1;
+            padding: 20px;
+            border-left: 4px solid var(--verde-ejecutivo);
+            font-style: italic;
+            color: var(--verde-ejecutivo);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .btn-next {
+            margin-top: 20px;
+            background: transparent;
+            color: var(--texto-suave);
+            border: 1px solid #ccc;
+            padding: 8px 16px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .btn-next:hover { background: #eee; }
+
+        .footer {
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid var(--borde);
+            font-size: 0.7rem;
+            color: #999;
+            background: #fcfcfc;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="master-panel">
+    <div class="top-bar">
+        <h1>Protocolo El Colador</h1>
+        <p>RE-INGENIERÍA DE POSTURA • BLOQUE 02</p>
+    </div>
+
+    <div class="content-body">
+        <p class="intro-text">
+            Este manual no es para vender, es para <strong>filtrar</strong>. Practica tu postura ejecutiva ante las objeciones más comunes del mercado.
+        </p>
+
+        <div class="scenario-box" id="mainScenario">
+            <span class="badge-step" id="stepLabel">ESCENARIO 01</span>
+            
+            <div id="contentView">
+                <div class="prospect-voice" id="prospectQuote">
+                    "No tengo el dinero para la inversión."
+                </div>
+                <div class="action-area">
+                    <button class="btn-reveal" onclick="revealResponse()">Ver Respuesta de Postura</button>
+                </div>
+            </div>
+
+            <div class="response-panel" id="responseView">
+                <span class="protocol-tag" id="protocolName">Filtro de Capital</span>
+                <div class="script-quote" id="scriptText">
+                    "Si te muestro una forma de recuperar tu inversión en 30 días, ¿conseguirías los fondos o el dinero es un impedimento definitivo?"
+                </div>
+                <p style="font-size: 0.75rem; color: #888; margin-top: 15px;">
+                    <strong>Regla:</strong> Si el impedimento es real, descarta. No persigas.
+                </p>
+                <button class="btn-next" onclick="nextStep()">Siguiente Escenario &rarr;</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        "LA POSTURA ES TU MAYOR ACTIVO FINANCIERO"<br>
+        TEAM LEADER ACADEMY &copy; 2026
+    </div>
+</div>
+
+<script>
+    let current = 0;
+    const data = [
+        {
+            step: "ESCENARIO 01",
+            quote: '"No tengo el dinero para la inversión."',
+            protocol: "Filtro de Capital",
+            script: '"Si te muestro una forma de recuperar tu inversión en 30 días, ¿conseguirías los fondos o el dinero es un impedimento definitivo?"',
+            note: 'Si el impedimento es real, descarta. No persigas.'
+        },
+        {
+            step: "ESCENARIO 02",
+            quote: '"Me interesa, pero estoy sin tiempo ahora."',
+            protocol: "Filtro de Prioridad",
+            script: '"Justamente por eso te contacto. ¿Prefieres seguir sin tiempo o estás dispuesto a dedicar 2h diarias a tu libertad?"',
+            note: 'Buscamos gente que quiera cambiar su situación, no justificarla.'
+        },
+        {
+            step: "ESCENARIO 03",
+            quote: '"Explícame de qué trata rápido por WhatsApp."',
+            protocol: "Filtro de Autoridad",
+            script: '"Mi tiempo y el de mi equipo es limitado. Si no puedes ver la presentación de 10 min, no puedo darte una cita."',
+            note: 'Mantén el control de la herramienta. No des explicaciones baratas.'
+        },
+        {
+            step: "ESCENARIO 04",
+            quote: '"Lo voy a consultar con mi pareja/familia..."',
+            protocol: "Filtro de Liderazgo",
+            script: '"Lo entiendo. ¿La decisión depende de ellos o necesitas que les presentemos el proyecto juntos para que lo entiendan?"',
+            note: 'Detecta si es una excusa de miedo o una necesidad real de apoyo.'
+        }
+    ];
+
+    function revealResponse() {
+        document.getElementById('responseView').classList.add('active');
+        document.querySelector('.btn-reveal').style.display = 'none';
+    }
+
+    function nextStep() {
+        current++;
+        if(current >= data.length) current = 0;
+        
+        const s = data[current];
+        document.getElementById('stepLabel').innerText = s.step;
+        document.getElementById('prospectQuote').innerText = s.quote;
+        document.getElementById('protocolName').innerText = s.protocol;
+        document.getElementById('scriptText').innerText = s.script;
+        
+        document.getElementById('responseView').classList.remove('active');
+        document.querySelector('.btn-reveal').style.display = 'inline-block';
+    }
+</script>
+
+</body>
+</html>
