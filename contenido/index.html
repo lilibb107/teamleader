@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estrategia de Contenido 50/30/20 - Bloque 3</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --seda: #f4f4f2;
+            --blanco: #ffffff;
+            --carbon: #1a1a1a;
+            --oro-viejo: #9a8447;
+            --verde-deep: #24341d;
+            --borde: #d1d5db;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #e5e7eb;
+            color: var(--carbon);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .guide-canvas {
+            max-width: 900px;
+            background: var(--seda);
+            margin: 0 auto;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.1);
+            border: 1px solid var(--borde);
+            position: relative;
+        }
+
+        .side-bar {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background: var(--verde-deep);
+        }
+
+        .header {
+            padding: 60px 80px 30px;
+            background: var(--blanco);
+        }
+
+        .header span {
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            font-size: 0.7rem;
+            color: var(--oro-viejo);
+            font-weight: 800;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin: 10px 0;
+            color: var(--verde-deep);
+            line-height: 1.1;
+        }
+
+        .content { padding: 40px 80px; }
+
+        .intro-text {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 40px;
+            border-left: 3px solid var(--oro-viejo);
+            padding-left: 20px;
+        }
+
+        /* Bloques de la Regla */
+        .rule-section {
+            background: var(--blanco);
+            border: 1px solid var(--borde);
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+
+        .rule-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .percentage {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--verde-deep);
+        }
+
+        .category-title {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            color: var(--oro-viejo);
+        }
+
+        .explanation {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-bottom: 15px;
+        }
+
+        .example-box {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            border-left: 4px solid #cbd5e1;
+            margin-bottom: 20px;
+        }
+
+        /* Área de escritura */
+        .workspace {
+            width: 100%;
+            background: #fffdf7;
+            border: 1px dashed var(--oro-viejo);
+            padding: 15px;
+            min-height: 100px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            color: #334155;
+            resize: vertical;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .footer {
+            padding: 40px;
+            text-align: center;
+            background: var(--blanco);
+            font-size: 0.7rem;
+            color: #999;
+            border-top: 1px solid var(--borde);
+        }
+
+        @media (max-width: 768px) {
+            .header, .content { padding: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="guide-canvas">
+    <div class="side-bar"></div>
+    
+    <div class="header">
+        <span>BLOQUE 3 • PLANIFICACIÓN ESTRATÉGICA</span>
+        <h1>Manual de Contenido:<br>La Regla 50 / 30 / 20</h1>
+    </div>
+
+    <div class="content">
+        <p class="intro-text">
+            El error más común es convertir tu perfil en un catálogo de ventas. La regla 50/30/20 equilibra tu contenido para que el algoritmo te favorezca y tu audiencia te respete como líder.
+        </p>
+
+        <div class="rule-section">
+            <div class="rule-header">
+                <span class="category-title">Contenido de Valor</span>
+                <span class="percentage">50%</span>
+            </div>
+            <p class="explanation">
+                <strong>¿Qué es?:</strong> Educación puro. Resuelve dudas, enseña algo nuevo o rompe mitos. Es la razón por la que alguien te seguiría aunque no te compre nada hoy.
+            </p>
+            <div class="example-box">
+                <strong>💡 Ejemplos:</strong> <br>
+                • "3 pasos para organizar tu agenda si eres madre emprendedora." <br>
+                • "La verdad sobre por qué ahorrar no te hará rico." <br>
+                • "Cómo mi sistema ayuda a [Avatar] a lograr [Resultado]."
+            </div>
+            <label style="font-size: 0.7rem; font-weight: 800; color: var(--oro-viejo);">BORRADOR DE IDEAS (EDUCACIÓN):</label>
+            <textarea class="workspace" placeholder="Escribe aquí 3 temas educativos que tu nicho agradecería saber..."></textarea>
+        </div>
+
+        <div class="rule-section">
+            <div class="rule-header">
+                <span class="category-title">Estilo de Vida</span>
+                <span class="percentage">30%</span>
+            </div>
+            <p class="explanation">
+                <strong>¿Qué es?:</strong> Humanización. Muestra que eres una persona real. No se trata de presumir lujos, sino de mostrar la libertad o los valores que tu negocio te permite tener.
+            </p>
+            <div class="example-box">
+                <strong>💡 Ejemplos:</strong> <br>
+                • Trabajando desde un café o desde casa con tus hijos. <br>
+                • El libro que estás leyendo para mejorar tu mentalidad. <br>
+                • Una reflexión sobre un reto que superaste esta semana.
+            </div>
+            <label style="font-size: 0.7rem; font-weight: 800; color: var(--oro-viejo);">BORRADOR DE IDEAS (ESTILO DE VIDA):</label>
+            <textarea class="workspace" placeholder="Escribe momentos de tu día que muestren el beneficio de tu estilo de vida actual..."></textarea>
+        </div>
+
+        <div class="rule-section">
+            <div class="rule-header">
+                <span class="category-title">Conversión / Venta</span>
+                <span class="percentage">20%</span>
+            </div>
+            <p class="explanation">
+                <strong>¿Qué es?:</strong> El llamado a la acción. Aquí es donde filtras a los interesados y los invitas a tu negocio o sistema. Debe ser directo y escaso.
+            </p>
+            <div class="example-box">
+                <strong>💡 Ejemplos:</strong> <br>
+                • "Buscando a 3 personas para el equipo de expansión de este mes." <br>
+                • "Resultado de un socio que empezó hace 30 días sin experiencia." <br>
+                • "Si quieres mi método, comenta la palabra SISTEMA."
+            </div>
+            <label style="font-size: 0.7rem; font-weight: 800; color: var(--oro-viejo);">BORRADOR DE IDEAS (VENTA):</label>
+            <textarea class="workspace" placeholder="Escribe una propuesta directa invitando a tu negocio..."></textarea>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        "LA CONSISTENCIA EN EL VALOR CREA AUTORIDAD" <br>
+        <strong>TEAM LEADER ACADEMY &copy; 2026</strong>
+    </div>
+</div>
+
+</body>
+</html>

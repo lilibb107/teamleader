@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arquitectura de Marca Personal - Bloque 3</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --seda: #f4f4f2;
+            --blanco: #ffffff;
+            --carbon: #1a1a1a;
+            --oro-viejo: #9a8447;
+            --verde-deep: #24341d;
+            --borde: #d1d5db;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #e5e7eb;
+            color: var(--carbon);
+            margin: 0;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .guide-canvas {
+            max-width: 900px;
+            background: var(--seda);
+            margin: 0 auto;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.1);
+            border: 1px solid var(--borde);
+            position: relative;
+        }
+
+        .side-bar {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background: var(--verde-deep);
+        }
+
+        .header {
+            padding: 80px 80px 40px;
+            background: var(--blanco);
+        }
+
+        .header span {
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            font-size: 0.7rem;
+            color: var(--oro-viejo);
+            font-weight: 800;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin: 10px 0;
+            color: var(--verde-deep);
+            line-height: 1;
+            font-weight: 300;
+        }
+
+        .content { padding: 40px 80px; }
+
+        h2 {
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--oro-viejo);
+            display: inline-block;
+            margin-bottom: 30px;
+            padding-right: 50px;
+        }
+
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .step-box {
+            background: var(--blanco);
+            padding: 30px;
+            border: 1px solid var(--borde);
+        }
+
+        .step-box h3 {
+            margin-top: 0;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            color: var(--oro-viejo);
+        }
+
+        .example-tag {
+            background: #f0fdf4;
+            color: #166534;
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 4px;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        /* Tabla Comparativa */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            font-size: 0.85rem;
+            background: white;
+        }
+
+        .comparison-table th {
+            background: var(--verde-deep);
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+
+        .comparison-table td {
+            padding: 15px;
+            border: 1px solid var(--borde);
+        }
+
+        .do { color: #166534; font-weight: 700; }
+        .dont { color: #991b1b; font-weight: 700; }
+
+        /* Anatomía de Post */
+        .post-anatomy {
+            background: var(--verde-deep);
+            color: white;
+            padding: 40px;
+            margin: 40px 0;
+        }
+
+        .post-anatomy h3 { color: var(--oro-viejo); margin-top: 0; }
+
+        .hook-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .hook-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+        }
+
+        .hook-list i { color: var(--oro-viejo); margin-right: 10px; }
+
+        /* Cierre de Monetización */
+        .monetization-bridge {
+            background: var(--blanco);
+            padding: 40px;
+            border: 1px solid var(--oro-viejo);
+            margin-top: 50px;
+        }
+
+        .footer {
+            padding: 40px;
+            text-align: center;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: #999;
+        }
+
+        @media (max-width: 768px) {
+            .strategy-grid { grid-template-columns: 1fr; }
+            .header, .content { padding: 40px 30px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="guide-canvas">
+    <div class="side-bar"></div>
+    
+    <div class="header">
+        <span>BLOQUE 3 • IDENTIDAD Y MARCA</span>
+        <h1>Arquitectura de<br>Marca Personal</h1>
+    </div>
+
+    <div class="content">
+        <p style="font-size: 1.1rem; color: #444; margin-bottom: 40px;">
+            No necesitas ser un "influencer" para tener éxito. Necesitas ser una <strong>autoridad de nicho</strong>. Esta es la ingeniería para convertir un perfil común en un imán de confianza.
+        </p>
+
+        <h2>01. La Fachada Digital</h2>
+        <div class="strategy-grid">
+            <div class="step-box">
+                <h3>Fotografía de Impacto</h3>
+                <p>Tu imagen es tu primer filtro. Debe proyectar cercanía y profesionalismo. Luz natural y mirada a la cámara son obligatorios.</p>
+                <span class="example-tag">CONSEJO: Evita fondos ruidosos o fotos cortadas donde aparezcan otras personas.</span>
+            </div>
+            <div class="step-box">
+                <h3>Bio Estratégica</h3>
+                <p>La gente te sigue por lo que puedes hacer por ellos, no por quién eres. Usa la fórmula: [Ayudo a] + [Avatar] + [Resultado].</p>
+                <span class="example-tag">CONSEJO: "Ayudo a padres a emprender digitalmente para recuperar su tiempo."</span>
+            </div>
+        </div>
+
+        <h2>02. Protocolo de Ejecución</h2>
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Acción Correcta (Autoridad)</th>
+                    <th>Error Común (Vendedor)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="do">Publicar contenido que resuelve dudas.</td>
+                    <td class="dont">Publicar fotos del producto con el precio.</td>
+                </tr>
+                <tr>
+                    <td class="do">Usar colores y fuentes consistentes.</td>
+                    <td class="dont">Usar cada día un diseño y color diferente.</td>
+                </tr>
+                <tr>
+                    <td class="do">Mostrar historias de tu día a día profesional.</td>
+                    <td class="dont">Desaparecer y solo publicar cuando vendes.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>03. Ingeniería de Contenido</h2>
+        <div class="post-anatomy">
+            <h3>Anatomía de un Post que Convierte</h3>
+            <ul class="hook-list">
+                <li><i class="fas fa-bolt"></i> <strong>Título Gancho:</strong> Detiene el scroll (Ej: "Lo que nadie te dice de...").</li>
+                <li><i class="fas fa-layer-group"></i> <strong>Valor:</strong> 3 puntos rápidos que enseñen algo útil hoy mismo.</li>
+                <li><i class="fas fa-arrow-right"></i> <strong>CTA:</strong> Una orden clara (Ej: "Haz clic en el link para saber más").</li>
+            </ul>
+        </div>
+
+        <div class="monetization-bridge">
+            <h3 style="margin-top:0; color:var(--verde-deep)">El Vehículo de Monetización</h3>
+            <p style="font-size: 0.95rem;">
+                Construir esta marca es como crear una plataforma de confianza. Una vez que la gente confía en tu criterio, el <strong>Network Marketing</strong> se convierte en el socio ideal: te ofrece un sistema de negocio llave en mano para monetizar tu influencia sin los riesgos de crear una empresa tradicional.
+            </p>
+        </div>
+    </div>
+
+    <div class="footer">
+        PROFESIONALISMO • ESTRATEGIA • BLOQUE 3 <br>
+        <strong>TEAM LEADER ACADEMY &copy; 2026</strong>
+    </div>
+</div>
+
+</body>
+</html>
