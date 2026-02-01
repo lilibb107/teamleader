@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herramienta 02: Audit de Onboarding 48h</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #0a192f;
+            --navy-light: #112240;
+            --gold: #cda434;
+            --white: #e6f1ff;
+            --slate: #8892b0;
+            --success: #27ae60;
+        }
+
+        body { font-family: 'Poppins', sans-serif; background-color: #f0f2f5; padding: 40px 20px; display: flex; justify-content: center; }
+        .doc-container { width: 100%; max-width: 850px; background: var(--white); border: 1px solid #d1d9e6; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        
+        .doc-header { background: var(--navy); padding: 40px 60px; color: var(--white); border-bottom: 4px solid var(--gold); text-align: center; }
+        .doc-header h1 { margin: 0; font-size: 1.8rem; letter-spacing: 1px; }
+        .doc-header p { color: var(--gold); margin: 5px 0 0; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; }
+
+        .doc-content { padding: 40px 60px; }
+
+        /* Progress Bar */
+        .progress-container { background: #eee; height: 10px; border-radius: 5px; margin: 30px 0; overflow: hidden; }
+        .progress-bar { width: 0%; height: 100%; background: var(--gold); transition: 0.5s ease; }
+
+        .result-box { background: var(--navy-light); color: white; padding: 20px; border-radius: 8px; text-align: center; margin-bottom: 30px; }
+        .result-box h2 { margin: 0; font-size: 2.5rem; color: var(--gold); }
+        .result-box p { margin: 5px 0 0; font-size: 0.9rem; opacity: 0.8; }
+
+        .task-section { margin-bottom: 30px; }
+        .task-section h3 { font-size: 1rem; color: var(--navy); border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 15px; }
+
+        .checkbox-item { display: flex; align-items: center; gap: 15px; padding: 12px; border-radius: 6px; transition: 0.3s; cursor: pointer; border: 1px solid transparent; }
+        .checkbox-item:hover { background: rgba(205, 164, 52, 0.05); border-color: var(--gold); }
+        .checkbox-item input { transform: scale(1.3); cursor: pointer; }
+        .checkbox-item label { font-size: 0.9rem; color: var(--navy-light); cursor: pointer; flex-grow: 1; }
+
+        .protocol-note { background: #fff9e6; border-left: 4px solid var(--gold); padding: 15px; font-size: 0.85rem; color: #856404; margin-top: 20px; }
+
+        .footer { padding: 20px; text-align: center; font-size: 0.7rem; color: var(--slate); border-top: 1px solid #eee; }
+    </style>
+</head>
+<body>
+
+<div class="doc-container">
+    <div class="doc-header">
+        <h1>Protocolo de Onboarding: 48 Horas</h1>
+        <p>Ingeniería de Duplicación Inmediata</p>
+    </div>
+
+    <div class="doc-content">
+        <div class="result-box">
+            <p>Probabilidad de Retención a Largo Plazo</p>
+            <h2 id="score">0%</h2>
+            <p id="feedback">Selecciona las tareas completadas para analizar el inicio del socio.</p>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="bar"></div>
+        </div>
+
+        <div class="task-section">
+            <h3>Fase 1: Conexión y Visión</h3>
+            <div class="checkbox-item">
+                <input type="checkbox" class="task" onchange="updateScore()">
+                <label><b>Auditoría de Sueños:</b> Definida la "moneda" que compra su esfuerzo.</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" class="task" onchange="updateScore()">
+                <label><b>Por qué innegociable:</b> Escrito y validado por el mentor.</label>
+            </div>
+        </div>
+
+        <div class="task-section">
+            <h3>Fase 2: Configuración Técnica</h3>
+            <div class="checkbox-item">
+                <input type="checkbox" class="task" onchange="updateScore()">
+                <label>Acceso a Oficina Virtual y grupos de apoyo configurados.</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" class="task" onchange="updateScore()">
+                <label>Compromiso de Agenda: 3 bloques de 2h/semana establecidos.</label>
+            </div>
+        </div>
+
+        <div class="task-section">
+            <h3>Fase 3: Acción Masiva Imperfecta</h3>
+            <div class="checkbox-item">
+                <input type="checkbox" class="task" onchange="updateScore()">
+                <label><b>Lanzamiento:</b> Redactados los primeros 5 mensajes en vivo con el mentor.</label>
+            </div>
+            <div class="checkbox-item">
+                <input type="checkbox" class="task" onchange="updateScore()">
+                <label><b>Acción Cura Miedo:</b> Realizada la primera invitación de prueba.</label>
+            </div>
+        </div>
+
+        <div class="protocol-note">
+            <strong>Consejo del Mentor:</strong> Un error en estas 48h significa deserción en los próximos 30 días. ¡No des teoría, acompaña en la práctica!
+        </div>
+    </div>
+
+    <script>
+        function updateScore() {
+            const tasks = document.querySelectorAll('.task');
+            const total = tasks.length;
+            const completed = Array.from(tasks).filter(t => t.checked).length;
+            const percentage = Math.round((completed / total) * 100);
+            
+            document.getElementById('score').innerText = percentage + "%";
+            document.getElementById('bar').style.width = percentage + "%";
+
+            let msg = "";
+            if(percentage < 40) msg = "Riesgo de deserción alto. Falta acción inmediata.";
+            else if(percentage < 80) msg = "Buen inicio, pero falta compromiso de agenda.";
+            else msg = "¡Excelente Onboarding! Duplicación en camino.";
+            
+            document.getElementById('feedback').innerText = msg;
+        }
+    </script>
+
+    <div class="footer">
+        Team Leader Academy © 2026 • Auditoría de Liderazgo
+    </div>
+</div>
+
+</body>
+</html>

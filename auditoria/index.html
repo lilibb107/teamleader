@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herramienta 03: Auditoría de Red Pro</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #0a192f;
+            --navy-light: #112240;
+            --gold: #cda434;
+            --white: #e6f1ff;
+            --slate: #8892b0;
+            --accent: #1d2d44;
+            --exito: #27ae60;
+            --alerta: #e67e22;
+            --critico: #c0392b;
+        }
+
+        body { font-family: 'Poppins', sans-serif; background-color: #050c18; padding: 40px 20px; display: flex; justify-content: center; color: var(--slate); }
+        .doc-container { width: 100%; max-width: 900px; background: var(--navy-light); border: 1px solid var(--accent); border-radius: 4px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
+        
+        .doc-header { background: var(--navy); padding: 40px; border-bottom: 2px solid var(--gold); }
+        .doc-header h1 { color: var(--white); margin: 0; font-size: 1.8rem; }
+        .doc-header p { color: var(--gold); margin: 5px 0 0; font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase; }
+
+        .doc-content { padding: 40px; }
+
+        .kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 30px; }
+        .kpi-card { background: var(--navy); padding: 20px; border: 1px solid var(--accent); border-radius: 8px; }
+        .kpi-card label { display: block; color: var(--gold); font-size: 0.65rem; text-transform: uppercase; margin-bottom: 10px; font-weight: 700; }
+        .kpi-card input { width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--accent); color: var(--white); font-size: 1.2rem; outline: none; padding: 5px 0; }
+
+        .btn-audit { width: 100%; background: var(--gold); color: var(--navy); border: none; padding: 18px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: 0.3s; border-radius: 4px; margin-bottom: 30px; }
+
+        .report-card { background: rgba(2, 12, 27, 0.7); border: 1px solid var(--accent); padding: 25px; border-radius: 8px; display: none; }
+        .result-header { border-bottom: 1px solid var(--accent); padding-bottom: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        
+        .stat-box { text-align: center; padding: 15px; background: var(--navy); border-radius: 8px; border: 1px solid var(--accent); }
+        .stat-box h4 { margin: 0; font-size: 0.7rem; color: var(--slate); text-transform: uppercase; }
+        .stat-box span { font-size: 1.8rem; font-weight: 800; color: var(--gold); display: block; }
+
+        .diagnosis-box { margin-top: 25px; padding: 20px; border-radius: 4px; font-size: 0.9rem; line-height: 1.6; color: var(--white); }
+        .bg-critico { border-left: 5px solid var(--critico); background: rgba(192, 57, 43, 0.1); }
+        .bg-alerta { border-left: 5px solid var(--alerta); background: rgba(230, 126, 34, 0.1); }
+        .bg-exito { border-left: 5px solid var(--exito); background: rgba(39, 174, 96, 0.1); }
+    </style>
+</head>
+<body>
+
+<div class="doc-container">
+    <div class="doc-header">
+        <p>Auditoría de Liderazgo • Bloque 5</p>
+        <h1>Matriz de Rendimiento de Red</h1>
+    </div>
+
+    <div class="doc-content">
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <label>Invitaciones Totales (Semana)</label>
+                <input type="number" id="invitados" placeholder="Ej: 50">
+            </div>
+            <div class="kpi-card">
+                <label>Presentaciones Efectivas</label>
+                <input type="number" id="presentaciones" placeholder="Ej: 15">
+            </div>
+            <div class="kpi-card">
+                <label>Socios que presentan solos</label>
+                <input type="number" id="autonomos" placeholder="Ej: 3">
+            </div>
+            <div class="kpi-card">
+                <label>Total de Socios en la línea</label>
+                <input type="number" id="totalSocios" placeholder="Ej: 10">
+            </div>
+        </div>
+
+        <button class="btn-audit" onclick="ejecutarAuditoria()">Analizar Salud de la Red</button>
+
+        <div id="reporte" class="report-card">
+            <div class="result-header">
+                <h3 style="margin:0; color:var(--white);">Diagnóstico Operativo</h3>
+                <i class="fas fa-microscope" style="color:var(--gold);"></i>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div class="stat-box">
+                    <h4>Efectividad de Cierre</h4>
+                    <span id="ratio-res">0%</span>
+                </div>
+                <div class="stat-box">
+                    <h4>Índice de Autonomía</h4>
+                    <span id="auto-res">0%</span>
+                </div>
+            </div>
+
+            <div id="diagnosis" class="diagnosis-box"></div>
+        </div>
+    </div>
+
+    <script>
+        function ejecutarAuditoria() {
+            const inv = parseFloat(document.getElementById('invitados').value) || 0;
+            const pres = parseFloat(document.getElementById('presentaciones').value) || 0;
+            const auto = parseFloat(document.getElementById('autonomos').value) || 0;
+            const total = parseFloat(document.getElementById('totalSocios').value) || 0;
+
+            if (inv > 0 && total > 0) {
+                const ratio = Math.round((pres / inv) * 100);
+                const autonomia = Math.round((auto / total) * 100);
+
+                document.getElementById('ratio-res').innerText = ratio + "%";
+                document.getElementById('auto-res').innerText = autonomia + "%";
+                document.getElementById('reporte').style.display = "block";
+
+                const diagElement = document.getElementById('diagnosis');
+                
+                if (ratio < 25) {
+                    diagElement.className = "diagnosis-box bg-critico";
+                    diagElement.innerHTML = "<strong>CRÍTICO:</strong> Tu equipo está invitando mucho pero nadie llega a la cita. El problema es el <b>Guion de Contacto</b>.";
+                } else if (autonomia < 20) {
+                    diagElement.className = "diagnosis-box bg-alerta";
+                    diagElement.innerHTML = "<strong>ALERTA DE AUTO-EMPLEO:</strong> Tu índice de autonomía es bajo. Si dejas de trabajar, la red se detiene. Necesitas delegar el plan.";
+                } else {
+                    diagElement.className = "diagnosis-box bg-exito";
+                    diagElement.innerHTML = "<strong>RED SALUDABLE:</strong> Tienes un equilibrio óptimo. Tu enfoque ahora debe ser la mentoría de alto nivel.";
+                }
+            } else {
+                alert("Completa todos los campos para el diagnóstico del Bloque 5.");
+            }
+        }
+    </script>
+</div>
+</body>
+</html>
