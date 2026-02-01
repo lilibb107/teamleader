@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herramienta 03: Script Maestro de Seguimiento</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --blanco: #ffffff;
+            --seda: #f8f8f6;
+            --verde-lujo: #1e2d19;
+            --oro-aged: #a38942;
+            --borde: #e0e0e0;
+            --texto: #333333;
+            --bg-script: #fdfdfd;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f1f1;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .doc-container {
+            width: 100%;
+            max-width: 850px;
+            background: var(--blanco);
+            border: 1px solid var(--borde);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        }
+
+        .doc-header {
+            background: var(--verde-lujo);
+            padding: 40px 60px;
+            color: var(--blanco);
+            border-bottom: 5px solid var(--oro-aged);
+        }
+
+        .doc-header span {
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 0.7rem;
+            color: var(--oro-aged);
+            font-weight: 800;
+        }
+
+        .doc-header h1 {
+            margin: 10px 0 0;
+            font-size: 2rem;
+            font-weight: 300;
+        }
+
+        .doc-content { padding: 40px 60px; }
+
+        .timeline {
+            border-left: 2px solid var(--oro-aged);
+            margin-left: 20px;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        .day-block { margin-bottom: 40px; position: relative; }
+
+        .day-block::before {
+            content: "";
+            position: absolute;
+            left: -51px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            background: var(--oro-aged);
+            border-radius: 50%;
+            border: 4px solid var(--blanco);
+        }
+
+        .day-badge {
+            background: var(--verde-lujo);
+            color: var(--oro-aged);
+            padding: 5px 15px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .script-box {
+            background: var(--bg-script);
+            border: 1px dashed var(--oro-aged);
+            padding: 25px;
+            position: relative;
+        }
+
+        .script-box h3 {
+            margin-top: 0;
+            font-size: 0.9rem;
+            color: var(--verde-lujo);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .script-content {
+            font-family: 'Georgia', serif;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #555;
+            font-style: italic;
+        }
+
+        .variable { color: var(--oro-aged); font-weight: bold; font-style: normal; }
+
+        .note {
+            background: #fff9e6;
+            padding: 15px;
+            font-size: 0.8rem;
+            margin-top: 15px;
+            border-radius: 4px;
+            color: #856404;
+        }
+
+        .footer {
+            padding: 30px;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #999;
+            border-top: 1px solid #eee;
+        }
+
+        .btn-copy {
+            background: var(--verde-lujo);
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 800;
+            display: inline-block;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+
+        .btn-copy:hover { background: var(--oro-aged); }
+    </style>
+</head>
+<body>
+
+<div class="doc-container">
+    <div class="doc-header">
+        <span>Automatización • Bloque 4</span>
+        <h1>Script Maestro de Seguimiento</h1>
+    </div>
+
+    <div class="doc-content">
+        <div class="timeline">
+            
+            <div class="day-block">
+                <span class="day-badge">MOMENTO INMEDIATO</span>
+                <div class="script-box">
+                    <h3>Entrega del Lead Magnet y Bienvenida</h3>
+                    <div class="script-content">
+                        "¡Hola <span class="variable">[Nombre]</span>! Aquí tienes el acceso a <span class="variable">[Nombre del Lead Magnet]</span> que solicitaste. <br><br>
+                        Espero que estos consejos te ayuden a <span class="variable">[Pequeña Victoria]</span> hoy mismo. Mañana te contaré cómo logré pasar de <span class="variable">[Punto A]</span> a <span class="variable">[Punto B]</span> usando este mismo método. ¡Disfrútalo!"
+                    </div>
+                </div>
+            </div>
+
+            <div class="day-block">
+                <span class="day-badge">DÍA 1: PRUEBA SOCIAL</span>
+                <div class="script-box">
+                    <h3>Historia de éxito (Propia o de Socio)</h3>
+                    <div class="script-content">
+                        "¿Sabías que <span class="variable">[Nombre de Socio]</span> pensaba que no tenía tiempo para esto? <br><br>
+                        Igual que muchos, él/ella estaba <span class="variable">[Situación Difícil]</span>. Pero al aplicar el sistema, en solo <span class="variable">[Tiempo]</span> logró <span class="variable">[Resultado]</span>. El secreto no fue trabajar más, sino trabajar con un sistema."
+                    </div>
+                </div>
+            </div>
+
+            <div class="day-block">
+                <span class="day-badge">DÍA 2: DERRIBAR OBJECIONES</span>
+                <div class="script-box">
+                    <h3>Manejo de objeción (Ej: Falta de dinero)</h3>
+                    <div class="script-content">
+                        "A veces pensamos que necesitamos una fortuna para empezar un activo real. La verdad es que <span class="variable">[Derribo de objeción técnica]</span>. <br><br>
+                        No se trata de tener el dinero, se trata de tener la visión para crearlo. ¿Te gustaría ver cómo lo hacemos?"
+                    </div>
+                </div>
+            </div>
+
+            <div class="day-block">
+                <span class="day-badge">DÍA 3: CIERRE / AGENDAMIENTO</span>
+                <div class="script-box">
+                    <h3>Escasez, Urgencia e Invitación</h3>
+                    <div class="script-content">
+                        "Solo quedan <span class="variable">[Número]</span> cupos para mi mentoría personalizada de este mes. <br><br>
+                        Si estás listo para dejar de ser un curioso y convertirte en un profesional, agenda tu llamada aquí: <span class="variable">[Tu Link de Calendly/Citas]</span>."
+                    </div>
+                    <div class="note">
+                        <strong>Tip:</strong> El seguimiento automático permite filtrar a los interesados reales de los curiosos antes de que lleguen a tu agenda.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <center>
+            <a href="#" class="btn-copy"><i class="fas fa-file-word"></i> DESCARGAR PLANTILLAS EDITABLES</a>
+        </center>
+    </div>
+
+    <div class="footer">
+        Team Leader Academy © 2026 • "The Fortune is in the Follow-up"
+    </div>
+</div>
+
+</body>
+</html>

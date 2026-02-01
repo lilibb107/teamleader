@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herramienta 04: Cuadro de Mando Interactivo</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --verde-lujo: #1e2d19;
+            --oro-aged: #a38942;
+            --seda: #f8f8f6;
+            --blanco: #ffffff;
+            --borde: #e0e0e0;
+            --texto: #333333;
+            --exito: #27ae60;
+            --error: #c0392b;
+        }
+
+        body { font-family: 'Inter', sans-serif; background-color: #f1f1f1; padding: 40px 20px; display: flex; justify-content: center; }
+        .doc-container { width: 100%; max-width: 900px; background: var(--blanco); border: 1px solid var(--borde); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+        .doc-header { background: var(--verde-lujo); padding: 40px 60px; color: var(--blanco); border-bottom: 5px solid var(--oro-aged); }
+        .doc-header span { text-transform: uppercase; letter-spacing: 4px; font-size: 0.7rem; color: var(--oro-aged); font-weight: 800; }
+        .doc-header h1 { margin: 10px 0 0; font-size: 1.8rem; font-weight: 300; }
+        
+        .doc-content { padding: 40px 60px; }
+        
+        /* Dashboard Grid */
+        .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 40px; }
+        .metric-card { background: var(--seda); padding: 20px; border: 1px solid var(--borde); text-align: center; border-radius: 8px; }
+        .metric-card h3 { font-size: 0.7rem; text-transform: uppercase; color: var(--oro-aged); margin-bottom: 15px; }
+        .metric-card input { width: 80%; border: none; border-bottom: 2px solid var(--oro-aged); background: transparent; text-align: center; font-size: 1.2rem; font-weight: 700; color: var(--verde-lujo); outline: none; }
+
+        /* Semáforo de Diagnóstico */
+        .status-box { background: var(--verde-lujo); color: white; padding: 30px; border-radius: 12px; margin-top: 30px; position: relative; overflow: hidden; }
+        .status-box h2 { color: var(--oro-aged); font-size: 1rem; text-transform: uppercase; margin-top: 0; }
+        
+        .diagnosis-item { display: flex; align-items: center; gap: 20px; margin-bottom: 15px; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; }
+        .status-light { width: 15px; height: 15px; border-radius: 50%; background: #999; }
+        .light-green { background: var(--exito); box-shadow: 0 0 10px var(--exito); }
+        .light-red { background: var(--error); box-shadow: 0 0 10px var(--error); }
+
+        .btn-calc { background: var(--oro-aged); color: white; border: none; padding: 15px 30px; width: 100%; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: 0.3s; margin-bottom: 20px; }
+        .btn-calc:hover { background: #8a7435; }
+
+        .footer { padding: 30px; text-align: center; font-size: 0.7rem; color: #999; border-top: 1px solid #eee; }
+    </style>
+</head>
+<body>
+
+<div class="doc-container">
+    <div class="doc-header">
+        <span>Análisis de Datos • Bloque 4</span>
+        <h1>Cuadro de Mando: Diagnóstico de Escala</h1>
+    </div>
+
+    <div class="doc-content">
+        <p style="font-size: 0.9rem; color: #666; margin-bottom: 30px;">
+            Introduce tus datos actuales para evaluar la salud de tu sistema. Recuerda: <strong>"Lo que no se mide, no se mejora"</strong>.
+        </p>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <h3>Vistas en Landing</h3>
+                <input type="number" id="vistas" placeholder="0">
+            </div>
+            <div class="metric-card">
+                <h3>Nuevos Leads</h3>
+                <input type="number" id="leads" placeholder="0">
+            </div>
+            <div class="metric-card">
+                <h3>Inversión Total</h3>
+                <input type="number" id="costo" placeholder="$0">
+            </div>
+        </div>
+
+        <button class="btn-calc" onclick="calcular()">Analizar Rendimiento Ahora</button>
+
+        <div class="status-box">
+            <h2><i class="fas fa-stethoscope"></i> Diagnóstico del Sistema</h2>
+            
+            <div class="diagnosis-item">
+                <div id="l-conv" class="status-light"></div>
+                <div>
+                    <strong>Tasa de Conversión:</strong> <span id="r-conv">--%</span>
+                    <p style="font-size: 0.75rem; margin: 5px 0 0; opacity: 0.8;" id="m-conv">Introduce datos para ver el estado.</p>
+                </div>
+            </div>
+
+            <div class="diagnosis-item">
+                <div id="l-cpl" class="status-light"></div>
+                <div>
+                    <strong>Costo por Prospecto (CPL):</strong> <span id="r-cpl">$0.00</span>
+                    <p style="font-size: 0.75rem; margin: 5px 0 0; opacity: 0.8;" id="m-cpl">Calcula tu costo de adquisición.</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 30px; font-size: 0.85rem; color: var(--texto); border-left: 3px solid var(--oro-aged); padding-left: 15px;">
+            <strong>Tip de Escala:</strong> Si tu conversión es menor al 10%, el problema es el título o la promesa de tu landing. Si el CPL es muy alto, revisa tu segmentación de tráfico.
+        </div>
+    </div>
+
+    <script>
+        function calcular() {
+            const vistas = document.getElementById('vistas').value;
+            const leads = document.getElementById('leads').value;
+            const costo = document.getElementById('costo').value;
+
+            if(vistas > 0 && leads >= 0) {
+                const conv = ((leads / vistas) * 100).toFixed(1);
+                document.getElementById('r-conv').innerText = conv + "%";
+                
+                if(conv >= 20) {
+                    document.getElementById('l-conv').className = "status-light light-green";
+                    document.getElementById('m-conv').innerText = "¡Excelente! Tu promesa es poderosa.";
+                } else {
+                    document.getElementById('l-conv').className = "status-light light-red";
+                    document.getElementById('m-conv').innerText = "Bajo rendimiento. Revisa el título de tu landing.";
+                }
+
+                if(costo > 0 && leads > 0) {
+                    const cpl = (costo / leads).toFixed(2);
+                    document.getElementById('r-cpl').innerText = "$" + cpl;
+                    document.getElementById('l-cpl').className = "status-light light-green";
+                    document.getElementById('m-cpl').innerText = "Costo calculado. Mantén el monitoreo semanal.";
+                }
+            }
+        }
+    </script>
+
+    <div class="footer">
+        Team Leader Academy © 2026 • Inteligencia de Datos
+    </div>
+</div>
+
+</body>
+</html>

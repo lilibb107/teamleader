@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herramienta 02: Mapa de Ruta del Arsenal Tecnológico</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --blanco: #ffffff;
+            --seda: #f8f8f6;
+            --verde-lujo: #1e2d19;
+            --oro-aged: #a38942;
+            --borde: #e0e0e0;
+            --texto: #333333;
+            --gris-suave: #64748b;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f1f1;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .doc-container {
+            width: 100%;
+            max-width: 900px;
+            background: var(--blanco);
+            border: 1px solid var(--borde);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        }
+
+        .doc-header {
+            background: var(--verde-lujo);
+            padding: 40px 60px;
+            color: var(--blanco);
+            border-bottom: 5px solid var(--oro-aged);
+        }
+
+        .doc-header span {
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 0.7rem;
+            color: var(--oro-aged);
+            font-weight: 800;
+        }
+
+        .doc-header h1 {
+            margin: 10px 0 0;
+            font-size: 2rem;
+            font-weight: 300;
+        }
+
+        .doc-content { padding: 40px 60px; }
+
+        .intro-text {
+            font-size: 0.9rem;
+            color: var(--gris-suave);
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        /* Tabla Comparativa */
+        .tech-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+        }
+
+        .tech-table th {
+            background: var(--seda);
+            color: var(--verde-lujo);
+            text-align: left;
+            padding: 15px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid var(--oro-aged);
+        }
+
+        .tech-table td {
+            padding: 20px 15px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+            font-size: 0.85rem;
+        }
+
+        .category-icon {
+            color: var(--oro-aged);
+            margin-right: 8px;
+            font-size: 1rem;
+        }
+
+        .badge-pro { background: #e3f2fd; color: #1976d2; padding: 2px 8px; border-radius: 10px; font-size: 0.65rem; font-weight: 800; }
+        .badge-easy { background: #f1f8e9; color: #388e3c; padding: 2px 8px; border-radius: 10px; font-size: 0.65rem; font-weight: 800; }
+
+        /* Checklist */
+        .checklist-box {
+            background: var(--verde-lujo);
+            color: white;
+            padding: 30px;
+            border-radius: 4px;
+        }
+
+        .checklist-box h3 {
+            color: var(--oro-aged);
+            margin-top: 0;
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 12px;
+            font-size: 0.85rem;
+        }
+
+        .check-item i { color: var(--oro-aged); }
+
+        .footer {
+            padding: 30px;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #999;
+            border-top: 1px solid #eee;
+        }
+
+        .btn-action {
+            display: block;
+            text-align: center;
+            background: var(--oro-aged);
+            color: white;
+            padding: 18px;
+            text-decoration: none;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-top: 30px;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="doc-container">
+    <div class="doc-header">
+        <span>Guía de Selección • Bloque 4</span>
+        <h1>Arsenal Tecnológico: Mapa de Ruta</h1>
+    </div>
+
+    <div class="doc-content">
+        <p class="intro-text">
+            No necesitas ser programador para construir tu sistema. Utiliza esta guía para elegir las herramientas que mejor se adapten a tu momento actual y nivel técnico.
+        </p>
+
+        <table class="tech-table">
+            <thead>
+                <tr>
+                    <th>Categoría</th>
+                    <th>Opción "Rápida" (Principiante)</th>
+                    <th>Opción "Escala" (Avanzado)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong><i class="fas fa-desktop category-icon"></i>Páginas / Embudos</strong></td>
+                    <td>Carrd.co <span class="badge-easy">SIMPLE</span> <br><small>Ideal para landing pages de un solo paso.</small></td>
+                    <td>Systeme.io / Elementor <span class="badge-pro">PRO</span> <br><small>Automatización completa y blogs.</small></td>
+                </tr>
+                <tr>
+                    <td><strong><i class="fas fa-envelope category-icon"></i>Email & WhatsApp</strong></td>
+                    <td>WhatsAuto / ManyChat <span class="badge-easy">EFICAZ</span> <br><small>Respuesta rápida y directa.</small></td>
+                    <td>Mailchimp / ActiveCampaign <span class="badge-pro">PRO</span> <br><small>Secuencias complejas de seguimiento.</small></td>
+                </tr>
+                <tr>
+                    <td><strong><i class="fas fa-calendar-alt category-icon"></i>Citas y Agendas</strong></td>
+                    <td>Tidcal <span class="badge-easy">GRATIS</span> <br><small>Sincronización básica con Google.</small></td>
+                    <td>Calendly <span class="badge-pro">PRO</span> <br><small>Integración avanzada con cobros.</small></td>
+                </tr>
+                <tr>
+                    <td><strong><i class="fas fa-users-cog category-icon"></i>CRM (Organización)</strong></td>
+                    <td>Trello <span class="badge-easy">VISUAL</span> <br><small>Tableros simples de arrastrar y soltar.</small></td>
+                    <td>HubSpot <span class="badge-pro">PRO</span> <br><small>Seguimiento detallado de cada socio.</small></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="checklist-box">
+            <h3><i class="fas fa-tasks"></i> Lo mínimo viable para lanzar hoy:</h3>
+            <div class="check-item"><i class="far fa-check-square"></i> Una Landing Page con un título irresistible.</div>
+            <div class="check-item"><i class="far fa-check-square"></i> Un Lead Magnet (PDF o Video) configurado.</div>
+            <div class="check-item"><i class="far fa-check-square"></i> Un formulario de WhatsApp o Email conectado.</div>
+            <div class="check-item"><i class="far fa-check-square"></i> Tu agenda abierta para recibir citas.</div>
+        </div>
+
+        <a href="#" class="btn-action">DESCARGAR COMPARATIVA COMPLETA (PDF)</a>
+    </div>
+
+    <div class="footer">
+        Team Leader Academy © 2026 • Excelencia en Network Marketing
+    </div>
+</div>
+
+</body>
+</html>
