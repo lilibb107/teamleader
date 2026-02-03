@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditoría de Creencias | Team Leader Academy</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            /* Paleta Oficial Team Leader Academy */
+            --brand-green: #3d5a2b; /* Verde del logotipo */
+            --brand-black: #0e0f0e; /* Negro de fondo */
+            --brand-gold: #c2a34b;  /* Dorado del logotipo */
+            --white-text: #f4f4f4;
+            --slate-gray: #a1a1a1;
+            --accent-glow: rgba(194, 163, 75, 0.1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--brand-black);
+            color: var(--white-text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .workbook-container {
+            width: 100%;
+            max-width: 850px;
+            background: #1a1c1a; 
+            border: 1px solid var(--brand-green);
+            border-radius: 8px;
+            padding: 50px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.7);
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 2px solid var(--brand-gold);
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+        }
+
+        h1 { color: var(--brand-gold); margin: 0; font-size: 2.2rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 800; }
+        .tagline { color: var(--brand-green); font-size: 0.9rem; margin-top: 10px; font-weight: 700; letter-spacing: 1px; }
+
+        .section-title {
+            color: var(--white-text);
+            font-size: 1.2rem;
+            border-left: 4px solid var(--brand-green);
+            padding-left: 15px;
+            margin: 40px 0 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .exercise-box {
+            background: rgba(61, 90, 43, 0.05); 
+            padding: 25px;
+            border-radius: 6px;
+            border: 1px solid rgba(194, 163, 75, 0.2);
+            margin-bottom: 20px;
+        }
+
+        p { line-height: 1.6; font-size: 0.95rem; color: var(--slate-gray); }
+
+        .input-group { margin-bottom: 20px; }
+        label { display: block; color: var(--brand-gold); font-size: 0.8rem; font-weight: 700; margin-bottom: 8px; text-transform: uppercase; }
+        
+        textarea, input[type="text"] {
+            width: 100%;
+            background: var(--brand-black);
+            border: 1px solid var(--brand-green);
+            border-radius: 4px;
+            color: var(--white-text);
+            padding: 12px;
+            font-family: inherit;
+            box-sizing: border-box;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        textarea:focus, input[type="text"]:focus { 
+            border-color: var(--brand-gold); 
+            box-shadow: 0 0 10px rgba(194, 163, 75, 0.2);
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .matrix-table th {
+            background: var(--brand-green);
+            color: var(--white-text);
+            padding: 12px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            text-align: left;
+        }
+
+        .matrix-table td {
+            padding: 10px;
+            border: 1px solid var(--brand-green);
+        }
+
+        .highlight-box {
+            background: var(--accent-glow);
+            padding: 25px;
+            border-radius: 4px;
+            border: 1px dashed var(--brand-gold);
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .btn-action {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--brand-gold), #9a7d32);
+            color: var(--brand-black);
+            text-align: center;
+            text-decoration: none;
+            font-weight: 900;
+            border-radius: 4px;
+            margin-top: 40px;
+            transition: 0.3s;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: none;
+            letter-spacing: 1px;
+        }
+
+        .btn-action:hover { 
+            background: var(--white-text);
+            transform: translateY(-2px);
+        }
+
+        i { color: var(--brand-gold); }
+
+        @media print {
+            .btn-action { display: none; }
+            body { background: white; padding: 0; }
+            .workbook-container { box-shadow: none; border: 1px solid #ccc; width: 100%; color: black; }
+            h1, label, .section-title { color: black !important; }
+            .exercise-box { background: #f9f9f9; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="workbook-container">
+    <div class="header">
+        <h1>Auditoría de Creencias</h1>
+        <div class="tagline">REPROGRAMACIÓN DEL TECHO FINANCIERO | BLOQUE 1</div>
+    </div>
+
+    <p>El "Techo de Cristal" financiero es una barrera psicológica que el líder impone a su organización. Este cuaderno es tu herramienta para identificar sesgos y diseñar una mentalidad de expansión real.</p>
+
+    <div class="section-title">
+        <i class="fas fa-search"></i> 1. Identificación de Sesgos de Escasez
+    </div>
+    <div class="exercise-box">
+        <div class="input-group">
+            <label>¿Qué pensamientos limitantes surgen cuando piensas en invertir x10 en tu negocio?</label>
+            <textarea placeholder="Ej: 'Es demasiado riesgo', 'No tenemos la estructura aún'..."></textarea>
+        </div>
+        <div class="input-group">
+            <label>Sustitución de Sesgos: Transforma el "Es un Gasto" en ROI</label>
+            <p style="font-size: 0.8rem; font-style: italic; margin-top: -5px; color: var(--brand-green);">Enumera una inversión reciente que consideraste un "gasto" y define qué retorno real genera.</p>
+            <table class="matrix-table">
+                <thead>
+                    <tr>
+                        <th>Inversión (Activo)</th>
+                        <th>Retorno de Inversión (ROI)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" placeholder="Ej: Nuevo Software"></td>
+                        <td><input type="text" placeholder="Ej: 5 horas ahorradas/semana"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="section-title">
+        <i class="fas fa-chart-line"></i> 2. La Cifra de la Incomodidad
+    </div>
+    <div class="exercise-box">
+        <p>Define la cifra de facturación mensual que te incomoda o te da miedo admitir que deseas.</p>
+        <div class="input-group">
+            <label>Cifra de Facturación Meta ($):</label>
+            <input type="text" placeholder="Ingresa la cifra que marca tu próximo salto de crecimiento">
+        </div>
+        <div class="input-group">
+            <label>¿Qué cambios operativos requiere esta cifra?</label>
+            <textarea placeholder="¿A quién debes contratar? ¿Qué debes dejar de hacer tú?"></textarea>
+        </div>
+    </div>
+
+    <div class="section-title">
+        <i class="fas fa-hand-holding-usd"></i> 3. Mentalidad de Expansión
+    </div>
+    <div class="exercise-box">
+        <label>Compromiso de Soltar el Control</label>
+        <p>Para ganar millones, debes permitir que otros gestionen miles. Escribe 2 decisiones que delegarás esta semana para permitir la expansión.</p>
+        <input type="text" placeholder="1. Decisión a delegar..." style="margin-bottom: 15px;">
+        <input type="text" placeholder="2. Decisión a delegar...">
+    </div>
+
+    <div class="highlight-box">
+        <p style="color: var(--brand-gold); font-weight: 800; margin: 0; font-size: 1.1rem; letter-spacing: 1px;">
+            "LA ABUNDANCIA ES UNA DECISIÓN DE DISEÑO, NO UN RESULTADO DEL AZAR".
+        </p>
+    </div>
+
+    <button class="btn-action" onclick="window.print()">
+        Guardar Auditoría y Declarar Meta <i class="fas fa-save" style="color: var(--brand-black); margin-left: 10px;"></i>
+    </button>
+</div>
+
+</body>
+</html>

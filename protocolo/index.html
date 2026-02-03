@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Líder Termostato | Team Leader Academy</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --brand-green: #3d5a2b; 
+            --brand-black: #0e0f0e; 
+            --brand-gold: #c2a34b;  
+            --white-text: #f4f4f4;
+            --slate-gray: #a1a1a1;
+            --danger-red: #8b0000;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--brand-black);
+            color: var(--white-text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .cheat-sheet {
+            width: 100%;
+            max-width: 600px;
+            background: #1a1c1a; 
+            border: 2px solid var(--brand-gold);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Marca de agua / Decoración */
+        .cheat-sheet::before {
+            content: "\f2c9";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 150px;
+            color: rgba(194, 163, 75, 0.03);
+            pointer-events: none;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 1px solid var(--brand-green);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .header h1 { 
+            color: var(--brand-gold); 
+            margin: 0; 
+            font-size: 1.5rem; 
+            text-transform: uppercase; 
+            letter-spacing: 2px;
+        }
+
+        .header p { 
+            color: var(--brand-green); 
+            font-weight: 800; 
+            font-size: 0.8rem; 
+            margin: 5px 0 0;
+            letter-spacing: 1px;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        h3 { 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            color: var(--brand-gold); 
+            font-size: 1rem; 
+            text-transform: uppercase;
+            border-bottom: 1px dashed var(--brand-green);
+            padding-bottom: 5px;
+        }
+
+        /* 1. Silencio Estratégico */
+        .pause-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .step-circle {
+            text-align: center;
+            flex: 1;
+        }
+
+        .circle {
+            width: 35px;
+            height: 35px;
+            background: var(--brand-green);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 5px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            border: 2px solid var(--brand-gold);
+        }
+
+        .step-label { font-size: 0.65rem; color: var(--slate-gray); text-transform: uppercase; }
+
+        /* 2. Procesamiento de Errores */
+        .data-box {
+            background: rgba(61, 90, 43, 0.1);
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid var(--brand-gold);
+            margin-top: 10px;
+        }
+
+        .comparison {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            margin-top: 10px;
+        }
+
+        .comp-item { width: 48%; }
+        .comp-label { font-weight: 800; display: block; margin-bottom: 3px; }
+        .red { color: #ff4d4d; }
+        .green { color: #4dff4d; }
+
+        /* 3. Frases de Anclaje */
+        .phrase-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .phrase-item {
+            background: rgba(255,255,255,0.05);
+            margin-bottom: 8px;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-style: italic;
+            border: 1px solid transparent;
+            transition: 0.3s;
+        }
+
+        .phrase-item:hover {
+            border-color: var(--brand-gold);
+            background: rgba(194, 163, 75, 0.05);
+        }
+
+        /* Badge Termostato vs Termómetro */
+        .footer-badge {
+            margin-top: 30px;
+            padding: 15px;
+            text-align: center;
+            background: var(--brand-gold);
+            color: var(--brand-black);
+            font-weight: 900;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            border-radius: 4px;
+        }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .cheat-sheet { box-shadow: none; border: 2px solid black; color: black; }
+            .circle { background: black; border-color: black; }
+            .header h1, h3 { color: black !important; }
+            .footer-badge { background: #eee; border: 1px solid black; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="cheat-sheet">
+    <div class="header">
+        <p>PROTOCOLOS DE ALTO RENDIMIENTO</p>
+        <h1>Líder Termostato</h1>
+        <p style="color: var(--slate-gray); font-weight: 400;">MANUAL DE GESTIÓN DE CRISIS</p>
+    </div>
+
+    <div class="section">
+        <h3><i class="fas fa-stopwatch"></i> El Silencio Estratégico (5 seg)</h3>
+        <p style="font-size: 0.8rem; color: var(--slate-gray);">Antes de reaccionar, expande el espacio entre el estímulo y tu respuesta.</p>
+        <div class="pause-steps">
+            <div class="step-circle"><div class="circle">1</div><div class="step-label">Inhala</div></div>
+            <div class="step-circle"><div class="circle">2</div><div class="step-label">Observa</div></div>
+            <div class="step-circle"><div class="circle">3</div><div class="step-label">Neutraliza</div></div>
+            <div class="step-circle"><div class="circle">4</div><div class="step-label">Evalúa</div></div>
+            <div class="step-circle"><div class="circle">5</div><div class="step-label">Responde</div></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3><i class="fas fa-microchip"></i> El Error como Dato Objetivo</h3>
+        <div class="data-box">
+            <div class="comparison">
+                <div class="comp-item">
+                    <span class="comp-label red">Termómetro (Reactivo)</span>
+                    <span style="font-size: 0.75rem;">"¿Cómo pudiste cometer este error tan grave?" (Ataque personal)</span>
+                </div>
+                <div class="comp-item" style="border-left: 1px solid var(--brand-green); padding-left: 10px;">
+                    <span class="comp-label green">Termostato (Regulador)</span>
+                    <span style="font-size: 0.75rem;">"Tenemos un desvío en el proceso. ¿Qué dato nos falta para corregirlo?"</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3><i class="fas fa-anchor"></i> Frases de Neutralidad</h3>
+        <ul class="phrase-list">
+            <li class="phrase-item">"Entiendo la urgencia. Vamos a procesar los hechos antes de decidir."</li>
+            <li class="phrase-item">"El error ya es pasado; nuestra prioridad ahora es la solución técnica."</li>
+            <li class="phrase-item">"Mantengamos el centro. Si el líder no se altera, el equipo ejecuta."</li>
+            <li class="phrase-item">"¿Qué es lo más inteligente que podemos hacer con la información actual?"</li>
+        </ul>
+    </div>
+
+    <div class="footer-badge">
+        NO SEAS UN TERMÓMETRO QUE AMPLIFICA EL CAOS.<br>
+        SÉ EL TERMOSTATO QUE DEFINE EL CLIMA.
+    </div>
+
+    <button onclick="window.print()" style="margin-top: 20px; width: 100%; background: transparent; border: 1px solid var(--brand-green); color: var(--brand-gold); padding: 10px; border-radius: 4px; cursor: pointer; font-weight: 800; text-transform: uppercase; font-size: 0.7rem;">
+        <i class="fas fa-print"></i> Imprimir Tarjeta de Referencia
+    </button>
+</div>
+
+</body>
+</html>
