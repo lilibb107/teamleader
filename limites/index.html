@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditoría de Límites | Team Leader Academy</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --tl-green: #3d5a2b;
+            --tl-gold: #c2a34b;
+            --tl-black: #0e0f0e;
+            --tl-bg: #fdfdfb;
+            --white: #ffffff;
+            --danger: #a32a2a;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--tl-bg);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .audit-container {
+            width: 100%;
+            max-width: 850px;
+            background: var(--white);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(61, 90, 43, 0.1);
+            border: 1px solid #eee;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 3px solid var(--tl-gold);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 { color: var(--tl-green); text-transform: uppercase; margin: 0; font-size: 1.6rem; }
+        .subtitle { color: var(--tl-gold); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; }
+
+        .instruction {
+            font-size: 0.85rem;
+            color: #555;
+            background: rgba(194, 163, 75, 0.1);
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--tl-gold);
+        }
+
+        .section-title {
+            color: var(--tl-green);
+            font-weight: 800;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin: 25px 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .check-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .check-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .check-card:hover { border-color: var(--tl-green); background: rgba(61, 90, 43, 0.02); }
+
+        .check-card input[type="checkbox"] {
+            accent-color: var(--tl-green);
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+        }
+
+        .check-text { font-size: 0.85rem; color: #444; }
+        .check-text b { color: var(--tl-black); display: block; margin-bottom: 3px; }
+
+        /* TABLA DE ACCIÓN */
+        .action-plan {
+            margin-top: 30px;
+            background: var(--tl-black);
+            padding: 25px;
+            border-radius: 8px;
+            color: white;
+        }
+
+        .action-plan h3 {
+            color: var(--tl-gold);
+            font-size: 1rem;
+            text-transform: uppercase;
+            margin-top: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th { color: var(--tl-gold); font-size: 0.7rem; text-transform: uppercase; text-align: left; padding: 10px; border-bottom: 1px solid #333; }
+        td { padding: 10px; }
+
+        input[type="text"], input[type="date"] {
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid #444;
+            color: white;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+
+        .btn-print {
+            margin-top: 30px;
+            width: 100%;
+            padding: 18px;
+            background: var(--tl-gold);
+            color: var(--tl-black);
+            border: none;
+            font-weight: 900;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        @media print {
+            .btn-print, .instruction { display: none; }
+            .audit-container { box-shadow: none; border: 1px solid #000; }
+            .action-plan { background: white; color: black; border: 1px solid black; }
+            input { color: black !important; border: 1px solid #ccc !important; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="audit-container">
+    <div class="header">
+        <h1>Auditoría de Límites y Estándares</h1>
+        <div class="subtitle">Guardianes de la Cultura | BLOQUE 2</div>
+    </div>
+
+    <div class="instruction">
+        <i class="fas fa-exclamation-triangle"></i> <b>Regla de Oro:</b> "Lo que permites, lo estás enseñando". Marca las conductas que has detectado en tu equipo y que no has confrontado todavía.
+    </div>
+
+    <div class="section-title"><i class="fas fa-search"></i> Identificación de Fugas de Autoridad</div>
+    
+    <div class="check-grid">
+        <label class="check-card">
+            <input type="checkbox">
+            <span class="check-text">
+                <b>Impuntualidad o Incumplimiento:</b>
+                Se entregan tareas fuera de plazo o se llega tarde a las reuniones sin consecuencias.
+            </span>
+        </label>
+        <label class="check-card">
+            <input type="checkbox">
+            <span class="check-text">
+                <b>Calidad "Suficiente":</b>
+                El socio entrega lo mínimo para cumplir, pero no bajo los estándares de excelencia de la academia.
+            </span>
+        </label>
+        <label class="check-card">
+            <input type="checkbox">
+            <span class="check-text">
+                <b>Triangulación / Chismes:</b>
+                Se habla de los problemas con otros socios en lugar de ir directamente a la fuente (o al líder).
+            </span>
+        </label>
+        <label class="check-card">
+            <input type="checkbox">
+            <span class="check-text">
+                <b>Falta de Proactividad:</b>
+                El equipo solo se mueve si tú das la orden (dependencia operativa total).
+            </span>
+        </label>
+    </div>
+
+    <div class="action-plan">
+        <h3><i class="fas fa-bolt"></i> Hoja de Ruta de Restablecimiento</h3>
+        <p style="font-size: 0.75rem; opacity: 0.8;">Define qué conversaciones incómodas vas a tener esta semana para cerrar las fugas marcadas arriba.</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 35%;">Socio</th>
+                    <th style="width: 45%;">Límite a Restablecer</th>
+                    <th style="width: 20%;">Fecha Límite</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="text" placeholder="Nombre del socio"></td>
+                    <td><input type="text" placeholder="Ej: Puntualidad en entregas"></td>
+                    <td><input type="date"></td>
+                </tr>
+                <tr>
+                    <td><input type="text" placeholder="Nombre del socio"></td>
+                    <td><input type="text" placeholder="Ej: No saltarse procesos"></td>
+                    <td><input type="date"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p style="text-align: center; font-size: 0.8rem; color: #666; margin-top: 25px; font-style: italic;">
+        "Tu liderazgo se define por la conversación más difícil que no te atreves a tener."
+    </p>
+
+    <button class="btn-print" onclick="window.print()">
+        Exportar Plan de Límites <i class="fas fa-print" style="margin-left:10px;"></i>
+    </button>
+</div>
+
+</body>
+</html>

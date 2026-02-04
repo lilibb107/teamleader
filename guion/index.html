@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guion de Conversaciones Críticas | Team Leader Academy</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --tl-green: #3d5a2b; /* Verde del logo */
+            --tl-gold: #c2a34b;  /* Dorado del logo */
+            --tl-black: #0e0f0e;
+            --tl-bg: #fdfdfb;    /* Crema suave */
+            --tl-white: #ffffff;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--tl-bg);
+            color: var(--tl-black);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .cnv-container {
+            width: 100%;
+            max-width: 800px;
+            background: var(--tl-white);
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(61, 90, 43, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 3px solid var(--tl-gold);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .header h1 { 
+            color: var(--tl-green); 
+            margin: 0; 
+            font-size: 1.8rem; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header p { 
+            color: var(--tl-gold); 
+            font-weight: 700; 
+            margin-top: 5px;
+            font-size: 0.9rem;
+        }
+
+        .instruction {
+            background: rgba(194, 163, 75, 0.1);
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--tl-gold);
+        }
+
+        .step-box {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #f0f0f0;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .step-box:hover {
+            border-color: var(--tl-green);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .step-number {
+            background: var(--tl-green);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .step-title {
+            color: var(--tl-green);
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .step-tip {
+            font-size: 0.75rem;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        textarea {
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 12px;
+            font-family: inherit;
+            resize: none;
+            box-sizing: border-box;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        textarea:focus {
+            border-color: var(--tl-gold);
+            box-shadow: 0 0 5px rgba(194, 163, 75, 0.2);
+        }
+
+        .preview-area {
+            margin-top: 30px;
+            padding: 25px;
+            background: var(--tl-green);
+            color: white;
+            border-radius: 8px;
+        }
+
+        .preview-area h3 {
+            margin-top: 0;
+            color: var(--tl-gold);
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        #final-script {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .btn-print {
+            margin-top: 25px;
+            width: 100%;
+            padding: 15px;
+            background: var(--tl-gold);
+            color: var(--tl-black);
+            border: none;
+            font-weight: 900;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: 0.3s;
+            letter-spacing: 1px;
+        }
+
+        .btn-print:hover {
+            background: #b08d3a;
+        }
+
+        @media print {
+            .btn-print, .instruction, .step-tip { display: none; }
+            .cnv-container { box-shadow: none; border: none; }
+            body { background: white; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="cnv-container">
+    <div class="header">
+        <h1>Guion de Comunicación No Violenta</h1>
+        <p>INTELIGENCIA RELACIONAL | BLOQUE 2</p>
+    </div>
+
+    <div class="instruction">
+        <i class="fas fa-info-circle"></i> Usa este preparador para transformar una queja en una <b>petición de alto nivel</b>. Evita juicios y enfócate en hechos objetivos para mantener tu autoridad real.
+    </div>
+
+    <div class="step-box">
+        <div class="step-header">
+            <div class="step-number">1</div>
+            <span class="step-title">Observación (Hechos)</span>
+        </div>
+        <span class="step-tip">Describe lo que ves sin adjetivos. Ej: "En las últimas 3 reuniones has llegado 10 min tarde" en lugar de "Eres impuntual".</span>
+        <textarea id="obs" placeholder="Cuando yo veo que..." oninput="updateScript()"></textarea>
+    </div>
+
+    <div class="step-box">
+        <div class="step-header">
+            <div class="step-number">2</div>
+            <span class="step-title">Sentimiento (Impacto)</span>
+        </div>
+        <span class="step-tip">Cómo afecta esto al sistema o a ti. Ej: "Me siento preocupado por el ritmo del proyecto".</span>
+        <textarea id="sent" placeholder="Me siento..." oninput="updateScript()"></textarea>
+    </div>
+
+    <div class="step-box">
+        <div class="step-header">
+            <div class="step-number">3</div>
+            <span class="step-title">Necesidad (Valor)</span>
+        </div>
+        <span class="step-tip">¿Qué estándar o valor no se está cumpliendo? Ej: "Porque necesito previsibilidad y respeto al tiempo del equipo".</span>
+        <textarea id="nec" placeholder="Porque necesito/valoro..." oninput="updateScript()"></textarea>
+    </div>
+
+    <div class="step-box">
+        <div class="step-header">
+            <div class="step-number">4</div>
+            <span class="step-title">Petición (Acción)</span>
+        </div>
+        <span class="step-tip">Una acción clara, positiva y realizable. Ej: "¿Estarías dispuesto a conectarte 5 min antes mañana?".</span>
+        <textarea id="pet" placeholder="Por eso, te pido que..." oninput="updateScript()"></textarea>
+    </div>
+
+    <div class="preview-area">
+        <h3><i class="fas fa-comment-dots"></i> Tu Guion de Autoridad</h3>
+        <div id="final-script">Comienza a escribir en los cuadros de arriba para generar tu guion...</div>
+    </div>
+
+    <button class="btn-print" onclick="window.print()">
+        Imprimir Guion de Preparación <i class="fas fa-print" style="margin-left: 10px;"></i>
+    </button>
+</div>
+
+<script>
+    function updateScript() {
+        const obs = document.getElementById('obs').value || "[...]";
+        const sent = document.getElementById('sent').value || "[...]";
+        const nec = document.getElementById('nec').value || "[...]";
+        const pet = document.getElementById('pet').value || "[...]";
+
+        const script = `Cuando veo que ${obs},\nme siento ${sent}\nporque necesito ${nec}.\nPor eso, te pido que ${pet}.`;
+        
+        document.getElementById('final-script').innerText = script;
+    }
+</script>
+
+</body>
+</html>

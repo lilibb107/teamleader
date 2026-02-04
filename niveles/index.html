@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matriz de Delegación 10x | Team Leader Academy</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --tl-green: #3d5a2b;
+            --tl-gold: #c2a34b;
+            --tl-black: #0e0f0e;
+            --tl-bg: #fdfdfb;
+            --white: #ffffff;
+            --danger: #a32a2a;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--tl-bg);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .matrix-container {
+            width: 100%;
+            max-width: 1000px;
+            background: var(--white);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(61, 90, 43, 0.1);
+            border: 1px solid #eee;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 3px solid var(--tl-gold);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 { color: var(--tl-green); text-transform: uppercase; margin: 0; font-size: 1.6rem; letter-spacing: 1px; }
+        .subtitle { color: var(--tl-gold); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th {
+            background: var(--tl-green);
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        input:focus, select:focus { border-color: var(--tl-gold); }
+
+        /* Análisis de Resultados */
+        .analysis-section {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 25px;
+            padding: 25px;
+            background: var(--tl-black);
+            border-radius: 8px;
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .stat-item {
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-item.active-1 { border-left: 5px solid #666; }
+        .stat-item.active-2 { border-left: 5px solid var(--tl-green); }
+        .stat-item.active-3 { border-left: 5px solid var(--tl-gold); }
+
+        .stat-item h4 { margin: 0; font-size: 0.7rem; text-transform: uppercase; color: var(--tl-gold); }
+        .stat-item .count { font-size: 1.5rem; font-weight: 800; }
+
+        .diagnosis-box {
+            padding: 20px;
+            border: 1px solid var(--tl-gold);
+            border-radius: 6px;
+            background: rgba(194, 163, 75, 0.05);
+        }
+
+        .diagnosis-box h3 {
+            margin-top: 0;
+            color: var(--tl-gold);
+            font-size: 1rem;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #diagnosis-text {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #ccc;
+        }
+
+        .btn-print {
+            margin-top: 25px;
+            width: 100%;
+            padding: 18px;
+            background: var(--tl-gold);
+            color: var(--tl-black);
+            border: none;
+            font-weight: 900;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 4px;
+            letter-spacing: 1px;
+        }
+
+        @media print {
+            .btn-print { display: none; }
+            .matrix-container { box-shadow: none; border: 1px solid #000; padding: 20px; }
+            .analysis-section { background: white; color: black; border: 1px solid black; }
+            .stat-item { border: 1px solid #ccc; color: black; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="matrix-container">
+    <div class="header">
+        <h1>Matriz de Delegación 10X</h1>
+        <div class="subtitle">Auditoría de Carga y Autonomía</div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 5%;">#</th>
+                <th style="width: 40%;">Proyecto / Responsabilidad</th>
+                <th style="width: 25%;">Socio</th>
+                <th style="width: 30%;">Nivel de Delegación</th>
+            </tr>
+        </thead>
+        <tbody id="matrix-body">
+            </tbody>
+    </table>
+
+    <div class="analysis-section">
+        <div class="stats-grid">
+            <div class="stat-item active-1">
+                <h4>Nivel 1 (Tarea)</h4>
+                <div class="count" id="c1">0</div>
+            </div>
+            <div class="stat-item active-2">
+                <h4>Nivel 2 (Objetivo)</h4>
+                <div class="count" id="c2">0</div>
+            </div>
+            <div class="stat-item active-3">
+                <h4>Nivel 3 (Visión)</h4>
+                <div class="count" id="c3">0</div>
+            </div>
+        </div>
+
+        <div class="diagnosis-box">
+            <h3><i class="fas fa-chart-line"></i> Análisis de Resultados</h3>
+            <div id="diagnosis-text">Completa la matriz para recibir tu diagnóstico de liderazgo estratégico...</div>
+        </div>
+    </div>
+
+    <button class="btn-print" onclick="window.print()">
+        Exportar Análisis de Estructura <i class="fas fa-file-pdf" style="margin-left: 10px;"></i>
+    </button>
+</div>
+
+<script>
+    // Generar 10 filas
+    const body = document.getElementById('matrix-body');
+    for (let i = 1; i <= 10; i++) {
+        const row = `
+            <tr>
+                <td style="font-size: 0.7rem; color: #999; font-weight: bold;">${i}</td>
+                <td><input type="text" placeholder="Proyecto ${i}..."></td>
+                <td><input type="text" placeholder="Nombre..."></td>
+                <td>
+                    <select class="lvl-select" onchange="runAnalysis()">
+                        <option value="0">-- Seleccionar Nivel --</option>
+                        <option value="1">Nivel 1: Tarea (Tú dices CÓMO)</option>
+                        <option value="2">Nivel 2: Objetivo (Ellos deciden CÓMO)</option>
+                        <option value="3">Nivel 3: Visión (Ellos LIDERAN)</option>
+                    </select>
+                </td>
+            </tr>
+        `;
+        body.innerHTML += row;
+    }
+
+    function runAnalysis() {
+        const selects = document.querySelectorAll('.lvl-select');
+        let c1 = 0, c2 = 0, c3 = 0;
+        let totalAssigned = 0;
+
+        selects.forEach(s => {
+            if (s.value === "1") { c1++; totalAssigned++; }
+            if (s.value === "2") { c2++; totalAssigned++; }
+            if (s.value === "3") { c3++; totalAssigned++; }
+        });
+
+        document.getElementById('c1').innerText = c1;
+        document.getElementById('c2').innerText = c2;
+        document.getElementById('c3').innerText = c3;
+
+        const diag = document.getElementById('diagnosis-text');
+
+        if (totalAssigned < 3) {
+            diag.innerHTML = "Sigue completando la matriz para obtener un diagnóstico preciso.";
+            return;
+        }
+
+        // Lógica de Diagnóstico
+        if (c1 > c2 && c1 > c3) {
+            diag.innerHTML = "<strong>LÍDER CUELLO DE BOTELLA:</strong> Tu estructura depende excesivamente de tus instrucciones directas. Estás comprando resultados a cambio de tu tiempo personal. <br><br><em>Recomendación:</em> Mueve al menos 2 proyectos al Nivel 2 este mes.";
+        } else if (c2 >= c1 && c2 >= c3) {
+            diag.innerHTML = "<strong>LÍDER EN TRANSICIÓN:</strong> Tienes un buen equilibrio. Estás permitiendo que tu equipo desarrolle criterio propio, pero aún supervisas el cumplimiento de objetivos. <br><br><em>Recomendación:</em> Identifica a tu socio más brillante y entrégale un proyecto en Nivel 3.";
+        } else if (c3 > c1) {
+            diag.innerHTML = "<strong>ARQUITECTO DE SISTEMAS:</strong> Felicidades. Operas desde la duplicación. Tu equipo no solo ejecuta, sino que expande tu visión sin que estés presente en el micro-detalle. <br><br><em>Recomendación:</em> Enfócate exclusivamente en la estrategia de expansión x10.";
+        }
+    }
+</script>
+
+</body>
+</html>
