@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Transferencia de Poder (MTP) | Team Leader Academy</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --tl-navy: #0a192f;
+            --tl-navy-light: #112240;
+            --tl-gold: #cda434;
+            --tl-white: #fdfdfb;
+            --tl-slate: #8892b0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            color: var(--tl-navy);
+        }
+
+        .document-container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: white;
+            padding: 50px;
+            border-top: 10px solid var(--tl-gold);
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .logo-placeholder {
+            font-weight: 900;
+            color: var(--tl-navy);
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        .doc-title {
+            text-align: right;
+        }
+
+        .doc-title h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: var(--tl-gold);
+            text-transform: uppercase;
+        }
+
+        .doc-title p {
+            margin: 5px 0 0 0;
+            font-size: 0.8rem;
+            color: var(--tl-slate);
+        }
+
+        .section-title {
+            background: var(--tl-navy);
+            color: white;
+            padding: 10px 20px;
+            font-size: 1rem;
+            margin: 30px 0 20px 0;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            color: var(--tl-slate);
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            box-sizing: border-box;
+            resize: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th {
+            background: #f8f9fa;
+            text-align: left;
+            padding: 12px;
+            font-size: 0.8rem;
+            border-bottom: 2px solid var(--tl-gold);
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            font-size: 0.85rem;
+        }
+
+        input[type="text"], input[type="date"] {
+            width: 100%;
+            border: none;
+            padding: 5px;
+            font-family: inherit;
+            outline: none;
+        }
+
+        .phase-badge {
+            padding: 4px 8px;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: white;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
+        .p1 { background: #555; }
+        .p2 { background: var(--tl-slate); }
+        .p3 { background: var(--tl-gold); }
+        .p4 { background: var(--tl-navy); }
+
+        .footer-note {
+            margin-top: 40px;
+            padding: 20px;
+            background: #fff9e6;
+            border-left: 4px solid var(--tl-gold);
+            font-size: 0.85rem;
+            font-style: italic;
+        }
+
+        .btn-print {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--tl-gold);
+            color: var(--tl-navy);
+            border: none;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        @media print {
+            .btn-print { display: none; }
+            body { padding: 0; background: white; }
+            .document-container { box-shadow: none; border: 1px solid #eee; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="document-container">
+    <div class="header">
+        <div class="logo-placeholder">
+            TEAM LEADER <span style="color:var(--tl-gold)">ACADEMY</span>
+        </div>
+        <div class="doc-title">
+            <h1>Manual de Transferencia de Poder</h1>
+            <p>SISTEMA DE DUPLICACIÓN ESTRATÉGICA | BLOQUE 4</p>
+        </div>
+    </div>
+
+    <div class="section-title">
+        <i class="fas fa-sitemap"></i> 1. INVENTARIO DE HABILIDADES CRÍTICAS
+    </div>
+    <p style="font-size: 0.85rem; margin-bottom: 15px;">Identifica las tareas clave que serán transferidas para liberar tu tiempo operativo.</p>
+    
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 45%;">Proceso / Tarea Estratégica</th>
+                <th style="text-align:center;">SOP Listo</th>
+                <th>Fecha Límite Autonomía</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="text" placeholder="Ej: Gestión de flujo de caja"></td>
+                <td style="text-align:center;"><input type="checkbox"></td>
+                <td><input type="date"></td>
+            </tr>
+            <tr>
+                <td><input type="text" placeholder="Ej: Supervisión de calidad final"></td>
+                <td style="text-align:center;"><input type="checkbox"></td>
+                <td><input type="date"></td>
+            </tr>
+            <tr>
+                <td><input type="text" placeholder="Ej: Atención a cuentas clave"></td>
+                <td style="text-align:center;"><input type="checkbox"></td>
+                <td><input type="date"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="section-title">
+        <i class="fas fa-sync-alt"></i> 2. CRONOGRAMA DE LAS 4 FASES
+    </div>
+    
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 35%;">Fase del Método</th>
+                <th>Acción de Mentoría</th>
+                <th style="width: 20%;">Validación</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="phase-badge p1">FASE 1</span><br><b>Yo hago, tú miras</b></td>
+                <td>Exposición total al proceso y toma de notas del "porqué".</td>
+                <td><input type="date"></td>
+            </tr>
+            <tr>
+                <td><span class="phase-badge p2">FASE 2</span><br><b>Yo hago, tú ayudas</b></td>
+                <td>Ejecución compartida bajo supervisión directa.</td>
+                <td><input type="date"></td>
+            </tr>
+            <tr>
+                <td><span class="phase-badge p3">FASE 3</span><br><b>Tú haces, yo ayudo</b></td>
+                <td>Inversión de roles con feedback tras la acción.</td>
+                <td><input type="date"></td>
+            </tr>
+            <tr>
+                <td><span class="phase-badge p4">FASE 4</span><br><b>Tú haces, yo miro</b></td>
+                <td>Delegación completa y reporte periódico de KPIs.</td>
+                <td><input type="date"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="section-title">
+        <i class="fas fa-comment-dots"></i> 3. BITÁCORA DE CRITERIO Y AJUSTE
+    </div>
+    <label>Observaciones de Calibración Estratégica:</label>
+    <textarea rows="5" placeholder="Anota aquí las correcciones de criterio realizadas durante la Fase 3 para asegurar que el sucesor piense como un dueño..."></textarea>
+
+    <div class="footer-note">
+        "Tu efectividad como arquitecto no se mide por lo que haces, sino por lo que el sistema es capaz de ejecutar sin tu presencia física."
+    </div>
+</div>
+
+<button class="btn-print" onclick="window.print()">
+    <i class="fas fa-download"></i> Descargar MTP
+</button>
+
+</body>
+</html>
