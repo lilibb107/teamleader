@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocolo de Comunicación Directa | Team Leader Academy</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --tl-navy: #0a192f;
+            --tl-gold: #c2a34b;
+            --tl-green: #3d5a2b;
+            --tl-white: #fdfdfb;
+            --tl-red: #8b0000;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .document-card {
+            width: 100%;
+            max-width: 850px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+
+        .header {
+            background-color: var(--tl-navy);
+            padding: 35px;
+            color: white;
+            text-align: center;
+            border-bottom: 5px solid var(--tl-gold);
+        }
+
+        .header h1 { margin: 0; font-size: 1.6rem; text-transform: uppercase; letter-spacing: 2px; }
+        .header p { color: var(--tl-gold); font-weight: 700; font-size: 0.85rem; margin-top: 5px; }
+
+        .content { padding: 40px; }
+
+        .step-section {
+            margin-bottom: 25px;
+            padding: 20px;
+            border: 1px solid #f0f0f0;
+            border-radius: 8px;
+        }
+
+        .step-title {
+            color: var(--tl-navy);
+            font-weight: 800;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .phrase-box {
+            background: #f1f5f9;
+            padding: 15px;
+            border-radius: 6px;
+            font-style: italic;
+            color: #334155;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            border: 1px dashed var(--tl-gold);
+        }
+
+        /* NUEVA SECCIÓN DINÁMICA DE COMPROMISOS */
+        .agreement-grid {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .agreement-card {
+            padding: 20px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .agreement-card:hover { border-color: var(--tl-gold); }
+
+        .agreement-card.selected {
+            border-color: var(--tl-green);
+            background-color: rgba(61, 90, 43, 0.05);
+        }
+
+        .agreement-card i {
+            font-size: 1.5rem;
+            color: var(--tl-gold);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .agreement-card h4 {
+            margin: 0;
+            font-size: 0.85rem;
+            color: var(--tl-navy);
+            text-transform: uppercase;
+        }
+
+        .agreement-card p {
+            margin: 5px 0 0 0;
+            font-size: 0.75rem;
+            color: #666;
+            line-height: 1.3;
+        }
+
+        .action-notes {
+            margin-top: 25px;
+            padding: 20px;
+            background: var(--tl-navy);
+            border-radius: 8px;
+            color: white;
+        }
+
+        textarea {
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid #233554;
+            color: white;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-family: inherit;
+            resize: none;
+        }
+
+        .btn-print {
+            width: 100%;
+            padding: 18px;
+            background: var(--tl-gold);
+            color: var(--tl-navy);
+            border: none;
+            font-weight: 900;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-top: 30px;
+        }
+
+        @media print {
+            .btn-print { display: none; }
+            .agreement-card { border: 1px solid #ccc !important; background: none !important; }
+            .action-notes { background: white; color: black; border: 1px solid black; }
+            textarea { color: black !important; border: 1px solid #ccc !important; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="document-card">
+    <div class="header">
+        <h1>Protocolo de Comunicación Directa</h1>
+        <p>RE-INGENIERÍA DE RELACIONES OPERATIVAS</p>
+    </div>
+
+    <div class="content">
+        <div class="step-section">
+            <div class="step-title"><i class="fas fa-cut"></i> El Corte de Triangulación</div>
+            <p style="font-size: 0.85rem;">Si un colaborador trae un comentario sobre un tercero, aplica el estándar:</p>
+            <div class="phrase-box">
+                "Este feedback es valioso. Para que sea efectivo, vamos a validarlo ahora mismo con [Nombre] para que el equipo pueda avanzar."
+            </div>
+        </div>
+
+        <div class="step-title"><i class="fas fa-layer-group"></i> Nuevos Protocolos de Respuesta</div>
+        <p style="font-size: 0.8rem; color: #666;">Selecciona las conductas que el colaborador se compromete a adoptar (Haz clic para marcar):</p>
+
+        <div class="agreement-grid">
+            <div class="agreement-card" onclick="this.classList.toggle('selected')">
+                <i class="fas fa-bolt"></i>
+                <h4>Regla de los 5 Minutos</h4>
+                <p>Si tengo un roce con alguien, lo hablo con esa persona antes de que pasen 5 horas.</p>
+            </div>
+            <div class="agreement-card" onclick="this.classList.toggle('selected')">
+                <i class="fas fa-bullseye"></i>
+                <h4>Feedback Basado en Datos</h4>
+                <p>Cualquier crítica será objetiva y enfocada en mejorar el flujo de trabajo, no el ego.</p>
+            </div>
+            <div class="agreement-card" onclick="this.classList.toggle('selected')">
+                <i class="fas fa-shield-alt"></i>
+                <h4>Cero Tolerancia al Pasivo-Agresivo</h4>
+                <p>Elimino los comentarios irónicos y uso comunicación directa para expresar desacuerdos.</p>
+            </div>
+            <div class="agreement-card" onclick="this.classList.toggle('selected')">
+                <i class="fas fa-sync"></i>
+                <h4>Validación de Intención</h4>
+                <p>Antes de asumir que alguien hizo algo mal a propósito, preguntaré directamente.</p>
+            </div>
+        </div>
+
+        <div class="action-notes">
+            <label style="font-size: 0.7rem; font-weight: 800; color: var(--tl-gold); text-transform: uppercase;">Ajuste Táctico Inmediato:</label>
+            <textarea rows="3" placeholder="Escribe aquí la acción concreta que se tomará para resolver la situación actual..."></textarea>
+            
+            <div style="display: flex; justify-content: space-between; margin-top: 20px; font-size: 0.75rem; border-top: 1px solid #233554; padding-top: 15px;">
+                <span>Responsable: [Nombre]</span>
+                <span>Líder de Estrategia: [Nombre]</span>
+            </div>
+        </div>
+
+        <button class="btn-print" onclick="window.print()">
+            Guardar Protocolos de Equipo <i class="fas fa-save" style="margin-left: 10px;"></i>
+        </button>
+    </div>
+</div>
+
+</body>
+</html>

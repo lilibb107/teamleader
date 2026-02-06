@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditoría de Seguridad Psicológica | Team Leader Academy</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --tl-navy: #0a192f;
+            --tl-gold: #c2a34b;
+            --tl-green: #3d5a2b;
+            --tl-white: #fdfdfb;
+            --tl-border: #e2e8f0;
+            --tl-red: #8b0000;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .audit-card {
+            width: 100%;
+            max-width: 850px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid var(--tl-border);
+        }
+
+        .header {
+            background: var(--tl-navy);
+            padding: 30px;
+            color: white;
+            border-bottom: 5px solid var(--tl-gold);
+            text-align: center;
+        }
+
+        .header h1 { margin: 0; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 1px; }
+        .header p { color: var(--tl-gold); margin: 5px 0 0 0; font-weight: 600; font-size: 0.8rem; }
+
+        .content { padding: 40px; }
+
+        .score-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f1f5f9;
+            border-radius: 12px;
+        }
+
+        .percentage-display {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--tl-navy);
+        }
+
+        .score-bar-bg {
+            width: 100%;
+            height: 12px;
+            background: #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .score-bar-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--tl-red), var(--tl-gold), var(--tl-green));
+            transition: width 0.5s ease;
+        }
+
+        .test-row {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .question { flex: 1; font-size: 0.9rem; color: var(--tl-navy); font-weight: 500; }
+
+        .options { display: flex; gap: 10px; }
+
+        .btn-opt {
+            padding: 8px 20px;
+            border: 2px solid var(--tl-border);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            cursor: pointer;
+            background: white;
+            transition: 0.2s;
+            color: #64748b;
+        }
+
+        /* Estados activos según selección */
+        .btn-opt.active-yes { background: var(--tl-green); color: white; border-color: var(--tl-green); }
+        .btn-opt.active-no { background: var(--tl-red); color: white; border-color: var(--tl-red); }
+
+        .results-box {
+            margin-top: 30px;
+            padding: 25px;
+            background: var(--tl-navy);
+            color: white;
+            border-radius: 8px;
+        }
+
+        .results-box h3 { color: var(--tl-gold); margin-top: 0; font-size: 1rem; text-transform: uppercase; }
+
+        .action-plan {
+            margin-top: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            border: none;
+            font-family: inherit;
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+
+        .btn-download {
+            width: 100%;
+            padding: 18px;
+            background: var(--tl-gold);
+            color: var(--tl-navy);
+            border: none;
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 30px;
+            border-radius: 4px;
+        }
+
+        @media print {
+            .btn-download, .options { display: none; }
+            .audit-card { box-shadow: none; border: 1px solid #000; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="audit-card">
+    <div class="header">
+        <h1>Auditoría de Seguridad Psicológica</h1>
+        <p>VELOCÍMETRO DE CULTURA Y VERDAD RADICAL</p>
+    </div>
+
+    <div class="content">
+        <div class="score-container">
+            <span style="font-size: 0.7rem; font-weight: 800; color: #64748b; text-transform: uppercase;">Índice de Salud Cultural</span>
+            <div class="percentage-display" id="perc">0%</div>
+            <div class="score-bar-bg">
+                <div class="score-bar-fill" id="bar"></div>
+            </div>
+            <p id="msg" style="font-size: 0.75rem; margin-top: 10px; font-weight: 600; color: var(--tl-navy);"></p>
+        </div>
+
+        <div class="test-section">
+            <div class="test-row" data-id="1">
+                <span class="question">1. ¿Tu equipo te avisa de un error grave en cuanto sucede, sin miedo a tu reacción?</span>
+                <div class="options">
+                    <button class="btn-opt" onclick="setAnswer(1, true)">SÍ</button>
+                    <button class="btn-opt" onclick="setAnswer(1, false)">NO</button>
+                </div>
+            </div>
+            <div class="test-row" data-id="2">
+                <span class="question">2. ¿Existen canales claros donde un empleado puede proponer una mejora sin ser juzgado?</span>
+                <div class="options">
+                    <button class="btn-opt" onclick="setAnswer(2, true)">SÍ</button>
+                    <button class="btn-opt" onclick="setAnswer(2, false)">NO</button>
+                </div>
+            </div>
+            <div class="test-row" data-id="3">
+                <span class="question">3. ¿Sientes que los chismes o rumores son inexistentes o se cortan de inmediato?</span>
+                <div class="options">
+                    <button class="btn-opt" onclick="setAnswer(3, true)">SÍ</button>
+                    <button class="btn-opt" onclick="setAnswer(3, false)">NO</button>
+                </div>
+            </div>
+            <div class="test-row" data-id="4">
+                <span class="question">4. ¿Los números o métricas del negocio son visibles y reales para los responsables?</span>
+                <div class="options">
+                    <button class="btn-opt" onclick="setAnswer(4, true)">SÍ</button>
+                    <button class="btn-opt" onclick="setAnswer(4, false)">NO</button>
+                </div>
+            </div>
+            <div class="test-row" data-id="5">
+                <span class="question">5. ¿Se castiga más el "ocultar el error" que el "cometer el error"?</span>
+                <div class="options">
+                    <button class="btn-opt" onclick="setAnswer(5, true)">SÍ</button>
+                    <button class="btn-opt" onclick="setAnswer(5, false)">NO</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="results-box">
+            <h3><i class="fas fa-microscope"></i> Plan de Corrección Cultural</h3>
+            <p style="font-size: 0.8rem; opacity: 0.9;">Usa este espacio para definir acciones concretas basadas en los "NO" marcados arriba.</p>
+            
+            <div class="action-plan">
+                <div>
+                    <label style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase;">Punto de fricción detectado:</label>
+                    <textarea rows="3" placeholder="Ej: Mi equipo me oculta errores..."></textarea>
+                </div>
+                <div>
+                    <label style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase;">Acción para generar seguridad:</label>
+                    <textarea rows="3" placeholder="Ej: Implementar feedback semanal..."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn-download" onclick="window.print()">
+            Exportar Informe de Cultura <i class="fas fa-file-pdf" style="margin-left: 10px;"></i>
+        </button>
+    </div>
+</div>
+
+<script>
+    let answers = {1: null, 2: null, 3: null, 4: null, 5: null};
+
+    function setAnswer(id, value) {
+        answers[id] = value;
+        
+        // Actualizar visual de botones
+        const row = document.querySelector(`[data-id="${id}"]`);
+        const btns = row.querySelectorAll('.btn-opt');
+        
+        btns[0].className = value === true ? 'btn-opt active-yes' : 'btn-opt';
+        btns[1].className = value === false ? 'btn-opt active-no' : 'btn-opt';
+
+        calculateScore();
+    }
+
+    function calculateScore() {
+        let yesCount = 0;
+        let totalAnswered = 0;
+
+        for (let key in answers) {
+            if (answers[key] !== null) {
+                totalAnswered++;
+                if (answers[key] === true) yesCount++;
+            }
+        }
+
+        if (totalAnswered === 0) return;
+
+        const score = (yesCount / 5) * 100;
+        document.getElementById('perc').innerText = score + '%';
+        document.getElementById('bar').style.width = score + '%';
+
+        const msg = document.getElementById('msg');
+        if (score === 100) msg.innerText = "Cultura de Alto Rendimiento: Blindaje Total.";
+        else if (score >= 60) msg.innerText = "Seguridad Saludable: Buen clima operativo.";
+        else if (score >= 40) msg.innerText = "Alerta: Fugas de verdad detectadas.";
+        else msg.innerText = "Crisis de Confianza: Riesgo de colapso operativo.";
+    }
+</script>
+
+</body>
+</html>

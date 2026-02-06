@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crisis Heatmap | Team Leader Academy</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --tl-navy: #0a192f;
+            --tl-gold: #c2a34b;
+            --tl-green: #3d5a2b;
+            --tl-white: #fdfdfb;
+            --tl-red: #a32a2a;
+            --tl-orange: #d97706;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .master-card {
+            width: 100%;
+            max-width: 900px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: var(--tl-navy);
+            padding: 30px;
+            text-align: center;
+            border-bottom: 5px solid var(--tl-gold);
+            color: white;
+        }
+
+        .header h1 { margin: 0; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 2px; }
+        .header p { color: var(--tl-gold); font-size: 0.8rem; margin: 5px 0 0 0; font-weight: 600; }
+
+        .content { padding: 40px; }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .legend-item { display: flex; align-items: center; gap: 5px; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        th {
+            text-align: left;
+            font-size: 0.75rem;
+            color: var(--tl-navy);
+            padding: 10px;
+            border-bottom: 2px solid var(--tl-gold);
+            text-transform: uppercase;
+        }
+
+        td { padding: 15px 10px; border-bottom: 1px solid #eee; }
+
+        .heat-selector {
+            display: flex;
+            gap: 5px;
+        }
+
+        .lvl-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: 0.2s;
+            background: white;
+        }
+
+        .lvl-1:hover, .lvl-1.active { background: var(--tl-green); border-color: var(--tl-green); }
+        .lvl-2:hover, .lvl-2.active { background: var(--tl-orange); border-color: var(--tl-orange); }
+        .lvl-3:hover, .lvl-3.active { background: var(--tl-red); border-color: var(--tl-red); }
+
+        .impact-input {
+            width: 100%;
+            border: none;
+            border-bottom: 1px solid #eee;
+            padding: 5px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            outline: none;
+        }
+
+        .impact-input:focus { border-bottom-color: var(--tl-gold); }
+
+        .analysis-box {
+            background: var(--tl-navy);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .priority-circle {
+            width: 100px;
+            height: 100px;
+            border: 4px solid var(--tl-gold);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .priority-circle span { font-size: 0.6rem; text-transform: uppercase; }
+        .priority-circle b { font-size: 1.4rem; color: var(--tl-gold); }
+
+        .btn-save {
+            width: 100%;
+            padding: 18px;
+            background: var(--tl-gold);
+            color: var(--tl-navy);
+            border: none;
+            border-radius: 4px;
+            font-weight: 900;
+            text-transform: uppercase;
+            cursor: pointer;
+            margin-top: 30px;
+        }
+
+        @media print {
+            .btn-save, .lvl-btn { display: none; }
+            .master-card { box-shadow: none; border: 1px solid #000; }
+            .analysis-box { background: white; color: black; border: 1px solid black; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="master-card">
+    <div class="header">
+        <h1>Crisis Heatmap: Mapa de Calor Operativo</h1>
+        <p>AUDITORÍA ESTRATÉGICA DE FRICCIONES | BLOQUE 3</p>
+    </div>
+
+    <div class="content">
+        <div class="legend">
+            <div class="legend-item"><div class="dot" style="background: var(--tl-green);"></div> Fricción Leve (Mejora operativa)</div>
+            <div class="legend-item"><div class="dot" style="background: var(--tl-orange);"></div> Tensión Media (Frena el crecimiento)</div>
+            <div class="legend-item"><div class="dot" style="background: var(--tl-red);"></div> Crisis Crítica (Riesgo de fuga/pérdida)</div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 30%;">Conflicto / Persona</th>
+                    <th style="width: 40%;">Impacto en el Negocio</th>
+                    <th style="width: 30%;">Nivel de Calor</th>
+                </tr>
+            </thead>
+            <tbody id="heatmap-body">
+                </tbody>
+        </table>
+
+        <div class="analysis-box">
+            <div class="priority-circle">
+                <span>Puntaje de</span>
+                <b id="total-heat">0</b>
+                <span>Riesgo</span>
+            </div>
+            <div>
+                <h4 style="margin: 0; color: var(--tl-gold); text-transform: uppercase; font-size: 0.9rem;">Diagnóstico del Arquitecto:</h4>
+                <p id="diagnosis-msg" style="font-size: 0.8rem; margin-top: 10px; line-height: 1.4; opacity: 0.9;">
+                    Completa el mapa para identificar dónde está la fuga de energía principal de tu equipo.
+                </p>
+            </div>
+        </div>
+
+        <button class="btn-save" onclick="window.print()">Exportar Mapa de Riesgos <i class="fas fa-fire" style="margin-left:10px;"></i></button>
+    </div>
+</div>
+
+<script>
+    let scores = [0, 0, 0, 0, 0];
+
+    const body = document.getElementById('heatmap-body');
+    for(let i=0; i<5; i++) {
+        body.innerHTML += `
+            <tr>
+                <td><input type="text" class="impact-input" placeholder="Ej: Retrasos de Juan..."></td>
+                <td><input type="text" class="impact-input" placeholder="Ej: Pérdida de 2h diarias..."></td>
+                <td>
+                    <div class="heat-selector">
+                        <button class="lvl-btn lvl-1" onclick="setHeat(${i}, 1, this)"></button>
+                        <button class="lvl-btn lvl-2" onclick="setHeat(${i}, 3, this)"></button>
+                        <button class="lvl-btn lvl-3" onclick="setHeat(${i}, 5, this)"></button>
+                    </div>
+                </td>
+            </tr>
+        `;
+    }
+
+    function setHeat(row, val, btn) {
+        scores[row] = val;
+        const parent = btn.parentElement;
+        parent.querySelectorAll('.lvl-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        updateTotal();
+    }
+
+    function updateTotal() {
+        const total = scores.reduce((a, b) => a + b, 0);
+        document.getElementById('total-heat').innerText = total;
+        const msg = document.getElementById('diagnosis-msg');
+
+        if(total > 15) msg.innerHTML = "<b>ESTADO DE EMERGENCIA:</b> Tienes demasiados focos críticos. No puedes escalar el negocio con esta fricción. Tu prioridad #1 esta semana es la mediación.";
+        else if(total > 7) msg.innerHTML = "<b>TENSIÓN OPERATIVA:</b> El equipo avanza pero con el freno de mano puesto. Aplica protocolos de comunicación directa para liberar velocidad.";
+        else msg.innerText = "<b>ZONA SEGURA:</b> Fricciones normales de crecimiento. Mantén tus reuniones de 90 días para que el calor no aumente.";
+    }
+</script>
+
+</body>
+</html>
