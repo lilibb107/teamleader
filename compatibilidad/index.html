@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditoría de Perfil Estratégico | TLA</title>
+    <style>
+        :root {
+            --tl-gold: #b0914f;
+            --tl-green: #3a4d24;
+            --tl-black: #1a1a1a;
+            --tl-white: #ffffff;
+            --tl-bg: #f9faf8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--tl-bg);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            color: var(--tl-black);
+        }
+
+        .audit-container {
+            max-width: 680px;
+            width: 100%;
+            background: var(--tl-white);
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .header-status {
+            background: var(--tl-green);
+            color: var(--tl-gold);
+            padding: 20px;
+            text-align: center;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .progress-wrapper {
+            background: #e0e0e0;
+            height: 6px;
+        }
+
+        .progress-bar-fill {
+            background: var(--tl-gold);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .intro-text {
+            padding: 30px 40px;
+            text-align: center;
+            background: #fff;
+        }
+
+        .intro-text h2 { margin: 0 0 10px; font-size: 1.4rem; color: var(--tl-green); }
+        .intro-text p { margin: 0; color: #666; font-size: 0.95rem; line-height: 1.6; }
+
+        .questions-list { padding: 20px 40px 40px; }
+
+        .question-block {
+            margin-bottom: 30px;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .label-text {
+            display: block;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .desc-text {
+            display: block;
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .options-flex {
+            display: flex;
+            gap: 20px;
+        }
+
+        .opt-label {
+            flex: 1;
+            cursor: pointer;
+        }
+
+        .opt-label input { display: none; }
+
+        .opt-ui {
+            display: block;
+            padding: 12px;
+            text-align: center;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            color: #aaa;
+        }
+
+        input[value="si"]:checked + .opt-ui {
+            border-color: var(--tl-gold);
+            background: var(--tl-gold);
+            color: white;
+            box-shadow: 0 4px 12px rgba(176, 145, 79, 0.3);
+        }
+
+        input[value="no"]:checked + .opt-ui {
+            border-color: var(--tl-green);
+            background: var(--tl-green);
+            color: white;
+            box-shadow: 0 4px 12px rgba(58, 77, 36, 0.3);
+        }
+
+        .live-stats {
+            text-align: center;
+            font-weight: 800;
+            color: var(--tl-green);
+            padding: 20px;
+            border-top: 1px solid #f0f0f0;
+            font-size: 1.1rem;
+        }
+
+        .btn-verdict {
+            display: block;
+            width: 80%;
+            margin: 0 auto 40px;
+            padding: 18px;
+            background: var(--tl-black);
+            color: var(--tl-gold);
+            border: none;
+            border-radius: 30px;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: transform 0.2s;
+        }
+
+        .btn-verdict:hover { transform: scale(1.02); }
+
+        #final-verdict {
+            display: none;
+            margin: 0 40px 40px;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .is-apt { background: #f1f7ec; border: 2px solid var(--tl-green); color: var(--tl-green); }
+        .is-not-apt { background: #fff5f5; border: 2px solid #e74c3c; color: #c0392b; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+<div class="audit-container">
+    <div class="header-status">Diagnóstico de Arquitectura Empresarial</div>
+    
+    <div class="progress-wrapper">
+        <div id="bar" class="progress-bar-fill"></div>
+    </div>
+
+    <div class="intro-text">
+        <h2>¿Estás listo para dejar de ser el motor y pasar a ser el arquitecto?</h2>
+        <p>Esta no es una prueba de conocimientos, es un análisis de tu disposición real para construir un legado sólido.</p>
+    </div>
+
+    <div class="questions-list">
+        <form id="auditForm">
+            <div class="question-block">
+                <span class="label-text">1. ¿Buscas una estructura que permita que tu negocio crezca sin depender de tu presencia física constante?</span>
+                <span class="desc-text">El objetivo es construir un sistema autónomo, no un autoempleo que te esclavice.</span>
+                <div class="options-flex">
+                    <label class="opt-label"><input type="radio" name="q1" value="si" onchange="refresh()"><span class="opt-ui">SÍ</span></label>
+                    <label class="opt-label"><input type="radio" name="q1" value="no" onchange="refresh()"><span class="opt-ui">NO</span></label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <span class="label-text">2. ¿Estás dispuesto a sustituir la improvisación diaria por un sistema de medición y registros prácticos?</span>
+                <span class="desc-text">Dejar de ir "a ciegas" para tomar decisiones basadas en datos reales.</span>
+                <div class="options-flex">
+                    <label class="opt-label"><input type="radio" name="q2" value="si" onchange="refresh()"><span class="opt-ui">SÍ</span></label>
+                    <label class="opt-label"><input type="radio" name="q2" value="no" onchange="refresh()"><span class="opt-ui">NO</span></label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <span class="label-text">3. ¿Entiendes que tu mayor activo hoy no es lo que haces, sino el criterio que aplicas para liderar?</span>
+                <span class="desc-text">Priorizar el liderazgo consciente y la visión estratégica sobre la operatividad.</span>
+                <div class="options-flex">
+                    <label class="opt-label"><input type="radio" name="q3" value="si" onchange="refresh()"><span class="opt-ui">SÍ</span></label>
+                    <label class="opt-label"><input type="radio" name="q3" value="no" onchange="refresh()"><span class="opt-ui">NO</span></label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <span class="label-text">4. ¿Te comprometes a dedicar tiempo real a implementar cambios estructurales en lugar de solo consumir teoría?</span>
+                <span class="desc-text">TLA es un espacio de ejecución, no una biblioteca pasiva.</span>
+                <div class="options-flex">
+                    <label class="opt-label"><input type="radio" name="q4" value="si" onchange="refresh()"><span class="opt-ui">SÍ</span></label>
+                    <label class="opt-label"><input type="radio" name="q4" value="no" onchange="refresh()"><span class="opt-ui">NO</span></label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <span class="label-text">5. ¿Buscas un entorno donde recibas feedback directo y honesto para corregir errores costosos?</span>
+                <span class="desc-text">Aceptar diagnósticos profundos para ajustar tu ruta de éxito.</span>
+                <div class="options-flex">
+                    <label class="opt-label"><input type="radio" name="q5" value="si" onchange="refresh()"><span class="opt-ui">SÍ</span></label>
+                    <label class="opt-label"><input type="radio" name="q5" value="no" onchange="refresh()"><span class="opt-ui">NO</span></label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <span class="label-text">6. ¿Tu visión de negocio está proyectada a largo plazo (1, 3 y 5 años) y no solo a la urgencia de hoy?</span>
+                <span class="desc-text">Diseñar una hoja de ruta con metas sostenibles y escalables.</span>
+                <div class="options-flex">
+                    <label class="opt-label"><input type="radio" name="q6" value="si" onchange="refresh()"><span class="opt-ui">SÍ</span></label>
+                    <label class="opt-label"><input type="radio" name="q6" value="no" onchange="refresh()"><span class="opt-ui">NO</span></label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <span class="label-text">7. ¿Sientes que la falta de orden y estructura es lo que realmente frena tu potencial de crecimiento?</span>
+                <span class="desc-text">Identificar el desorden como el cuello de botella que impide tu avance.</span>
+                <div class="options-flex">
+                    <label class="opt-label"><input type="radio" name="q7" value="si" onchange="refresh()"><span class="opt-ui">SÍ</span></label>
+                    <label class="opt-label"><input type="radio" name="q7" value="no" onchange="refresh()"><span class="opt-ui">NO</span></label>
+                </div>
+            </div>
+
+            <div class="question-block">
+                <span class="label-text">8. ¿Estás listo para dejar de "sobrevivir" al día a día y empezar a construir algo con sentido y futuro?</span>
+                <span class="desc-text">Pasar de la incertidumbre a un negocio viable y alineado con tu vida.</span>
+                <div class="options-flex">
+                    <label class="opt-label"><input type="radio" name="q8" value="si" onchange="refresh()"><span class="opt-ui">SÍ</span></label>
+                    <label class="opt-label"><input type="radio" name="q8" value="no" onchange="refresh()"><span class="opt-ui">NO</span></label>
+                </div>
+            </div>
+
+            <div id="affinity" class="live-stats">COMPATIBILIDAD ACTUAL: 0%</div>
+
+            <button type="button" class="btn-verdict" onclick="getVerdict()">Obtener Resultado</button>
+        </form>
+
+        <div id="final-verdict"></div>
+    </div>
+</div>
+
+<script>
+    function refresh() {
+        const f = document.getElementById('auditForm');
+        const d = new FormData(f);
+        let si = 0, ans = 0;
+        const keys = new Set();
+
+        for (let [k, v] of d.entries()) {
+            keys.add(k);
+            if (v === 'si') si++;
+        }
+
+        ans = keys.size;
+        document.getElementById('bar').style.width = (ans / 8 * 100) + '%';
+        document.getElementById('affinity').innerText = `COMPATIBILIDAD ESTRATÉGICA: ${Math.round(si / 8 * 100)}%`;
+    }
+
+    function getVerdict() {
+        const f = document.getElementById('auditForm');
+        const d = new FormData(f);
+        let si = 0, ans = 0;
+
+        for (let [k, v] of d.entries()) {
+            ans++;
+            if (v === 'si') si++;
+        }
+
+        if (ans < 8) {
+            alert("Por favor, completa todas las preguntas para procesar tu perfil.");
+            return;
+        }
+
+        const res = document.getElementById('final-verdict');
+        res.style.display = 'block';
+        const score = (si / 8) * 100;
+
+        if (score >= 75) {
+            res.className = 'is-apt';
+            res.innerHTML = `<h3>¡EL CAMINO ESTÁ CLARO!</h3><p>Tu compatibilidad del ${score}% demuestra que estás en el momento exacto para estructurar tu éxito. No buscas excusas, buscas sistemas. <strong>Te esperamos dentro de Team Leader Academy para empezar a construir tu legado.</strong></p>`;
+        } else {
+            res.className = 'is-not-apt';
+            res.innerHTML = `<h3>ANÁLISIS COMPLETADO</h3><p>Con un ${score}% de afinidad, parece que tus prioridades actuales aún no coinciden con nuestro modelo de ejecución avanzada. TLA requiere un compromiso total con la estructura y el orden que quizá prefieras asumir más adelante.</p>`;
+        }
+
+        res.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
