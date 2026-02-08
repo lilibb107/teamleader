@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditoría de Salto Nivel 3 | TLA</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --tl-gold: #b0914f;
+            --tl-green: #3a4d24;
+            --tl-black: #111111;
+            --tl-white: #ffffff;
+            --tl-gray: #f8f9f7;
+            --tl-light-gray: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--tl-black);
+            color: var(--tl-white);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .test-container {
+            max-width: 800px;
+            width: 100%;
+            background: var(--tl-white);
+            color: var(--tl-black);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .header {
+            background: var(--tl-green);
+            color: var(--tl-gold);
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 { margin: 0; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 2px; }
+        .header p { color: white; margin-top: 10px; opacity: 0.9; }
+
+        .stats-bar {
+            position: sticky;
+            top: 0;
+            background: var(--tl-black);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-around;
+            z-index: 10;
+            border-bottom: 2px solid var(--tl-gold);
+        }
+
+        .stat-circle { text-align: center; }
+        .stat-circle span { display: block; font-size: 0.7rem; color: var(--tl-gold); text-transform: uppercase; font-weight: 800; }
+        .stat-circle strong { font-size: 1.2rem; color: white; }
+
+        .section-box {
+            padding: 30px 40px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .section-title h2 { margin: 0; font-size: 1.3rem; color: var(--tl-green); }
+        .badge {
+            background: var(--tl-gold);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 800;
+        }
+
+        .question-item {
+            background: var(--tl-gray);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #eee;
+        }
+
+        .question-text { font-size: 1rem; font-weight: 600; margin-bottom: 15px; color: #333; display: block; }
+
+        .options-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-option {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid var(--tl-light-gray);
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 800;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            transition: 0.3s;
+            color: #999;
+            text-align: center;
+        }
+
+        .btn-option.active-yes {
+            background: var(--tl-green);
+            color: white;
+            border-color: var(--tl-green);
+            box-shadow: 0 4px 10px rgba(58, 77, 36, 0.2);
+        }
+
+        .btn-option.active-no {
+            background: #444;
+            color: white;
+            border-color: #444;
+        }
+
+        .btn-calculate {
+            display: block;
+            width: 80%;
+            margin: 40px auto;
+            background: var(--tl-black);
+            color: var(--tl-gold);
+            padding: 20px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s;
+            letter-spacing: 1px;
+        }
+
+        .btn-calculate:hover { background: var(--tl-green); color: white; transform: scale(1.02); }
+
+        #result-area {
+            display: none;
+            padding: 40px;
+            text-align: center;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .verdict-box { padding: 30px; border-radius: 8px; line-height: 1.6; }
+        .ready { background: #f1f7ec; border: 2px solid var(--tl-green); color: var(--tl-green); }
+        .not-ready { background: #fff5f5; border: 2px solid #e74c3c; color: #c0392b; }
+
+        .footer-text {
+            text-align: center;
+            padding: 30px;
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 600;
+            letter-spacing: 1px;
+            border-top: 1px solid #eee;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } }
+    </style>
+</head>
+<body>
+
+<div class="test-container">
+    <div class="stats-bar">
+        <div class="stat-circle">
+            <span>Nivel 1 (Base)</span>
+            <strong id="score1">0%</strong>
+        </div>
+        <div class="stat-circle">
+            <span>Nivel 2 (Rutas)</span>
+            <strong id="score2">0%</strong>
+        </div>
+    </div>
+
+    <div class="header">
+        <h1>Auditoría de Paso al Nivel 3</h1>
+        <p>El Nivel 3 requiere maestría en los fundamentos. Responde con total honestidad.</p>
+    </div>
+
+    <div class="section-box">
+        <div class="section-title">
+            <span class="badge">BLOQUE OBLIGATORIO</span>
+            <h2>Nivel 1: Liderazgo y Negocio Consciente</h2>
+        </div>
+
+        <div class="question-item">
+            <span class="question-text">1. ¿He completado el 100% de las lecciones del Nivel 1?</span>
+            <div class="options-group">
+                <div class="btn-option n1-btn" onclick="selectOption(this, 'n1', true)">SÍ</div>
+                <div class="btn-option n1-btn" onclick="selectOption(this, 'n1', false)">NO</div>
+            </div>
+        </div>
+
+        <div class="question-item">
+            <span class="question-text">2. ¿He definido mi propósito y visión de negocio a 5 años por escrito?</span>
+            <div class="options-group">
+                <div class="btn-option n1-btn" onclick="selectOption(this, 'n1', true)">SÍ</div>
+                <div class="btn-option n1-btn" onclick="selectOption(this, 'n1', false)">NO</div>
+            </div>
+        </div>
+
+        <div class="question-item">
+            <span class="question-text">3. ¿Llevo un registro diario o semanal de mis indicadores clave de negocio?</span>
+            <div class="options-group">
+                <div class="btn-option n1-btn" onclick="selectOption(this, 'n1', true)">SÍ</div>
+                <div class="btn-option n1-btn" onclick="selectOption(this, 'n1', false)">NO</div>
+            </div>
+        </div>
+
+        <div class="question-item">
+            <span class="question-text">4. ¿He realizado el trabajo de Identidad y Liderazgo Personal propuesto?</span>
+            <div class="options-group">
+                <div class="btn-option n1-btn" onclick="selectOption(this, 'n1', true)">SÍ</div>
+                <div class="btn-option n1-btn" onclick="selectOption(this, 'n1', false)">NO</div>
+            </div>
+        </div>
+
+        <div class="question-item">
+            <span class="question-text">5. ¿Siento que he superado la etapa de "infoxicación" y tengo foco?</span>
+            <div class="options-group">
+                <div class="btn-option n1-btn" onclick="selectOption(this, 'n1', true)">SÍ</div>
+                <div class="btn-option n1-btn" onclick="selectOption(this, 'n1', false)">NO</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-box">
+        <div class="section-title">
+            <span class="badge">BLOQUE ESPECIALIZACIÓN</span>
+            <h2>Nivel 2: Rutas de Éxito</h2>
+        </div>
+
+        <div class="question-item">
+            <span class="question-text">1. ¿He finalizado al menos UNA ruta técnica completa (Emprendimiento, Network o Liderazgo)?</span>
+            <div class="options-group">
+                <div class="btn-option n2-btn" onclick="selectOption(this, 'n2', true)">SÍ</div>
+                <div class="btn-option n2-btn" onclick="selectOption(this, 'n2', false)">NO</div>
+            </div>
+        </div>
+
+        <div class="question-item">
+            <span class="question-text">2. ¿He implementado las herramientas técnicas descargables de mi ruta?</span>
+            <div class="options-group">
+                <div class="btn-option n2-btn" onclick="selectOption(this, 'n2', true)">SÍ</div>
+                <div class="btn-option n2-btn" onclick="selectOption(this, 'n2', false)">NO</div>
+            </div>
+        </div>
+
+        <div class="question-item">
+            <span class="question-text">3. ¿Tengo claro cuál es mi modelo de crecimiento según mi especialización?</span>
+            <div class="options-group">
+                <div class="btn-option n2-btn" onclick="selectOption(this, 'n2', true)">SÍ</div>
+                <div class="btn-option n2-btn" onclick="selectOption(this, 'n2', false)">NO</div>
+            </div>
+        </div>
+
+        <div class="question-item">
+            <span class="question-text">4. ¿He validado mis errores clave y los he corregido con el contenido del Nivel 2?</span>
+            <div class="options-group">
+                <div class="btn-option n2-btn" onclick="selectOption(this, 'n2', true)">SÍ</div>
+                <div class="btn-option n2-btn" onclick="selectOption(this, 'n2', false)">NO</div>
+            </div>
+        </div>
+
+        <div class="question-item">
+            <span class="question-text">5. ¿He completado todos los ejercicios prácticos de mi ruta elegida?</span>
+            <div class="options-group">
+                <div class="btn-option n2-btn" onclick="selectOption(this, 'n2', true)">SÍ</div>
+                <div class="btn-option n2-btn" onclick="selectOption(this, 'n2', false)">NO</div>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn-calculate" onclick="showResult()">Generar Diagnóstico de Paso</button>
+
+    <div id="result-area">
+        <div id="verdict-ui" class="verdict-box"></div>
+    </div>
+
+    <div class="footer-text">
+        ¡SIN SENTIDO, NO HAY FUTURO!
+    </div>
+</div>
+
+<script>
+    const answers = {
+        n1: [null, null, null, null, null],
+        n2: [null, null, null, null, null]
+    };
+
+    function selectOption(element, level, isYes) {
+        const parent = element.closest('.section-box');
+        const items = Array.from(parent.querySelectorAll('.question-item'));
+        const index = items.indexOf(element.closest('.question-item'));
+
+        const group = element.parentElement;
+        group.querySelectorAll('.btn-option').forEach(btn => {
+            btn.classList.remove('active-yes', 'active-no');
+        });
+
+        if (isYes) {
+            element.classList.add('active-yes');
+            answers[level][index] = true;
+        } else {
+            element.classList.add('active-no');
+            answers[level][index] = false;
+        }
+
+        updateScores();
+    }
+
+    function updateScores() {
+        const calculatePercent = (arr) => {
+            const yesCount = arr.filter(val => val === true).length;
+            return Math.round((yesCount / arr.length) * 100);
+        };
+        document.getElementById('score1').innerText = calculatePercent(answers.n1) + '%';
+        document.getElementById('score2').innerText = calculatePercent(answers.n2) + '%';
+    }
+
+    function showResult() {
+        if (answers.n1.includes(null) || answers.n2.includes(null)) {
+            alert("Por favor, responde a todas las preguntas para validar tu acceso.");
+            return;
+        }
+
+        const p1 = Math.round((answers.n1.filter(v => v === true).length / 5) * 100);
+        const p2 = Math.round((answers.n2.filter(v => v === true).length / 5) * 100);
+        
+        const resArea = document.getElementById('result-area');
+        const verdictUI = document.getElementById('verdict-ui');
+        resArea.style.display = 'block';
+
+        // LÓGICA ESTRICTA: Ambos niveles deben estar al 100%
+        if (p1 === 100 && p2 === 100) {
+            verdictUI.className = 'verdict-box ready';
+            verdictUI.innerHTML = `
+                <i class="fas fa-check-double fa-3x" style="margin-bottom:15px"></i>
+                <h3>¡ACCESO VALIDADO!</h3>
+                <p>Felicidades. Has completado con éxito la base y la especialización. Tienes la estructura mental y técnica necesaria para el <strong>Nivel 3: Acompañamiento Estratégico Privado</strong>.</p>
+            `;
+        } else if (p1 < 100) {
+            verdictUI.className = 'verdict-box not-ready';
+            verdictUI.innerHTML = `
+                <i class="fas fa-times-circle fa-3x" style="margin-bottom:15px"></i>
+                <h3>REFORZAR NIVEL 1</h3>
+                <p>Tu base de <strong>Liderazgo y Negocio Consciente</strong> aún no está al 100%. Para el Nivel 3 necesitamos que tu visión, mentalidad y registros sean sólidos. Vuelve al Nivel 1 y completa las áreas pendientes.</p>
+            `;
+        } else {
+            verdictUI.className = 'verdict-box not-ready';
+            verdictUI.innerHTML = `
+                <i class="fas fa-exclamation-triangle fa-3x" style="margin-bottom:15px"></i>
+                <h3>REFORZAR NIVEL 2</h3>
+                <p>Has superado la base, pero tu <strong>Ruta de Especialización técnica</strong> está incompleta. El acompañamiento privado requiere que ya estés aplicando lo aprendido en tu ruta. Finaliza el Nivel 2 para avanzar.</p>
+            `;
+        }
+        resArea.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
