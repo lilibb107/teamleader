@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Aptitud Nivel 3 | TLA</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --tl-gold: #b0914f;
+            --tl-green: #3a4d24;
+            --tl-black: #111111;
+            --tl-white: #ffffff;
+            --tl-gray: #f8f9f7;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--tl-black);
+            color: var(--tl-white);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .test-container {
+            max-width: 800px;
+            width: 100%;
+            background: var(--tl-white);
+            color: var(--tl-black);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .header {
+            background: var(--tl-green);
+            color: var(--tl-gold);
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 { margin: 0; font-size: 1.8rem; text-transform: uppercase; letter-spacing: 2px; }
+        .header p { color: white; margin-top: 10px; opacity: 0.9; }
+
+        .section-box {
+            padding: 30px 40px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .section-title h2 { margin: 0; font-size: 1.3rem; color: var(--tl-green); }
+        .badge {
+            background: var(--tl-gold);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 800;
+        }
+
+        .question-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--tl-gray);
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            transition: 0.3s;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .question-item:hover { border-color: var(--tl-gold); }
+
+        .question-text { font-size: 0.95rem; font-weight: 500; padding-right: 20px; }
+
+        .cb-container {
+            position: relative;
+            cursor: pointer;
+            font-size: 22px;
+            user-select: none;
+        }
+
+        .cb-container input { position: absolute; opacity: 0; cursor: pointer; height: 0; width: 0; }
+
+        .checkmark {
+            height: 25px;
+            width: 25px;
+            background-color: #ddd;
+            border-radius: 4px;
+            display: block;
+        }
+
+        .cb-container input:checked ~ .checkmark { background-color: var(--tl-green); }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 9px;
+            top: 5px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+        }
+
+        .cb-container input:checked ~ .checkmark:after { display: block; }
+
+        .stats-bar {
+            position: sticky;
+            top: 0;
+            background: var(--tl-black);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-around;
+            z-index: 10;
+        }
+
+        .stat-circle { text-align: center; }
+        .stat-circle span { display: block; font-size: 0.7rem; color: var(--tl-gold); text-transform: uppercase; font-weight: 800; }
+        .stat-circle strong { font-size: 1.2rem; color: white; }
+
+        #result-area {
+            display: none;
+            padding: 40px;
+            text-align: center;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .btn-calculate {
+            display: block;
+            width: 80%;
+            margin: 40px auto;
+            background: var(--tl-black);
+            color: var(--tl-gold);
+            padding: 20px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-calculate:hover { background: var(--tl-green); color: white; }
+
+        .verdict-box {
+            padding: 30px;
+            border-radius: 8px;
+            line-height: 1.6;
+        }
+
+        .ready { background: #f1f7ec; border: 2px solid var(--tl-green); color: var(--tl-green); }
+        .not-ready { background: #fff5f5; border: 2px solid #e74c3c; color: #c0392b; }
+
+        .footer-text {
+            text-align: center;
+            padding: 30px;
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 600;
+            letter-spacing: 1px;
+            border-top: 1px solid #eee;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } }
+    </style>
+</head>
+<body>
+
+<div class="test-container">
+    <div class="stats-bar">
+        <div class="stat-circle">
+            <span>Nivel 1 (Base)</span>
+            <strong id="score1">0%</strong>
+        </div>
+        <div class="stat-circle">
+            <span>Nivel 2 (Especialización)</span>
+            <strong id="score2">0%</strong>
+        </div>
+    </div>
+
+    <div class="header">
+        <h1>Auditoría de Salto al Nivel 3</h1>
+        <p>Verifica si has integrado la estructura necesaria para el acompañamiento privado.</p>
+    </div>
+
+    <div class="section-box">
+        <div class="section-title">
+            <span class="badge">OBLIGATORIO</span>
+            <h2>Nivel 1: Liderazgo y Negocio Consciente</h2>
+        </div>
+
+        <div class="question-item" onclick="toggle(this)">
+            <span class="question-text">¿He definido mi Identidad y Liderazgo Personal más allá de mi título profesional?</span>
+            <label class="cb-container"><input type="checkbox" class="n1" onchange="calculate()"><span class="checkmark"></span></label>
+        </div>
+        <div class="question-item" onclick="toggle(this)">
+            <span class="question-text">¿Tengo una visión clara de mi negocio a 5 años escrita y documentada?</span>
+            <label class="cb-container"><input type="checkbox" class="n1" onchange="calculate()"><span class="checkmark"></span></label>
+        </div>
+        <div class="question-item" onclick="toggle(this)">
+            <span class="question-text">¿He implementado registros prácticos para medir mis avances diarios/semanales?</span>
+            <label class="cb-container"><input type="checkbox" class="n1" onchange="calculate()"><span class="checkmark"></span></label>
+        </div>
+        <div class="question-item" onclick="toggle(this)">
+            <span class="question-text">¿Entiendo y acepto las bases de la mentalidad emprendedora (responsabilidad total)?</span>
+            <label class="cb-container"><input type="checkbox" class="n1" onchange="calculate()"><span class="checkmark"></span></label>
+        </div>
+    </div>
+
+    <div class="section-box">
+        <div class="section-title">
+            <span class="badge">ESPECIALIZACIÓN</span>
+            <h2>Nivel 2: Rutas de Éxito</h2>
+        </div>
+        <p style="font-size: 0.85rem; color: #777; margin-bottom: 20px;">Marca los hitos de la ruta que has completado:</p>
+
+        <div class="question-item" onclick="toggle(this)">
+            <span class="question-text">¿He completado y aplicado al menos una de las rutas (Negocio, Network Marketing o Liderazgo)?</span>
+            <label class="cb-container"><input type="checkbox" class="n2" onchange="calculate()"><span class="checkmark"></span></label>
+        </div>
+        <div class="question-item" onclick="toggle(this)">
+            <span class="question-text">¿He realizado los ejercicios técnicos específicos de mi ruta de especialización?</span>
+            <label class="cb-container"><input type="checkbox" class="n2" onchange="calculate()"><span class="checkmark"></span></label>
+        </div>
+        <div class="question-item" onclick="toggle(this)">
+            <span class="question-text">¿He identificado cómo mi especialización se integra en la estructura base de mi negocio?</span>
+            <label class="cb-container"><input type="checkbox" class="n2" onchange="calculate()"><span class="checkmark"></span></label>
+        </div>
+        <div class="question-item" onclick="toggle(this)">
+            <span class="question-text">¿Tengo claridad técnica sobre los procesos operativos de mi área elegida?</span>
+            <label class="cb-container"><input type="checkbox" class="n2" onchange="calculate()"><span class="checkmark"></span></label>
+        </div>
+    </div>
+
+    <button class="btn-calculate" onclick="showResult()">Analizar mi preparación</button>
+
+    <div id="result-area">
+        <div id="verdict-ui" class="verdict-box"></div>
+    </div>
+
+    <div class="footer-text">
+        CONSTRUYENDO NEGOCIOS CON SENTIDO Y FUTURO
+    </div>
+</div>
+
+<script>
+    function toggle(el) {
+        const cb = el.querySelector('input');
+        cb.checked = !cb.checked;
+        calculate();
+    }
+
+    function calculate() {
+        const n1 = document.querySelectorAll('.n1');
+        const n2 = document.querySelectorAll('.n2');
+        let c1 = 0, c2 = 0;
+        n1.forEach(i => { if(i.checked) c1++ });
+        n2.forEach(i => { if(i.checked) c2++ });
+        const p1 = Math.round((c1 / n1.length) * 100);
+        const p2 = Math.round((c2 / n2.length) * 100);
+        document.getElementById('score1').innerText = p1 + '%';
+        document.getElementById('score2').innerText = p2 + '%';
+        return { p1, p2 };
+    }
+
+    function showResult() {
+        const { p1, p2 } = calculate();
+        const resArea = document.getElementById('result-area');
+        const verdictUI = document.getElementById('verdict-ui');
+        resArea.style.display = 'block';
+
+        if (p1 === 100 && p2 >= 75) {
+            verdictUI.className = 'verdict-box ready';
+            verdictUI.innerHTML = `
+                <i class="fas fa-check-circle fa-3x" style="margin-bottom:15px"></i>
+                <h3>¡PREPARACIÓN COMPLETADA!</h3>
+                <p>Has consolidado la base técnica y mental necesaria. Tu perfil es apto para el Nivel 3. Has dejado de ser un alumno pasivo para convertirte en un ejecutor preparado para la estrategia avanzada.</p>
+            `;
+        } else if (p1 < 100) {
+            verdictUI.className = 'verdict-box not-ready';
+            verdictUI.innerHTML = `
+                <i class="fas fa-lock fa-3x" style="margin-bottom:15px"></i>
+                <h3>BASE INCOMPLETA</h3>
+                <p>El Nivel 3 requiere que el <strong>Nivel 1 (Base Obligatoria)</strong> esté al 100%. No podemos construir la estrategia avanzada si los cimientos aún no están firmes. Refuerza los módulos de mentalidad y registros antes de avanzar.</p>
+            `;
+        } else {
+            verdictUI.className = 'verdict-box not-ready';
+            verdictUI.innerHTML = `
+                <i class="fas fa-route fa-3x" style="margin-bottom:15px"></i>
+                <h3>ESPECIALIZACIÓN PENDIENTE</h3>
+                <p>Tienes la base, pero necesitas profundizar más en tu <strong>Ruta del Nivel 2</strong>. El acompañamiento privado es para optimizar lo que ya has empezado a especializar. Termina tu ruta elegida antes de dar el salto.</p>
+            `;
+        }
+        resArea.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>
