@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Reto 7 Días • Team Leader Academy</title>
+  <style>
+    :root{
+      --bg:#0b0b0c;
+      --panel:#111214;
+      --panel2:#0f1012;
+      --text:#f2f2f2;
+      --muted:#b9bcc3;
+      --line:rgba(255,255,255,.10);
+
+      /* Paleta inspirada en tu logo (dorado + verde oscuro + negro) */
+      --gold:#c8a24a;
+      --gold2:#9a7b2f;
+      --green:#1e7b55;
+      --green2:#0f4a33;
+
+      --ok:#20c997;
+      --warn:#ffcc66;
+
+      --shadow: 0 20px 60px rgba(0,0,0,.55);
+      --radius:16px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:
+        radial-gradient(900px 600px at 20% 10%, rgba(30,123,85,.18), transparent 60%),
+        radial-gradient(900px 600px at 80% 20%, rgba(200,162,74,.16), transparent 60%),
+        linear-gradient(180deg, #070708, #0b0b0c 40%, #060607);
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      min-height:100vh;
+    }
+
+    .wrap{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 20px 16px 90px;
+    }
+
+    .top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin: 6px 0 16px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width: 240px;
+    }
+
+    .logo{
+      width:44px;height:44px;border-radius:12px;
+      background: linear-gradient(135deg, rgba(200,162,74,.22), rgba(30,123,85,.18));
+      border:1px solid rgba(200,162,74,.35);
+      display:grid;place-items:center;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .logo svg{width:28px;height:28px;opacity:.95}
+    .brand h1{
+      font-size: 16px;
+      margin:0;
+      letter-spacing:.2px;
+      line-height:1.1;
+    }
+    .brand .sub{
+      font-size:12px;color:var(--muted);margin-top:2px
+    }
+
+    .actions{
+      display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end;
+    }
+
+    .btn{
+      appearance:none;border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-weight:600;
+      cursor:pointer;
+      transition: transform .06s ease, background .2s ease, border-color .2s ease;
+      display:flex; align-items:center; gap:8px;
+      user-select:none;
+    }
+    .btn:hover{ background: rgba(255,255,255,.10); border-color: rgba(200,162,74,.30); }
+    .btn:active{ transform: scale(.98); }
+    .btn.primary{
+      border-color: rgba(200,162,74,.55);
+      background: linear-gradient(135deg, rgba(200,162,74,.18), rgba(30,123,85,.12));
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 14px;
+    }
+
+    @media (max-width: 860px){
+      .grid{ grid-template-columns: 1fr; }
+      .actions{ justify-content:flex-start; }
+      .brand{ min-width: unset; }
+    }
+
+    .card{
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .card::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(600px 200px at 30% 0%, rgba(200,162,74,.12), transparent 60%),
+        radial-gradient(600px 200px at 70% 0%, rgba(30,123,85,.10), transparent 60%);
+      pointer-events:none;
+    }
+
+    .card > *{ position:relative; }
+
+    .titleRow{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px; flex-wrap:wrap;
+      margin-bottom: 10px;
+    }
+
+    .tag{
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(200,162,74,.35);
+      background: rgba(200,162,74,.10);
+      color: #ffe4a4;
+      font-weight:700;
+      letter-spacing:.2px;
+      display:flex; gap:6px; align-items:center;
+    }
+
+    .h2{
+      margin:0;
+      font-size: 18px;
+      letter-spacing:.2px;
+      line-height:1.2;
+    }
+
+    .p{
+      margin:8px 0 0;
+      color: var(--muted);
+      line-height:1.35;
+      font-size: 13.5px;
+    }
+
+    .divider{
+      height:1px;background:var(--line);margin:14px 0;
+    }
+
+    .days{
+      display:grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap:10px;
+      margin-top: 10px;
+    }
+    .dayBtn{
+      padding:12px 10px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      cursor:pointer;
+      transition: transform .06s ease, background .2s ease, border-color .2s ease;
+      text-align:left;
+      user-select:none;
+      min-height: 70px;
+      display:flex; flex-direction:column; justify-content:space-between;
+    }
+    .dayBtn:hover{ background: rgba(255,255,255,.08); border-color: rgba(200,162,74,.26); }
+    .dayBtn:active{ transform: scale(.99); }
+    .dayTop{
+      display:flex; align-items:center; justify-content:space-between; gap:8px;
+      font-weight:800;
+    }
+    .dayNum{ color:#fff; font-size: 13px; }
+    .check{
+      width:22px;height:22px;border-radius:8px;
+      border:1px solid rgba(255,255,255,.18);
+      display:grid;place-items:center;
+      font-weight:900;
+      color: transparent;
+      background: rgba(255,255,255,.03);
+    }
+    .done .check{
+      background: linear-gradient(135deg, rgba(32,201,151,.20), rgba(30,123,85,.18));
+      border-color: rgba(32,201,151,.55);
+      color: #cafff0;
+    }
+    .done{
+      border-color: rgba(32,201,151,.40) !important;
+      background: rgba(32,201,151,.08) !important;
+    }
+    .daySmall{ font-size:11px; color: var(--muted); }
+
+    .progress{
+      margin-top: 14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      border-radius: 999px;
+      overflow:hidden;
+      height: 12px;
+    }
+    .bar{
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, rgba(200,162,74,.85), rgba(32,201,151,.85));
+      transition: width .25s ease;
+    }
+
+    .kpis{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:10px;
+      margin-top: 12px;
+    }
+    .kpi{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      border-radius: 14px;
+      padding: 12px;
+    }
+    .kpi .label{ font-size:11px; color: var(--muted); }
+    .kpi .val{ font-size:20px; font-weight:900; margin-top: 4px; }
+    .kpi .hint{ font-size:11px; color: rgba(255,255,255,.62); margin-top: 4px; }
+
+    .box{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      border-radius: 14px;
+      padding: 12px;
+    }
+    .small{ font-size:12.5px; color: rgba(255,255,255,.75); line-height:1.35; }
+    .strong{ color:#fff; font-weight:800; }
+    .bullet{ margin: 8px 0 0; padding-left: 16px; color: rgba(255,255,255,.72); font-size: 12.5px; }
+    .bullet li{ margin: 6px 0; }
+
+    .question{
+      border:1px dashed rgba(200,162,74,.45);
+      background: rgba(200,162,74,.08);
+      border-radius: 14px;
+      padding: 12px;
+      margin-top: 12px;
+    }
+    .question .q{ font-weight:900; color:#ffe4a4; }
+    .question .a{ margin-top:6px; color: rgba(255,255,255,.78); font-size: 12.5px; line-height:1.35; }
+
+    .note{
+      margin-top: 12px;
+      font-size: 11.5px;
+      color: rgba(255,255,255,.55);
+    }
+
+    /* Firma esquina */
+    .signature{
+      position: fixed;
+      right: 14px;
+      bottom: 14px;
+      z-index: 999;
+      border: 1px solid rgba(200,162,74,.45);
+      background: rgba(10,10,11,.72);
+      backdrop-filter: blur(8px);
+      border-radius: 16px;
+      padding: 10px 12px;
+      box-shadow: var(--shadow);
+      max-width: 280px;
+    }
+    .signature .name{
+      margin:0;
+      font-weight: 900;
+      font-size: 12.5px;
+      color: #fff;
+      line-height:1.25;
+    }
+    .signature a{
+      display:inline-flex; gap:8px; align-items:center;
+      margin-top: 6px;
+      color: #ffe4a4;
+      text-decoration:none;
+      font-weight: 800;
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(200,162,74,.35);
+      background: rgba(200,162,74,.10);
+    }
+    .signature a:hover{ background: rgba(200,162,74,.16); }
+    .igDot{
+      width:8px;height:8px;border-radius:999px;
+      background: linear-gradient(135deg, rgba(200,162,74,.95), rgba(32,201,151,.85));
+      box-shadow: 0 0 0 3px rgba(200,162,74,.12);
+    }
+
+    /* Modal (confirm reset) */
+    .modalWrap{
+      position:fixed; inset:0; display:none; place-items:center;
+      background: rgba(0,0,0,.55);
+      z-index: 1000;
+      padding: 16px;
+    }
+    .modal{
+      max-width: 520px; width:100%;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(15,16,18,.92);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      padding: 14px;
+    }
+    .modal h3{ margin: 0 0 6px; }
+    .modal p{ margin: 0 0 12px; color: rgba(255,255,255,.72); font-size: 13px; line-height:1.35; }
+    .modal .row{ display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <div class="logo" aria-label="Team Leader Academy">
+          <!-- Icono simple (si luego quieres, puedes reemplazarlo por tu logo real) -->
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M3 12L21 3l-9 18-2.5-6.5L3 12Z" stroke="rgba(200,162,74,.95)" stroke-width="1.6" />
+            <path d="M9.7 14.5 21 3" stroke="rgba(32,201,151,.95)" stroke-width="1.6" />
+          </svg>
+        </div>
+        <div>
+          <h1>Reto 7 Días 💎 <span style="color:rgba(200,162,74,.92)">Team Leader Academy</span></h1>
+          <div class="sub">Marca cada día cuando completes tu acción PRO (modelo de marketing digital).</div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn primary" id="btnToday">📌 Ir a “hoy”</button>
+        <button class="btn" id="btnShare">🔗 Copiar resumen</button>
+        <button class="btn" id="btnReset">♻️ Reiniciar</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- Columna izquierda -->
+      <div class="card">
+        <div class="titleRow">
+          <div>
+            <p class="h2">Tu panel de constancia</p>
+            <p class="p">
+              Marca el día SOLO si cumpliste la rutina completa: <span class="strong">contenido + mensajes + seguimiento</span>.
+            </p>
+          </div>
+          <div class="tag" id="statusTag">⚡ En marcha</div>
+        </div>
+
+        <div class="box">
+          <div class="small" id="objective">
+            <span class="strong">OBJETIVO (modelo de negocio):</span><br/>
+            Generar ventas y crecimiento con consistencia: crear contenido, atraer conversaciones y avanzar a cierres en 7 días.
+          </div>
+          <div class="divider"></div>
+          <div class="small" id="actionPro">
+            <span class="strong">ACCIÓN PRO DEL DÍA (rutina diaria):</span><br/>
+            ✅ Cada día haz: 1 contenido (story/reel), 10 mensajes de valor a prospectos, y 1 seguimiento para agendar llamada o cerrar.
+            Marca el día solo si cumpliste las 3.
+          </div>
+
+          <ul class="bullet">
+            <li><span class="strong">Contenido:</span> story o reel (valor / experiencia / prueba social / invitación).</li>
+            <li><span class="strong">10 mensajes:</span> abrir conversación con valor (no vender de golpe).</li>
+            <li><span class="strong">1 follow-up:</span> “¿Te viene bien 10 min hoy o mañana?”</li>
+          </ul>
+        </div>
+
+        <div class="days" id="days"></div>
+
+        <div class="progress" aria-label="progreso">
+          <div class="bar" id="bar"></div>
+        </div>
+
+        <div class="kpis">
+          <div class="kpi">
+            <div class="label">Días completados</div>
+            <div class="val" id="kDone">0</div>
+            <div class="hint">Meta: 7/7</div>
+          </div>
+          <div class="kpi">
+            <div class="label">Progreso</div>
+            <div class="val" id="kPct">0%</div>
+            <div class="hint">Constancia = resultados</div>
+          </div>
+          <div class="kpi">
+            <div class="label">Ritmo</div>
+            <div class="val" id="kStreak">0</div>
+            <div class="hint">racha actual</div>
+          </div>
+        </div>
+
+        <div class="note">
+          Tip: si hoy no te apetece, hazlo igual “pequeño pero hecho”. La constancia gana.
+        </div>
+      </div>
+
+      <!-- Columna derecha -->
+      <div class="card">
+        <div class="titleRow">
+          <div>
+            <p class="h2">Pregunta diaria</p>
+            <p class="p">Para enfocarte (sin drama, con liderazgo).</p>
+          </div>
+          <div class="tag">💡 Mentalidad</div>
+        </div>
+
+        <div class="question">
+          <div class="q">¿Hoy actué desde el miedo o desde mi compromiso?</div>
+          <div class="a">
+            Si fue miedo: elige una acción mínima y hazla ahora (1 story o 3 mensajes).<br/>
+            Si fue compromiso: repite mañana y sube el estándar.
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="box">
+          <div class="small">
+            <span class="strong">Mini guía (para el equipo):</span><br/>
+            Este reto es para entrenar disciplina y seguridad digital.
+          </div>
+          <ul class="bullet">
+            <li><span class="strong">No perfecto</span>, constante.</li>
+            <li><span class="strong">Conversaciones</span> antes que likes.</li>
+            <li><span class="strong">Seguimiento</span> = dinero.</li>
+          </ul>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="box">
+          <div class="small"><span class="strong">Tu nota del día (opcional):</span></div>
+          <textarea id="note" rows="5"
+            style="width:100%;margin-top:8px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.18);color:var(--text);padding:10px;outline:none;resize:vertical"
+            placeholder="¿Qué hice hoy? ¿Qué aprendí? ¿A quién seguí?"></textarea>
+          <div class="note">Se guarda automáticamente en tu móvil/PC (solo en este dispositivo).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firma fija (con tu Instagram clicable) -->
+  <div class="signature">
+    <p class="name">ING. Leanet Rita Oses Iturvides</p>
+    <a href="https://www.instagram.com/leanetrita" target="_blank" rel="noopener">
+      <span class="igDot"></span>
+      Ir a mi Instagram
+    </a>
+  </div>
+
+  <!-- Modal reset -->
+  <div class="modalWrap" id="modalWrap">
+    <div class="modal">
+      <h3>Reiniciar reto</h3>
+      <p>Esto borrará tus marcas y tu nota en este dispositivo. ¿Seguro?</p>
+      <div class="row">
+        <button class="btn" id="cancelReset">Cancelar</button>
+        <button class="btn primary" id="confirmReset">Sí, reiniciar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ====== CONFIG ======
+    const STORAGE_KEY = "reto7dias_teamleader_v1";
+
+    // ====== STATE ======
+    const defaultState = {
+      days: Array(7).fill(false),
+      note: "",
+      lastToggleISO: null
+    };
+
+    function loadState(){
+      try{
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if(!raw) return structuredClone(defaultState);
+        const parsed = JSON.parse(raw);
+        // sane
+        if(!parsed.days || parsed.days.length !== 7) parsed.days = Array(7).fill(false);
+        if(typeof parsed.note !== "string") parsed.note = "";
+        return parsed;
+      }catch{
+        return structuredClone(defaultState);
+      }
+    }
+
+    function saveState(){
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      render();
+    }
+
+    let state = loadState();
+
+    // ====== UI refs ======
+    const daysEl = document.getElementById("days");
+    const barEl = document.getElementById("bar");
+    const kDoneEl = document.getElementById("kDone");
+    const kPctEl = document.getElementById("kPct");
+    const kStreakEl = document.getElementById("kStreak");
+    const statusTag = document.getElementById("statusTag");
+    const noteEl = document.getElementById("note");
+
+    const btnToday = document.getElementById("btnToday");
+    const btnShare = document.getElementById("btnShare");
+    const btnReset = document.getElementById("btnReset");
+
+    const modalWrap = document.getElementById("modalWrap");
+    const cancelReset = document.getElementById("cancelReset");
+    const confirmReset = document.getElementById("confirmReset");
+
+    // ====== Helpers ======
+    function clamp(n,min,max){ return Math.max(min, Math.min(max,n)); }
+
+    // Racha simple (días consecutivos desde el último día marcado hacia atrás)
+    function calcStreak(days){
+      let streak = 0;
+      for(let i = days.length - 1; i >= 0; i--){
+        if(days[i]) streak++;
+        else break;
+      }
+      return streak;
+    }
+
+    // DÍA "HOY": en un reto real sería por fecha.
+    // Aquí lo hacemos simple: el siguiente día no marcado (si todos marcados, es 7).
+    function getTodayIndex(days){
+      const idx = days.findIndex(v => !v);
+      return idx === -1 ? 6 : idx;
+    }
+
+    function formatSummary(){
+      const done = state.days.filter(Boolean).length;
+      const pct = Math.round((done/7)*100);
+      const today = getTodayIndex(state.days) + 1;
+
+      return `Reto 7 Días 💎 (Team Leader Academy)\n` +
+             `Progreso: ${done}/7 (${pct}%)\n` +
+             `Día recomendado hoy: Día ${today}\n\n` +
+             `Rutina diaria:\n` +
+             `1) 1 contenido (story/reel)\n` +
+             `2) 10 mensajes de valor\n` +
+             `3) 1 seguimiento (agendar/cierre)\n\n` +
+             `Pregunta: ¿Hoy actué desde el miedo o desde mi compromiso?\n` +
+             `IG: https://www.instagram.com/leanetrita`;
+    }
+
+    async function copyToClipboard(text){
+      try{
+        await navigator.clipboard.writeText(text);
+        return true;
+      }catch{
+        // fallback
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        try{ document.execCommand("copy"); }catch{}
+        ta.remove();
+        return true;
+      }
+    }
+
+    // ====== Render ======
+    function render(){
+      // days
+      daysEl.innerHTML = "";
+      state.days.forEach((done, i) => {
+        const btn = document.createElement("button");
+        btn.className = "dayBtn" + (done ? " done" : "");
+        btn.type = "button";
+        btn.setAttribute("aria-pressed", done ? "true" : "false");
+
+        btn.innerHTML = `
+          <div class="dayTop">
+            <div class="dayNum">Día ${i+1}</div>
+            <div class="check">${done ? "✓" : ""}</div>
+          </div>
+          <div class="daySmall">${done ? "Completado" : "Por hacer"}</div>
+        `;
+
+        btn.addEventListener("click", () => {
+          state.days[i] = !state.days[i];
+          state.lastToggleISO = new Date().toISOString();
+          saveState();
+        });
+
+        daysEl.appendChild(btn);
+      });
+
+      // KPIs
+      const doneCount = state.days.filter(Boolean).length;
+      const pct = Math.round((doneCount/7)*100);
+      const streak = calcStreak(state.days);
+
+      kDoneEl.textContent = doneCount;
+      kPctEl.textContent = pct + "%";
+      kStreakEl.textContent = streak;
+
+      barEl.style.width = clamp(pct, 0, 100) + "%";
+
+      // Tag
+      if(doneCount === 7){
+        statusTag.textContent = "🏆 Reto completado";
+        statusTag.style.borderColor = "rgba(32,201,151,.55)";
+        statusTag.style.background = "rgba(32,201,151,.14)";
+        statusTag.style.color = "#cafff0";
+      }else if(doneCount >= 4){
+        statusTag.textContent = "🔥 Buen ritmo";
+        statusTag.style.borderColor = "rgba(200,162,74,.45)";
+        statusTag.style.background = "rgba(200,162,74,.12)";
+        statusTag.style.color = "#ffe4a4";
+      }else{
+        statusTag.textContent = "⚡ En marcha";
+        statusTag.style.borderColor = "rgba(200,162,74,.35)";
+        statusTag.style.background = "rgba(200,162,74,.10)";
+        statusTag.style.color = "#ffe4a4";
+      }
+
+      // Note
+      if(noteEl.value !== state.note) noteEl.value = state.note;
+    }
+
+    // ====== Events ======
+    noteEl.addEventListener("input", () => {
+      state.note = noteEl.value;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    });
+
+    btnToday.addEventListener("click", () => {
+      const idx = getTodayIndex(state.days);
+      const el = daysEl.children[idx];
+      if(el){
+        el.scrollIntoView({behavior:"smooth", block:"center"});
+        el.animate([{transform:"scale(1)"},{transform:"scale(1.02)"},{transform:"scale(1)"}], {duration:420});
+      }
+    });
+
+    btnShare.addEventListener("click", async () => {
+      const ok = await copyToClipboard(formatSummary());
+      btnShare.textContent = ok ? "✅ Copiado" : "🔗 Copiar resumen";
+      setTimeout(()=> btnShare.textContent = "🔗 Copiar resumen", 1100);
+    });
+
+    btnReset.addEventListener("click", () => {
+      modalWrap.style.display = "grid";
+    });
+    cancelReset.addEventListener("click", () => {
+      modalWrap.style.display = "none";
+    });
+    confirmReset.addEventListener("click", () => {
+      state = structuredClone(defaultState);
+      localStorage.removeItem(STORAGE_KEY);
+      modalWrap.style.display = "none";
+      render();
+    });
+
+    // ====== Init ======
+    render();
+  </script>
+</body>
+</html>
