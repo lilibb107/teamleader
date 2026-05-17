@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 4: Estructura y Bases del Negocio - Team Leader Academy</title>
+    <style>
+        :root {
+            --gold: #d4af37;
+            --black: #1a1a1a;
+            --white: #ffffff;
+            --gray: #f4f4f4;
+            --text: #333;
+            --border: #e0e0e0;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--black);
+            color: var(--text);
+            overflow: hidden;
+        }
+
+        .slides-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+            box-sizing: border-box;
+            background-color: var(--white);
+            position: relative;
+        }
+
+        /* Estilo para contenido teórico y análisis */
+        .content-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            width: 100%;
+            max-width: 1100px;
+            margin-top: 20px;
+        }
+
+        .theory-box {
+            border-left: 4px solid var(--gold);
+            padding-left: 25px;
+            text-align: left;
+        }
+
+        .analysis-box {
+            background: var(--gray);
+            padding: 25px;
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        h1 { color: var(--black); font-size: 3rem; text-transform: uppercase; margin-bottom: 10px; }
+        h2 { color: var(--gold); font-size: 2rem; text-transform: uppercase; margin-bottom: 20px; }
+        h3 { color: var(--black); font-size: 1.2rem; margin-bottom: 10px; text-transform: uppercase; }
+        
+        p { font-size: 1.1rem; line-height: 1.6; margin-bottom: 15px; }
+        ul { text-align: left; line-height: 1.8; }
+        
+        .footer-brand {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            font-size: 12px;
+            color: #999;
+            letter-spacing: 1px;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 10;
+        }
+
+        .btn {
+            background-color: var(--gold);
+            color: var(--black);
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slides-container" id="slider">
+
+        <section class="slide">
+            <h2>El Momento de la Verdad</h2>
+            <h1 style="font-size: 2.5rem; text-align: center;">¿Tienes un negocio o un autoempleo de alto riesgo?</h1>
+            <p style="max-width: 700px; text-align: center; margin-top: 20px;">
+                Si hoy decidieras no trabajar por 30 días... ¿tu estructura seguiría creciendo o se detendría por completo? 
+                Esta es la diferencia entre ser el motor o ser la arquitecta.
+            </p>
+            <div class="footer-brand">Team Leader Academy © 2026</div>
+        </section>
+
+        <section class="slide">
+            <h2>El Negocio como Sistema</h2>
+            <div class="content-layout">
+                <div class="theory-box">
+                    <h3>Concepto Teórico</h3>
+                    <p>Un negocio no es un lugar físico ni un catálogo; es un <strong>conjunto de sistemas interconectados</strong> que producen resultados predecibles.</p>
+                    <p>La sistematización permite que el conocimiento no dependa de las personas (ni de ti), sino de los procesos (SOPs) que operan la empresa.</p>
+                </div>
+                <div class="analysis-box">
+                    <h3>Análisis de Estructura</h3>
+                    <ul>
+                        <li>¿Están tus procesos de prospección documentados?</li>
+                        <li>¿Cuentas con un sistema de formación duplicable?</li>
+                        <li>¿Tus métricas semanales te dicen la verdad del negocio?</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-brand">Team Leader Academy © 2026</div>
+        </section>
+
+        <section class="slide">
+            <h2>Actividad vs. Empresa</h2>
+            <div class="content-layout">
+                <div class="theory-box">
+                    <h3>Concepto Teórico</h3>
+                    <p>La <strong>Actividad</strong> se centra en el movimiento: vender, llamar, postear. Es esfuerzo puro y agotable.</p>
+                    <p>La <strong>Empresa</strong> se centra en el activo: construir una organización que retenga el valor y se multiplique sin tu intervención directa.</p>
+                </div>
+                <div class="analysis-box">
+                    <h3>Análisis Estratégico</h3>
+                    <p><em>Pregunta clave:</em> ¿Dedicas tu día a apagar fuegos operativos o a construir la manguera que los apague sola?</p>
+                    <p>Identifica si estás subvencionando un "Hobby caro" o gestionando una estructura de rentabilidad.</p>
+                </div>
+            </div>
+            <div class="footer-brand">Team Leader Academy © 2026</div>
+        </section>
+
+        <section class="slide">
+            <h2>Roles dentro de un Negocio</h2>
+            <div class="content-layout">
+                <div class="theory-box">
+                    <h3>El ADN Empresarial</h3>
+                    <p><strong>1. El Técnico:</strong> Se enfoca en el "Cómo". Es el que hace el trabajo operativo.</p>
+                    <p><strong>2. El Gerente:</strong> Se enfoca en el "Cuándo". Crea el orden y el sistema.</p>
+                    <p><strong>3. El Visionario:</strong> Se enfoca en el "Por qué". Define el rumbo y la estrategia.</p>
+                </div>
+                <div class="analysis-box">
+                    <h3>Análisis de Perfil</h3>
+                    <p>Para escalar, tu rol debe migrar del 80% técnico al 80% visionario/gerente.</p>
+                    <ul>
+                        <li>¿En qué rol pasaste la mayor parte de ayer?</li>
+                        <li>¿Qué tarea técnica vas a soltar esta semana?</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-brand">Team Leader Academy © 2026</div>
+        </section>
+
+        <section class="slide" style="background-color: var(--black); color: var(--white);">
+            <h1 style="color: var(--gold);">Conclusión</h1>
+            <ul style="font-size: 1.5rem; list-child-indent: 20px;">
+                <li>El negocio no debe depender del fundador.</li>
+                <li>La estructura es la base de la libertad.</li>
+                <li>Los sistemas crean predictibilidad.</li>
+                <li>Tu rol es diseñar y dirigir.</li>
+            </ul>
+            <div class="footer-brand">Team Leader Academy © 2026</div>
+        </se<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#1c1a16">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Team Leader Academy">
+<meta property="og:title" content="Team Leader Academy — Agenda tu Sesión">
+<meta property="og:description" content="Reserva tu asesoría o mentoría con Team Leader Academy">
+<title>Team Leader Academy — Agenda tu Sesión</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#faf8f4;--ink:#1c1a16;--gold:#b8941e;--gl:#d4b44a;
+  --gp:#fdf6e3;--forest:#2d4a1e;--stone:#8a8070;--div:#e8e0d0;
+  --w:#fff;--red:#c0392b;
+  --sh:0 4px 24px rgba(28,26,22,.08);--sh2:0 8px 40px rgba(28,26,22,.15);
+}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh}
+header{background:var(--ink);padding:30px 20px 24px;text-align:center;position:relative;overflow:hidden}
+header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% -20%,rgba(184,148,30,.22) 0%,transparent 65%);pointer-events:none}
+.lw{display:flex;flex-direction:column;align-items:center;position:relative;margin-bottom:10px}
+.lt{width:60px;height:50px;margin-bottom:8px}
+.ln{font-family:'Cormorant Garamond',serif;font-size:23px;font-weight:600;letter-spacing:5px;color:var(--cream);line-height:1}
+.ln b{color:var(--gl);font-weight:700}
+.ld{display:flex;align-items:center;gap:7px;margin:7px 0 4px}
+.ll{height:1px;background:var(--gold);width:30px}
+.la{font-size:10px;font-weight:500;letter-spacing:5px;color:var(--gl);text-transform:uppercase}
+header .sub{font-size:13px;color:#b0a898;font-weight:300;position:relative}
+.tabs{display:flex;justify-content:center;background:var(--w);border-bottom:1px solid var(--div)}
+.tab{padding:14px 26px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--stone);background:none;border:none;border-bottom:2.5px solid transparent;cursor:pointer;transition:all .25s}
+.tab.active{color:var(--ink);border-bottom-color:var(--gold)}
+.stepper{display:flex;justify-content:center;background:var(--w);border-bottom:1px solid var(--div);padding:0 10px;overflow-x:auto}
+.st{display:flex;align-items:center;gap:7px;padding:13px 12px;font-size:11px;font-weight:500;color:var(--stone);border-bottom:2.5px solid transparent;white-space:nowrap;transition:all .3s}
+.st.active{color:var(--ink);border-bottom-color:var(--gold)}
+.st.done{color:var(--gold)}
+.stn{width:19px;height:19px;border-radius:50%;background:var(--div);color:var(--stone);font-size:10px;font-weight:700;display:grid;place-items:center;transition:all .3s;flex-shrink:0}
+.st.active .stn{background:var(--gold);color:#fff}
+.st.done .stn{background:var(--gp);color:var(--gold)}
+.sep{width:14px;height:1px;background:var(--div);margin:0 -3px;align-self:center;flex-shrink:0}
+.wrap{max-width:800px;margin:0 auto;padding:24px 14px 64px}
+.card{background:var(--w);border-radius:14px;border:1px solid var(--div);box-shadow:var(--sh);overflow:hidden;animation:up .4s ease both}
+@keyframes up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.ch{padding:20px 22px 14px;border-bottom:1px solid var(--div)}
+.ch h2{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600}
+.ch p{font-size:12px;color:var(--stone);margin-top:3px}
+.cb{padding:18px 16px}@media(min-width:480px){.cb{padding:20px 22px}}
+/* SESSION */
+.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:11px}
+.sc{border:2px solid var(--div);border-radius:11px;padding:18px 13px;cursor:pointer;transition:all .25s;position:relative;text-align:center}
+.sc:hover{border-color:var(--gl);box-shadow:var(--sh2);transform:translateY(-2px)}
+.sc.sel{border-color:var(--gold);background:var(--gp)}
+.sc .ico{font-size:24px;margin-bottom:8px}
+.sc h3{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;margin-bottom:3px}
+.sc .dur{font-size:11px;color:var(--stone)}
+.sc .pri{margin-top:8px;font-size:19px;font-weight:700;color:var(--gold)}
+.sc .chk{position:absolute;top:8px;right:8px;width:18px;height:18px;border-radius:50%;background:var(--gold);color:#fff;font-size:10px;display:none;place-items:center}
+.sc.sel .chk{display:grid}
+.pop{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--forest);color:#fff;font-size:9px;font-weight:700;letter-spacing:.8px;padding:3px 8px;border-radius:0 0 7px 7px;text-transform:uppercase;white-space:nowrap}
+/* CALENDAR — siempre columna en móvil, full width garantizado */
+.co{display:block;width:100%}
+.cl{width:100%}
+.cr{width:100%;margin-top:20px}
+@media(min-width:700px){
+  .co{display:flex;flex-direction:row;align-items:flex-start;gap:24px}
+  .cl{flex:1;min-width:0}
+  .cr{width:200px;flex-shrink:0;margin-top:0}
+}
+.cn{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;width:100%}
+.cn h3{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;text-transform:capitalize;flex:1;text-align:center}
+.nb{width:34px;height:34px;border-radius:50%;border:1px solid var(--div);background:none;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+.nb:hover{background:var(--gp);border-color:var(--gold)}
+.cdh{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));width:100%;text-align:center;font-size:10px;font-weight:700;letter-spacing:.3px;color:var(--stone);text-transform:uppercase;margin-bottom:5px;box-sizing:border-box}
+.cdh span{padding:4px 0;overflow:hidden;text-overflow:clip}
+.cg{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px;width:100%;box-sizing:border-box}
+/* celda cuadrada usando padding trick — funciona en todos los Android */
+.cd{position:relative;width:100%;padding-bottom:100%;border-radius:6px;border:1.5px solid transparent;background:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .18s;font-weight:400;overflow:hidden;box-sizing:border-box}
+.cd-inner{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:clamp(10px,3.2vw,14px)}
+.cd:disabled{cursor:not-allowed}
+.cd:disabled .cd-inner{color:#ccc}
+.cd.av:hover{background:var(--gp);border-color:var(--gl)}
+.cd.sel{background:var(--gold);border-color:var(--gold)}
+.cd.sel .cd-inner{color:#fff;font-weight:700}
+.cd.tod{border-color:var(--gl)}
+.cd.tod .cd-inner{color:var(--gold);font-weight:700}
+.cd.we .cd-inner{color:#ddb0b0;opacity:.5}
+.cd.we{cursor:not-allowed}
+/* SLOTS */
+.slbl{font-size:10px;font-weight:700;color:var(--stone);letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px}
+.slg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+@media(min-width:400px){.slg{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:700px){.slg{grid-template-columns:1fr}}
+.slot{padding:13px 4px;border-radius:8px;border:1.5px solid var(--div);background:none;cursor:pointer;font-size:14px;font-family:'DM Sans',sans-serif;font-weight:600;color:var(--ink);transition:all .2s;text-align:center;width:100%}
+.slot:hover{border-color:var(--gold);background:var(--gp)}
+.slot.sel{background:var(--gold);color:#fff;border-color:var(--gold)}
+.slot.tk{color:#ccc;cursor:not-allowed;text-decoration:line-through;font-weight:400}
+.noslot{font-size:13px;color:var(--stone);padding:8px 0}
+/* FORM */
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:500px){.r2{grid-template-columns:1fr}}
+.fg{display:flex;flex-direction:column;gap:5px;margin-bottom:13px}
+.fg:last-child{margin-bottom:0}
+label{font-size:11px;font-weight:700;color:var(--stone);text-transform:uppercase;letter-spacing:.4px}
+input,textarea,select{padding:10px 13px;border-radius:8px;border:1.5px solid var(--div);font-family:'DM Sans',sans-serif;font-size:14px;background:var(--w);color:var(--ink);transition:border .2s;outline:none}
+input:focus,textarea:focus,select:focus{border-color:var(--gold)}
+textarea{resize:vertical;min-height:68px}
+/* SUMMARY */
+.sr{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--div)}
+.sr:last-child{border-bottom:none}
+.sl{font-size:12px;color:var(--stone);font-weight:500}
+.sv{font-size:14px;font-weight:600;color:var(--ink)}
+.sv.big{color:var(--gold);font-size:18px}
+.notice{margin-top:18px;background:var(--gp);border:1px solid #e8d080;border-radius:10px;padding:14px 16px;display:flex;gap:10px;align-items:flex-start}
+.notice p{font-size:13px;line-height:1.6;color:#6b5a20}
+/* BUTTONS */
+.acts{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:11px}
+.btn{padding:11px 22px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .25s;border:none}
+.btn-g{background:none;border:1.5px solid var(--div);color:var(--stone)}
+.btn-g:hover{border-color:var(--ink);color:var(--ink)}
+.btn-gold{background:var(--gold);color:#fff;box-shadow:0 4px 14px rgba(184,148,30,.3)}
+.btn-gold:hover{background:#a07c10;transform:translateY(-1px)}
+.btn-gold:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn-forest{background:var(--forest);color:#fff}
+.btn-forest:hover{background:#1e3412}
+.btn-red{background:none;border:1.5px solid #f0c0c0;color:var(--red)}
+/* SPINNER */
+.spw{text-align:center;padding:44px 20px}
+.sp{width:36px;height:36px;border:3px solid var(--div);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 13px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spw p{color:var(--stone);font-size:13px}
+/* SUCCESS */
+.succ{text-align:center;padding:40px 20px}
+.ok{width:64px;height:64px;border-radius:50%;background:#d4edd4;color:#267326;font-size:28px;display:grid;place-items:center;margin:0 auto 18px}
+.succ h2{font-family:'Cormorant Garamond',serif;font-size:25px;margin-bottom:8px}
+.succ p{color:var(--stone);font-size:13px;line-height:1.65;max-width:340px;margin:0 auto 14px}
+.cbox{display:inline-block;background:var(--ink);color:var(--gl);font-family:monospace;font-size:17px;letter-spacing:4px;padding:11px 22px;border-radius:8px;margin-bottom:16px}
+.ebox{max-width:360px;margin:0 auto 18px;border-radius:9px;padding:13px 15px;font-size:13px;line-height:1.6}
+.eok{background:#e8f5e8;border:1px solid #90c890;color:#2a5a2a}
+.eerr{background:#fde8e8;border:1px solid #e09090;color:#7a2020}
+.wa-btn{display:inline-flex;align-items:center;gap:7px;background:#25D366;color:#fff;padding:11px 20px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;margin-top:10px;transition:background .2s}
+.wa-btn:hover{background:#1da851}
+/* MENTOR */
+#mv{display:none}
+#cv.hidden{display:none}
+.sr2{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:11px;margin-bottom:20px}
+.sc2{background:var(--w);border:1px solid var(--div);border-radius:11px;padding:15px 17px;box-shadow:var(--sh)}
+.scl{font-size:10px;font-weight:700;color:var(--stone);letter-spacing:1px;text-transform:uppercase}
+.scv{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--ink);margin-top:3px}
+.scs{font-size:11px;color:var(--stone);margin-top:1px}
+.fr{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.fb{padding:6px 13px;border-radius:20px;border:1.5px solid var(--div);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;color:var(--stone);background:var(--w);cursor:pointer;transition:all .2s}
+.fb.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+.brow{background:var(--w);border:1px solid var(--div);border-radius:11px;padding:14px 16px;display:grid;grid-template-columns:1fr auto;align-items:start;gap:11px;margin-bottom:8px;box-shadow:var(--sh);animation:up .3s ease both}
+.bn{font-size:14px;font-weight:600;margin-bottom:3px}
+.bd{font-size:12px;color:var(--stone);line-height:1.55}
+.bd span{color:var(--ink);font-weight:500}
+.bm{text-align:right}
+.bg2{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:3px 8px;border-radius:20px;margin-bottom:4px;background:var(--gp);color:var(--gold)}
+.bc{font-size:10px;color:var(--stone);font-family:monospace}
+.bp{font-size:14px;font-weight:700;color:var(--ink)}
+.bwa{display:inline-block;margin-top:5px;font-size:11px;background:#25D366;color:#fff;padding:4px 9px;border-radius:6px;text-decoration:none;font-weight:600}
+.empty{text-align:center;padding:36px 20px;color:var(--stone);font-size:13px}
+.mhdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+.mhdr h2{font-family:'Cormorant Garamond',serif;font-size:21px}
+.cfg{background:var(--w);border:1px solid var(--div);border-radius:11px;padding:17px 19px;margin-bottom:16px;box-shadow:var(--sh)}
+.cfg h3{font-family:'Cormorant Garamond',serif;font-size:17px;margin-bottom:12px}
+.csaved{font-size:13px;color:#267326;margin-top:8px;display:none}
+.csaved.show{display:block}
+.setup-box{background:#f0f8ff;border:1.5px solid #90b8d8;border-radius:11px;padding:17px 19px;margin-bottom:16px}
+.setup-box h3{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--forest);margin-bottom:7px}
+.setup-box p{font-size:13px;color:#2a4a6a;line-height:1.65;margin-bottom:9px}
+.setup-box ol{padding-left:17px;font-size:13px;color:#2a4a6a;line-height:1.9}
+.setup-box a{color:var(--forest);font-weight:600}
+.code-area{margin-top:28px;background:#1e1e2e;border-radius:11px;padding:18px;overflow-x:auto}
+.code-area .clbl{font-size:11px;color:#90b0d0;font-weight:600;margin-bottom:10px;letter-spacing:1px}
+.code-area pre{font-family:monospace;font-size:11px;color:#c8d8e8;white-space:pre;line-height:1.55}
+.screen{display:none}
+.screen.active{display:block}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="lw">
+    <svg class="lt" viewBox="0 0 120 104" fill="none">
+      <defs>
+        <linearGradient id="g1" x1="0" y1="0" x2="120" y2="104" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#8ab04a"/><stop offset="50%" stop-color="#4a7a22"/><stop offset="100%" stop-color="#2d4a1e"/>
+        </linearGradient>
+        <linearGradient id="g2" x1="120" y1="0" x2="60" y2="104" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#c8a040"/><stop offset="60%" stop-color="#8a7020"/><stop offset="100%" stop-color="#3d3010"/>
+        </linearGradient>
+      </defs>
+      <polygon points="60,4 8,100 60,82" fill="url(#g1)" opacity=".95"/>
+      <polygon points="60,4 112,100 60,82" fill="url(#g2)" opacity=".9"/>
+      <line x1="60" y1="4" x2="25" y2="73" stroke="rgba(255,255,255,.25)" stroke-width=".7"/>
+      <line x1="60" y1="4" x2="20" y2="85" stroke="rgba(255,255,255,.2)" stroke-width=".7"/>
+      <line x1="36" y1="62" x2="58" y2="54" stroke="rgba(255,255,255,.15)" stroke-width=".6"/>
+      <line x1="24" y1="80" x2="58" y2="67" stroke="rgba(255,255,255,.15)" stroke-width=".6"/>
+      <line x1="60" y1="4" x2="95" y2="73" stroke="rgba(0,0,0,.2)" stroke-width=".7"/>
+      <line x1="86" y1="62" x2="62" y2="54" stroke="rgba(0,0,0,.12)" stroke-width=".6"/>
+      <line x1="97" y1="80" x2="62" y2="67" stroke="rgba(0,0,0,.12)" stroke-width=".6"/>
+    </svg>
+    <div class="ln">TEAM <b>LEADER</b></div>
+    <div class="ld"><div class="ll"></div><div class="la">Academy</div><div class="ll"></div></div>
+  </div>
+  <div class="sub">Reserva tu Asesoría o Mentoría</div>
+</header>
+
+<div class="tabs">
+  <button class="tab active" id="tc" onclick="sw('c')">👤 Reservar Cita</button>
+  <button class="tab" id="tm" onclick="sw('m')">🔐 Panel Mentora</button>
+</div>
+
+<!-- ══ CLIENTE ══ -->
+<div id="cv">
+  <div class="stepper">
+    <div class="st active" id="s1"><div class="stn">1</div>Sesión</div>
+    <div class="sep"></div>
+    <div class="st" id="s2"><div class="stn">2</div>Fecha y Hora</div>
+    <div class="sep"></div>
+    <div class="st" id="s3"><div class="stn">3</div>Datos</div>
+    <div class="sep"></div>
+    <div class="st" id="s4"><div class="stn">4</div>Confirmar</div>
+  </div>
+  <div class="wrap">
+
+    <!-- P1 -->
+    <div class="screen active" id="p1">
+      <div class="card">
+        <div class="ch"><h2>¿Qué tipo de sesión necesitas?</h2><p>Escoge la modalidad que mejor se adapte a tus objetivos</p></div>
+        <div class="cb">
+          <div class="sg">
+            <div class="sc" data-t="Sesión de 1 Hora" data-d="60 minutos" data-p="55€" onclick="pickS(this)" style="padding-top:28px">
+              <div class="pop">⭐ La más contratada</div><div class="chk">✓</div>
+              <div class="ico">🎯</div><h3>Sesión de 1 Hora</h3>
+              <div class="dur">60 minutos</div><div class="pri">55 €</div>
+            </div>
+            <div class="sc" data-t="Mentoría Profunda" data-d="90 minutos" data-p="85€" onclick="pickS(this)">
+              <div class="chk">✓</div><div class="ico">🌟</div><h3>Mentoría Profunda</h3>
+              <div class="dur">90 minutos</div><div class="pri">85 €</div>
+            </div>
+            <div class="sc" data-t="Sesión VIP" data-d="120 minutos" data-p="140€" onclick="pickS(this)">
+              <div class="chk">✓</div><div class="ico">💎</div><h3>Sesión VIP</h3>
+              <div class="dur">120 minutos</div><div class="pri">140 €</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="acts"><span></span><button class="btn btn-gold" id="bn1" onclick="goTo(2)" disabled>Continuar →</button></div>
+    </div>
+
+    <!-- P2 -->
+    <div class="screen" id="p2">
+      <div class="card">
+        <div class="ch"><h2>Elige Fecha y Hora</h2><p>Lunes a viernes · Horarios desde las 15:00 h</p></div>
+        <div class="cb">
+          <div class="co">
+            <div class="cl">
+              <div class="cn">
+                <button class="nb" onclick="pM()">‹</button>
+                <h3 id="mlbl"></h3>
+                <button class="nb" onclick="nM()">›</button>
+              </div>
+              <div class="cdh">
+                <span>Lu</span><span>Ma</span><span>Mi</span><span>Ju</span><span>Vi</span>
+                <span style="color:#c0392b;opacity:.5">Sá</span>
+                <span style="color:#c0392b;opacity:.5">Do</span>
+              </div>
+              <div class="cg" id="cg"></div>
+            </div>
+            <div class="cr">
+              <div class="slbl" id="slbl">Selecciona un día</div>
+              <div id="slg"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="acts">
+        <button class="btn btn-g" onclick="goTo(1)">← Atrás</button>
+        <button class="btn btn-gold" id="bn2" onclick="goTo(3)" disabled>Continuar →</button>
+      </div>
+    </div>
+
+    <!-- P3 -->
+    <div class="screen" id="p3">
+      <div class="card">
+        <div class="ch"><h2>Tus Datos de Contacto</h2><p>Recibirás confirmación en tu correo electrónico</p></div>
+        <div class="cb">
+          <div class="r2">
+            <div class="fg"><label>Nombre *</label><input id="fn" placeholder="Tu nombre" oninput="v3()"></div>
+            <div class="fg"><label>Apellido *</label><input id="fl" placeholder="Tu apellido" oninput="v3()"></div>
+          </div>
+          <div class="r2">
+            <div class="fg"><label>Correo Electrónico *</label><input type="email" id="fe" placeholder="correo@ejemplo.com" oninput="v3()"></div>
+            <div class="fg"><label>Teléfono / WhatsApp *</label><input type="tel" id="fp" placeholder="+34 600 000 000" oninput="v3()"></div>
+          </div>
+          <div class="fg"><label>¿Qué quieres trabajar?</label>
+            <textarea id="fg2" placeholder="Cuéntanos brevemente tu objetivo..."></textarea></div>
+          <div class="fg"><label>Modalidad</label>
+            <select id="fmod">
+              <option value="">Selecciona modalidad</option>
+              <option>Videollamada (Zoom)</option>
+              <option>Videollamada (Google Meet)</option>
+              <option>Llamada telefónica</option>
+              <option>Presencial</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="acts">
+        <button class="btn btn-g" onclick="goTo(2)">← Atrás</button>
+        <button class="btn btn-gold" id="bn3" onclick="goTo(4)" disabled>Ver Resumen →</button>
+      </div>
+    </div>
+
+    <!-- P4 -->
+    <div class="screen" id="p4">
+      <div class="card">
+        <div class="ch"><h2>Confirma tu Reserva</h2><p>El pago se realiza el día de la sesión</p></div>
+        <div class="cb">
+          <div class="sr"><span class="sl">Tipo de sesión</span><span class="sv" id="r1">—</span></div>
+          <div class="sr"><span class="sl">Duración</span><span class="sv" id="r2">—</span></div>
+          <div class="sr"><span class="sl">Fecha</span><span class="sv" id="r3">—</span></div>
+          <div class="sr"><span class="sl">Hora</span><span class="sv" id="r4">—</span></div>
+          <div class="sr"><span class="sl">Modalidad</span><span class="sv" id="r5">—</span></div>
+          <div class="sr"><span class="sl">Nombre</span><span class="sv" id="r6">—</span></div>
+          <div class="sr"><span class="sl">Correo</span><span class="sv" id="r7">—</span></div>
+          <div class="sr"><span class="sl">Teléfono</span><span class="sv" id="r8">—</span></div>
+          <div class="sr"><span class="sl">Importe</span><span class="sv big" id="r9">—</span></div>
+          <div class="notice"><span style="font-size:18px">📧</span>
+            <p>Al confirmar recibirás un <strong>correo de confirmación</strong> y un enlace directo de <strong>WhatsApp</strong> para contactar a tu mentora.</p>
+          </div>
+        </div>
+      </div>
+      <div class="acts">
+        <button class="btn btn-g" onclick="goTo(3)">← Atrás</button>
+        <button class="btn btn-gold" onclick="confirm_()">✓ Confirmar Reserva</button>
+      </div>
+    </div>
+
+    <!-- SENDING -->
+    <div class="screen" id="psend">
+      <div class="card"><div class="spw"><div class="sp"></div><p>Enviando tu confirmación...</p></div></div>
+    </div>
+
+    <!-- OK -->
+    <div class="screen" id="pok">
+      <div class="card">
+        <div class="succ">
+          <div class="ok">✓</div>
+          <h2>¡Reserva Confirmada!</h2>
+          <p>Tu sesión ha sido agendada. Guarda este código.</p>
+          <div class="cbox" id="codebox"></div><br>
+          <div class="ebox" id="emailbox"></div>
+          <button class="btn btn-g" onclick="reset_()">+ Nueva Reserva</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ MENTORA ══ -->
+<div id="mv">
+  <div class="wrap">
+
+    <div id="mlog" class="card" style="max-width:320px;margin:0 auto">
+      <div class="ch"><h2>Acceso Mentora</h2><p>Introduce tu PIN para acceder</p></div>
+      <div class="cb">
+        <div class="fg">
+          <label>PIN</label>
+          <input type="password" id="mpin" placeholder="••••" maxlength="6"
+            style="letter-spacing:6px;font-size:22px;text-align:center" oninput="chkPin()">
+        </div>
+        <div id="perr" style="color:var(--red);font-size:13px;display:none">PIN incorrecto.</div>
+        <p style="font-size:12px;color:var(--stone);margin-top:10px">PIN por defecto: <strong>1234</strong></p>
+      </div>
+    </div>
+
+    <div id="mdash" style="display:none">
+
+      <!-- INSTRUCCIONES -->
+      <div class="setup-box" id="setupbox">
+        <h3>🚀 Activa notificaciones — 5 minutos, completamente gratis</h3>
+        <p>Cada reserva se guardará en tu <strong>Google Sheets</strong> y recibirás un <strong>email + botón WhatsApp</strong> al instante.</p>
+        <ol>
+          <li>Ve a <a href="https://script.google.com" target="_blank">script.google.com</a> e inicia sesión con tu Gmail</li>
+          <li>Clic en <strong>Nuevo proyecto</strong> → borra todo el código existente</li>
+          <li>Copia el código del recuadro de abajo y pégalo</li>
+          <li>Clic en <strong>Implementar → Nueva implementación</strong></li>
+          <li>Tipo: <strong>Aplicación web</strong> · Acceso: <strong>Cualquier usuario</strong> → Implementar</li>
+          <li>Copia la URL resultante y pégala abajo en "URL Apps Script"</li>
+        </ol>
+      </div>
+
+      <!-- CONFIG -->
+      <div class="cfg">
+        <h3>⚙️ Configuración</h3>
+        <div class="r2">
+          <div class="fg" style="margin-bottom:0"><label>Tu Gmail *</label><input type="email" id="ce" placeholder="tuemail@gmail.com"></div>
+          <div class="fg" style="margin-bottom:0"><label>Tu WhatsApp (sin + ni espacios)</label><input id="cwa" placeholder="34612345678"></div>
+        </div>
+        <div style="height:11px"></div>
+        <div class="fg" style="margin-bottom:0">
+          <label>URL Google Apps Script *</label>
+          <input id="curl" placeholder="https://script.google.com/macros/s/…/exec" style="font-size:12px">
+        </div>
+        <div style="height:11px"></div>
+        <div class="fg" style="margin-bottom:0"><label>Cambiar PIN (mín. 4 dígitos)</label><input id="cp" placeholder="Nuevo PIN"></div>
+        <div style="height:13px"></div>
+        <button class="btn btn-gold" onclick="saveCfg()">💾 Guardar</button>
+        <div class="csaved" id="csaved">✅ Guardado correctamente.</div>
+      </div>
+
+      <!-- STATS -->
+      <div class="sr2" id="statrow"></div>
+
+      <div class="mhdr">
+        <h2>Citas Reservadas</h2>
+        <button class="btn btn-g" style="font-size:12px" onclick="logout_()">Cerrar sesión</button>
+      </div>
+
+      <div class="fr">
+        <button class="fb active" onclick="filt('all',this)">Todas</button>
+        <button class="fb" onclick="filt('Sesión de 1 Hora',this)">Sesión 1h</button>
+        <button class="fb" onclick="filt('Mentoría Profunda',this)">Mentoría</button>
+        <button class="fb" onclick="filt('Sesión VIP',this)">VIP</button>
+      </div>
+
+      <div id="blist"></div>
+
+      <div style="margin-top:18px;display:flex;gap:9px;flex-wrap:wrap">
+        <button class="btn btn-forest" onclick="expCSV()">⬇ Exportar CSV</button>
+        <button class="btn btn-red" onclick="clearAll()">🗑 Borrar todo</button>
+      </div>
+
+      <!-- CÓDIGO APPS SCRIPT -->
+      <div class="code-area" style="margin-top:28px">
+        <div class="clbl">📋 CÓDIGO PARA GOOGLE APPS SCRIPT — copia todo:</div>
+        <pre id="scode"></pre>
+        <button class="btn btn-gold" style="margin-top:12px;font-size:13px" onclick="copyCode()">📋 Copiar código</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+// ── APPS SCRIPT CODE ─────────────────────────────────
+const GAS = `function doPost(e) {
+  try {
+    var d = JSON.parse(e.postData.contents);
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sh = ss.getSheetByName("Reservas") || ss.insertSheet("Reservas");
+    if (sh.getLastRow() === 0) {
+      sh.appendRow(["Código","Nombre","Email","Teléfono","Tipo","Duración","Fecha","Hora","Modalidad","Importe","Objetivo","Registrado"]);
+      sh.getRange(1,1,1,12).setFontWeight("bold").setBackground("#b8941e").setFontColor("#fff");
+    }
+    sh.appendRow([d.code,d.name,d.email,d.phone,d.type,d.dur,d.date,d.time,d.mod,d.price,d.goals,new Date().toLocaleString("es-ES")]);
+
+    var waLink = d.phone ? "https://wa.me/"+d.phone.replace(/[^0-9]/g,"")+"?text="+encodeURIComponent("Hola "+d.name+"! Te escribo por tu reserva "+d.code+" el "+d.date+" a las "+d.time+"h.") : "";
+
+    // Email a MENTORA
+    if (d.mentorEmail) {
+      MailApp.sendEmail({
+        to: d.mentorEmail,
+        subject: "🔔 Nueva reserva: "+d.name+" — "+d.type,
+        htmlBody: "<div style='font-family:sans-serif;max-width:500px'>"
+          +"<div style='background:#1c1a16;padding:18px;text-align:center;border-radius:10px 10px 0 0'>"
+          +"<h2 style='color:#d4b44a;margin:0'>TEAM LEADER ACADEMY</h2>"
+          +"<p style='color:#b0a898;margin:3px 0 0;font-size:13px'>Nueva reserva confirmada</p></div>"
+          +"<div style='background:#fff;padding:22px;border:1px solid #e8e0d0;border-top:none;border-radius:0 0 10px 10px'>"
+          +"<h3 style='margin:0 0 14px;color:#1c1a16'>📋 "+d.code+"</h3>"
+          +"<table style='width:100%;border-collapse:collapse;font-size:13px'>"
+          +"<tr><td style='padding:7px;color:#8a8070;width:38%'>👤 Clienta</td><td style='padding:7px;font-weight:600'>"+d.name+"</td></tr>"
+          +"<tr style='background:#faf8f4'><td style='padding:7px;color:#8a8070'>✉️ Email</td><td style='padding:7px'>"+d.email+"</td></tr>"
+          +"<tr><td style='padding:7px;color:#8a8070'>📞 Teléfono</td><td style='padding:7px'>"+d.phone+"</td></tr>"
+          +"<tr style='background:#faf8f4'><td style='padding:7px;color:#8a8070'>🎯 Sesión</td><td style='padding:7px;font-weight:600'>"+d.type+"</td></tr>"
+          +"<tr><td style='padding:7px;color:#8a8070'>📅 Fecha</td><td style='padding:7px;font-weight:600'>"+d.date+"</td></tr>"
+          +"<tr style='background:#faf8f4'><td style='padding:7px;color:#8a8070'>🕓 Hora</td><td style='padding:7px;font-weight:600'>"+d.time+" h</td></tr>"
+          +"<tr><td style='padding:7px;color:#8a8070'>💻 Modalidad</td><td style='padding:7px'>"+d.mod+"</td></tr>"
+          +"<tr style='background:#faf8f4'><td style='padding:7px;color:#8a8070'>💶 Importe</td><td style='padding:7px;font-weight:600;color:#b8941e'>"+d.price+"</td></tr>"
+          +(d.goals ? "<tr><td style='padding:7px;color:#8a8070'>💬 Objetivo</td><td style='padding:7px;font-style:italic'>"+d.goals+"</td></tr>" : "")
+          +"</table>"
+          +(waLink ? "<div style='margin-top:18px;text-align:center'><a href='"+waLink+"' style='display:inline-block;background:#25D366;color:#fff;padding:11px 22px;border-radius:8px;text-decoration:none;font-weight:600;font-size:13px'>💬 Abrir WhatsApp con "+d.name+"</a></div>" : "")
+          +"</div></div>"
+      });
+    }
+
+    // Email a CLIENTA
+    MailApp.sendEmail({
+      to: d.email,
+      subject: "✅ Confirmación de reserva — Team Leader Academy ["+d.code+"]",
+      htmlBody: "<div style='font-family:sans-serif;max-width:500px'>"
+        +"<div style='background:#1c1a16;padding:18px;text-align:center;border-radius:10px 10px 0 0'>"
+        +"<h2 style='color:#d4b44a;margin:0'>TEAM LEADER ACADEMY</h2>"
+        +"<p style='color:#b0a898;margin:3px 0 0;font-size:13px'>Confirmación de reserva</p></div>"
+        +"<div style='background:#fff;padding:22px;border:1px solid #e8e0d0;border-top:none;border-radius:0 0 10px 10px'>"
+        +"<h3 style='color:#1c1a16;margin:0 0 8px'>Hola "+d.name.split(' ')[0]+" 👋</h3>"
+        +"<p style='color:#5a5040;font-size:13px;line-height:1.6;margin-bottom:14px'>Tu sesión ha sido confirmada. Aquí tienes los detalles:</p>"
+        +"<div style='background:#fdf6e3;border:1px solid #e8d080;border-radius:9px;padding:16px;margin-bottom:16px;text-align:center'>"
+        +"<div style='font-size:11px;color:#8a7030;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px'>Código de reserva</div>"
+        +"<div style='font-family:monospace;font-size:20px;font-weight:700;color:#1c1a16;letter-spacing:4px'>"+d.code+"</div></div>"
+        +"<table style='width:100%;border-collapse:collapse;font-size:13px'>"
+        +"<tr style='background:#faf8f4'><td style='padding:7px;color:#8a8070;width:38%'>🎯 Sesión</td><td style='padding:7px;font-weight:600'>"+d.type+" ("+d.dur+")</td></tr>"
+        +"<tr><td style='padding:7px;color:#8a8070'>📅 Fecha</td><td style='padding:7px;font-weight:600'>"+d.date+"</td></tr>"
+        +"<tr style='background:#faf8f4'><td style='padding:7px;color:#8a8070'>🕓 Hora</td><td style='padding:7px;font-weight:600'>"+d.time+" h</td></tr>"
+        +"<tr><td style='padding:7px;color:#8a8070'>💻 Modalidad</td><td style='padding:7px'>"+d.mod+"</td></tr>"
+        +"<tr style='background:#faf8f4'><td style='padding:7px;color:#8a8070'>💶 Importe</td><td style='padding:7px;font-weight:600;color:#b8941e'>"+d.price+" (pago el día)</td></tr>"
+        +"</table>"
+        +"<p style='margin-top:16px;font-size:13px;color:#5a5040;line-height:1.6'>Tu mentora se pondrá en contacto antes de la sesión. Si necesitas cancelar, responde a este correo con 24 h de antelación.</p>"
+        +"<p style='margin-top:12px;color:#b8941e;font-weight:600;font-size:14px'>¡Nos vemos pronto! 🌟</p>"
+        +"</div></div>"
+    });
+
+    return ContentService.createTextOutput(JSON.stringify({ok:true})).setMimeType(ContentService.MimeType.JSON);
+  } catch(err) {
+    return ContentService.createTextOutput(JSON.stringify({ok:false,error:err.toString()})).setMimeType(ContentService.MimeType.JSON);
+  }
+}`;
+
+document.getElementById('scode').textContent = GAS;
+function copyCode(){ navigator.clipboard.writeText(GAS).then(()=>alert('✅ Código copiado. Pégalo en Google Apps Script.')); }
+
+// ── CONFIG ───────────────────────────────────────────
+// Config con fallback robusto — el PIN 1234 siempre funciona aunque no haya localStorage
+let cfg = {};
+try { cfg = JSON.parse(localStorage.getItem('tla_cfg')||'{}'); } catch(e){ cfg={}; }
+if(!cfg.pin || cfg.pin === '' || cfg.pin === undefined) cfg.pin = '1234';
+if(!cfg.me)        cfg.me        = '';
+if(!cfg.waPhone)   cfg.waPhone   = '';
+if(!cfg.scriptUrl) cfg.scriptUrl = '';
+
+function saveCfg(){
+  const e=gv('ce'),wa=gv('cwa'),url=gv('curl'),p=gv('cp');
+  if(e)   cfg.me=e;
+  if(wa)  cfg.waPhone=wa.replace(/[\s\+\-]/g,'');
+  if(url) cfg.scriptUrl=url;
+  if(p&&p.length>=4) cfg.pin=p;
+  localStorage.setItem('tla_cfg',JSON.stringify(cfg));
+  if(cfg.scriptUrl) document.getElementById('setupbox').style.display='none';
+  document.getElementById('csaved').classList.add('show');
+  setTimeout(()=>document.getElementById('csaved').classList.remove('show'),3000);
+}
+
+// ── STATE ─────────────────────────────────────────────
+const ST={sess:null,date:null,time:null};
+let bks=JSON.parse(localStorage.getItem('tla_bk')||'[]');
+let curF='all';
+
+// ── SLOTS ─────────────────────────────────────────────
+const SLOTS=['15:00','16:00','17:00','18:00','19:00','20:00'];
+const tkn={};
+const tkKey=(y,m,d)=>`${y}-${m}-${d}`;
+bks.forEach(b=>{if(!tkn[b.dk])tkn[b.dk]=[];tkn[b.dk].push(b.time);});
+
+// ── CALENDAR ──────────────────────────────────────────
+const NOW=new Date();
+let cy=NOW.getFullYear(),cm=NOW.getMonth();
+const MN=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const mn=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+
+function renderCal(){
+  document.getElementById('mlbl').textContent=`${MN[cm]} ${cy}`;
+  const g=document.getElementById('cg'); g.innerHTML='';
+  const fd=new Date(cy,cm,1).getDay();
+  const off=fd===0?6:fd-1;
+  const dim=new Date(cy,cm+1,0).getDate();
+  for(let i=0;i<off;i++){const e=mkB('cd','');e.disabled=true;g.appendChild(e);}
+  for(let d=1;d<=dim;d++){
+    const b=mkB('cd',''+d);
+    const dt=new Date(cy,cm,d);
+    const dow=dt.getDay();
+    const past=dt<new Date(NOW.getFullYear(),NOW.getMonth(),NOW.getDate());
+    const we=dow===0||dow===6;
+    if(past||we){b.disabled=true;if(we)b.classList.add('we');}
+    else{
+      b.classList.add('av');
+      if(d===NOW.getDate()&&cm===NOW.getMonth()&&cy===NOW.getFullYear())b.classList.add('tod');
+      if(ST.date&&ST.date.d===d&&ST.date.m===cm&&ST.date.y===cy)b.classList.add('sel');
+      b.onclick=()=>pickD(d,cm,cy,b);
+    }
+    g.appendChild(b);
+  }
+}
+function pM(){cm--;if(cm<0){cm=11;cy--;}renderCal();}
+function nM(){cm++;if(cm>11){cm=0;cy++;}renderCal();}
+
+function pickD(d,m,y,b){
+  ST.date={d,m,y};ST.time=null;
+  document.querySelectorAll('.cd').forEach(x=>x.classList.remove('sel'));
+  b.classList.add('sel');
+  renderSlots(d,m,y);
+  document.getElementById('bn2').disabled=true;
+}
+function renderSlots(d,m,y){
+  const key=tkKey(y,m,d),t=tkn[key]||[];
+  const g=document.getElementById('slg');
+  g.className='slg'; g.innerHTML='';
+  document.getElementById('slbl').textContent=new Date(y,m,d).toLocaleDateString('es-ES',{weekday:'long',day:'numeric',month:'long'});
+  if(!SLOTS.filter(s=>!t.includes(s)).length){g.innerHTML='<p class="noslot">Sin horarios disponibles.</p>';return;}
+  SLOTS.forEach(s=>{
+    const b=mkB('slot',s+' h');
+    if(t.includes(s)){b.classList.add('tk');b.disabled=true;}
+    else b.onclick=()=>pickSlot(s,b);
+    g.appendChild(b);
+  });
+}
+function pickSlot(s,b){
+  ST.time=s;
+  document.querySelectorAll('.slot').forEach(x=>x.classList.remove('sel'));
+  b.classList.add('sel');
+  document.getElementById('bn2').disabled=false;
+}
+function pickS(card){
+  document.querySelectorAll('.sc').forEach(c=>c.classList.remove('sel'));
+  card.classList.add('sel');
+  ST.sess={t:card.dataset.t,d:card.dataset.d,p:card.dataset.p};
+  document.getElementById('bn1').disabled=false;
+}
+function v3(){
+  const ok=gv('fn')&&gv('fl')&&gv('fe').includes('@')&&gv('fp').length>=6;
+  document.getElementById('bn3').disabled=!ok;
+}
+function goTo(n){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('p'+n).classList.add('active');
+  [1,2,3,4].forEach(i=>{
+    const t=document.getElementById('s'+i);
+    t.classList.remove('active','done');
+    if(i<n)t.classList.add('done');else if(i===n)t.classList.add('active');
+  });
+  if(n===2)renderCal();
+  if(n===4)fillSum();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function fillSum(){
+  const d=ST.date;
+  document.getElementById('r1').textContent=ST.sess.t;
+  document.getElementById('r2').textContent=ST.sess.d;
+  document.getElementById('r3').textContent=`${d.d} de ${mn[d.m]} de ${d.y}`;
+  document.getElementById('r4').textContent=ST.time+' h';
+  document.getElementById('r5').textContent=gv('fmod')||'No especificada';
+  document.getElementById('r6').textContent=gv('fn')+' '+gv('fl');
+  document.getElementById('r7').textContent=gv('fe');
+  document.getElementById('r8').textContent=gv('fp');
+  document.getElementById('r9').textContent=ST.sess.p;
+}
+
+async function confirm_(){
+  const code='TLA-'+Math.random().toString(36).substring(2,7).toUpperCase();
+  const d=ST.date, dk=tkKey(d.y,d.m,d.d);
+  const dateStr=`${d.d} de ${mn[d.m]} de ${d.y}`;
+  const name=gv('fn')+' '+gv('fl');
+  const email=gv('fe'), phone=gv('fp').replace(/\s/g,'');
+  const mod=gv('fmod')||'No especificada', goals=gv('fg2')||'Sin especificar';
+  const bk={code,name,email,phone,type:ST.sess.t,dur:ST.sess.d,price:ST.sess.p,date:dateStr,dk,time:ST.time,mod,goals};
+  bks.unshift(bk); localStorage.setItem('tla_bk',JSON.stringify(bks));
+  if(!tkn[dk])tkn[dk]=[]; tkn[dk].push(ST.time);
+
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById('psend').classList.add('active');
+  document.querySelectorAll('.st').forEach(t=>{t.classList.remove('active');t.classList.add('done');});
+  document.getElementById('codebox').textContent=code;
+
+  let res='notcfg';
+  if(cfg.scriptUrl){
+    try{
+      await fetch(cfg.scriptUrl,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({code,name,email,phone,type:ST.sess.t,dur:ST.sess.d,price:ST.sess.p,
+          date:dateStr,time:ST.time,mod,goals,mentorEmail:cfg.me,clientPhone:phone})});
+      res='ok';
+    }catch(err){console.error(err);res='err';}
+  }
+
+  const waMsg=encodeURIComponent(`Hola! Acabo de reservar mi sesión en Team Leader Academy.\n📋 Código: ${code}\n🎯 ${ST.sess.t}\n📅 ${dateStr} a las ${ST.time} h\n¡Hasta pronto!`);
+  const waUrl=cfg.waPhone?`https://wa.me/${cfg.waPhone}?text=${waMsg}`:`https://wa.me/?text=${waMsg}`;
+
+  const box=document.getElementById('emailbox');
+  if(res==='ok'){
+    box.className='ebox eok';
+    box.innerHTML=`✅ <strong>¡Confirmación enviada a tu correo!</strong> Revisa también la carpeta de spam.<br><br><a href="${waUrl}" target="_blank" class="wa-btn">💬 Enviar WhatsApp a tu mentora</a>`;
+  }else if(res==='err'){
+    box.className='ebox eerr';
+    box.innerHTML=`⚠️ Reserva guardada. Error al enviar el email. Código: <strong>${code}</strong><br><br><a href="${waUrl}" target="_blank" class="wa-btn">💬 Contactar por WhatsApp</a>`;
+  }else{
+    box.className='ebox eerr';
+    box.innerHTML=`ℹ️ Reserva guardada. Activa Google Apps Script en el Panel Mentora para correos automáticos.<br><br><a href="${waUrl}" target="_blank" class="wa-btn">💬 Contactar por WhatsApp</a>`;
+  }
+  document.getElementById('psend').classList.remove('active');
+  document.getElementById('pok').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function reset_(){
+  ST.sess=null;ST.date=null;ST.time=null;
+  document.querySelectorAll('.sc').forEach(c=>c.classList.remove('sel'));
+  ['fn','fl','fe','fp','fg2'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('fmod').value='';
+  document.getElementById('bn1').disabled=true;
+  goTo(1);
+}
+
+function sw(v){
+  document.getElementById('cv').classList.toggle('hidden',v==='m');
+  document.getElementById('mv').style.display=v==='m'?'block':'none';
+  document.getElementById('tc').classList.toggle('active',v==='c');
+  document.getElementById('tm').classList.toggle('active',v==='m');
+  document.querySelector('.stepper').style.display=v==='m'?'none':'flex';
+}
+
+function chkPin(){
+  const pin=document.getElementById('mpin').value.trim();
+  document.getElementById('perr').style.display='none';
+  // Aseguramos que el PIN por defecto siempre funcione
+  const validPin = (cfg.pin && cfg.pin.length>=4) ? cfg.pin : '1234';
+  if(pin.length>=4){
+    if(pin===validPin || pin==='1234'){
+      document.getElementById('mlog').style.display='none';
+      document.getElementById('mdash').style.display='block';
+      loadCfg(); renderDash();
+    }else{document.getElementById('perr').style.display='block';document.getElementById('mpin').value='';}
+  }
+}
+function logout_(){
+  document.getElementById('mlog').style.display='block';
+  document.getElementById('mdash').style.display='none';
+  document.getElementById('mpin').value='';
+  sw('c');
+}
+function loadCfg(){
+  document.getElementById('ce').value=cfg.me||'';
+  document.getElementById('cwa').value=cfg.waPhone||'';
+  document.getElementById('curl').value=cfg.scriptUrl||'';
+  if(cfg.scriptUrl)document.getElementById('setupbox').style.display='none';
+}
+
+function renderDash(){
+  bks=JSON.parse(localStorage.getItem('tla_bk')||'[]');
+  const tot=bks.length;
+  const up=bks.filter(b=>{try{const p=b.date.split(' de ');return new Date(+p[2],mn.indexOf(p[1]),+p[0])>=new Date(NOW.getFullYear(),NOW.getMonth(),NOW.getDate());}catch{return false;}}).length;
+  const eur=bks.reduce((s,b)=>s+(parseFloat(b.price)||0),0);
+  document.getElementById('statrow').innerHTML=`
+    <div class="sc2"><div class="scl">Total Reservas</div><div class="scv">${tot}</div><div class="scs">registradas</div></div>
+    <div class="sc2"><div class="scl">Próximas Citas</div><div class="scv">${up}</div><div class="scs">pendientes</div></div>
+    <div class="sc2"><div class="scl">Facturación</div><div class="scv">${eur}€</div><div class="scs">acumulado</div></div>`;
+  filt(curF,null);
+}
+
+function filt(f,btn){
+  curF=f;
+  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  const list=document.getElementById('blist'); list.innerHTML='';
+  const data=f==='all'?bks:bks.filter(b=>b.type===f||b.t===f);
+  if(!data.length){list.innerHTML='<div class="empty">📭 Sin reservas aquí todavía.</div>';return;}
+  data.forEach((b,i)=>{
+    const ph=(b.phone||'').replace(/[^0-9]/g,'');
+    const wa=ph?`https://wa.me/${ph}?text=${encodeURIComponent('Hola '+b.name.split(' ')[0]+'! Te escribo por tu reserva '+b.code+' el '+b.date+' a las '+b.time+'h.')}`:'';
+    const div=document.createElement('div');
+    div.className='brow'; div.style.animationDelay=(i*.04)+'s';
+    div.innerHTML=`<div>
+      <div class="bn">${b.name}</div>
+      <div class="bd">📅 <span>${b.date}</span> · 🕓 <span>${b.time} h</span> · 💻 <span>${b.mod||b.modality||'—'}</span></div>
+      <div class="bd">✉️ ${b.email} · 📞 ${b.phone||'—'}</div>
+      ${b.goals&&b.goals!=='Sin especificar'?`<div class="bd">💬 <em>${b.goals}</em></div>`:''}
+      ${wa?`<a href="${wa}" target="_blank" class="bwa">💬 WhatsApp</a>`:''}
+    </div>
+    <div class="bm">
+      <div class="bg2">${b.type||b.t||'—'}</div><br>
+      <div class="bp">${b.price||b.p||'—'}</div>
+      <div class="bc">${b.code}</div>
+    </div>`;
+    list.appendChild(div);
+  });
+}
+
+function expCSV(){
+  if(!bks.length){alert('Sin reservas para exportar.');return;}
+  const H=['Código','Nombre','Email','Teléfono','Tipo','Duración','Fecha','Hora','Modalidad','Importe','Objetivo'];
+  const R=bks.map(b=>[b.code,b.name,b.email,b.phone||'',b.type||b.t,b.dur||b.d,b.date,b.time,b.mod||b.modality,b.price||b.p,`"${(b.goals||'').replace(/"/g,"'")}"`]);
+  const csv=[H,...R].map(r=>r.join(',')).join('\n');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'}));
+  a.download='citas_teamleader.csv'; a.click();
+}
+
+function clearAll(){
+  if(confirm('⚠️ ¿Borrar TODAS las reservas? No se puede deshacer.')){
+    bks=[]; localStorage.removeItem('tla_bk');
+    Object.keys(tkn).forEach(k=>delete tkn[k]);
+    renderDash();
+  }
+}
+
+const gv=id=>{const el=document.getElementById(id);return el?el.value.trim():'';}
+function mkB(cls,txt){
+  const b=document.createElement('button');
+  b.className=cls;
+  if(cls.includes('cd')){
+    // Calendar cell: use inner span for absolute positioning trick
+    const sp=document.createElement('span');
+    sp.className='cd-inner';
+    sp.textContent=txt;
+    b.appendChild(sp);
+  } else {
+    b.textContent=txt;
+  }
+  return b;
+}
+</script>
+</body>
+</html>
