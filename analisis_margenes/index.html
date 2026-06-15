@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Herramienta 02: Análisis de Márgenes</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#1a2b1f;color:#e8ede9;min-height:100vh;padding:20px}
+.container{max-width:640px;margin:0 auto}
+.header{text-align:center;padding:30px 0;border-bottom:2px solid #d09703}
+.header h1{font-size:1.3em;color:#d09703;margin-bottom:8px}
+.header p{font-size:0.85em;color:#999;letter-spacing:1px;text-transform:uppercase}
+.intro{background:#2e4033;border-radius:10px;padding:16px;margin:20px 0;font-size:0.9em;line-height:1.6;color:#ccc;text-align:center}
+.section-title{font-size:0.75em;color:#d09703;text-transform:uppercase;letter-spacing:2px;margin:25px 0 15px;padding-bottom:8px;border-bottom:1px solid #2e4033}
+.line{background:#2e4033;border-radius:10px;padding:18px;margin-bottom:12px;border-left:3px solid #555}
+.line-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.line-num{font-size:0.7em;color:#d09703;text-transform:uppercase;letter-spacing:1px}
+.line-del{background:none;border:none;color:#555;cursor:pointer;font-size:1.2em}
+.line-name{width:100%;background:#1a2b1f;border:1px solid #555;color:#e8ede9;border-radius:6px;padding:10px;font-size:0.9em;font-family:inherit;margin-bottom:10px}
+.line-name:focus{border-color:#d09703;outline:none}
+.line-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.field{background:#1a2b1f;border-radius:6px;padding:10px}
+.field-label{font-size:0.7em;color:#999;margin-bottom:4px}
+.field-input{width:100%;background:transparent;border:1px solid #555;color:#e8ede9;border-radius:4px;padding:6px;font-size:0.9em;text-align:right;font-family:inherit}
+.field-input:focus{border-color:#d09703;outline:none}
+.field-result{font-size:1.1em;font-weight:700;text-align:right}
+.line-bar{margin-top:10px;height:8px;background:#1a2b1f;border-radius:4px;overflow:hidden}
+.line-bar-fill{height:100%;border-radius:4px;transition:width 0.3s}
+.add-btn{display:block;width:100%;padding:12px;background:transparent;border:2px dashed #555;color:#999;border-radius:10px;cursor:pointer;font-size:0.9em;font-family:inherit;margin:15px 0}
+.add-btn:hover{border-color:#d09703;color:#d09703}
+.summary{background:#2e4033;border:2px solid #d09703;border-radius:12px;padding:20px;margin:25px 0}
+.summary h3{color:#d09703;font-size:1em;margin-bottom:15px;text-align:center}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:15px}
+.sum-item{background:#1a2b1f;border-radius:8px;padding:12px;text-align:center}
+.sum-value{font-size:1.3em;font-weight:700;margin-bottom:2px}
+.sum-label{font-size:0.68em;color:#999}
+.ranking{text-align:left;margin-top:15px}
+.rank-item{display:flex;justify-content:space-between;align-items:center;padding:10px;border-bottom:1px solid #333}
+.rank-item:last-child{border-bottom:none}
+.rank-left{display:flex;align-items:center;gap:10px}
+.rank-pos{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.75em}
+.rank-name{font-size:0.88em}
+.rank-right{text-align:right}
+.rank-margin{font-weight:700;font-size:0.9em}
+.rank-type{font-size:0.68em;color:#999}
+.verdict{background:#1a2b1f;border-radius:8px;padding:14px;margin-top:15px;font-size:0.85em;line-height:1.6;text-align:center}
+.tip{background:#2e4033;border-radius:10px;padding:16px;margin:20px 0;border-left:3px solid #d09703}
+.tip strong{color:#d09703;font-size:0.85em}
+.tip p{font-size:0.82em;color:#999;margin-top:6px;line-height:1.5}
+.download-btn{display:block;margin:20px auto;padding:12px 30px;background:#d09703;color:#1a2b1f;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.9em;font-family:inherit}
+.download-btn:hover{background:#e8b830}
+.footer{text-align:center;padding:25px 0;font-size:0.7em;color:#666;border-top:1px solid #2e4033;margin-top:30px}
+@media print{body{background:#fff;color:#333;padding:10px}.header{border-bottom-color:#d09703}.header h1{color:#2e4033}.intro,.line,.summary,.tip,.sum-item,.field,.rank-item{background:#f5f5f5}.line-name,.field-input{background:#fff;border-color:#ccc;color:#333}.download-btn,.add-btn,.line-del{display:none}.summary{border-color:#d09703}.footer{color:#999}}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>Análisis de Márgenes por Línea</h1>
+<p>Bloque 5 · Indicadores de Dirección</p>
+</div>
+<div class="intro">Mide el margen bruto y neto de cada producto o servicio. Descubre cuál potenciar, cuál ajustar y cuál eliminar. Lo que más vendes no siempre es lo que más te da.</div>
+
+<div class="section-title">Tus líneas de negocio</div>
+<div id="lines"></div>
+<button class="add-btn" onclick="addLine()">+ Añadir línea</button>
+
+<div class="summary" id="summary" style="display:none">
+<h3>Resumen de márgenes</h3>
+<div class="summary-grid">
+<div class="sum-item"><div class="sum-value" id="s_fact" style="color:#d09703">0 €</div><div class="sum-label">Facturación total</div></div>
+<div class="sum-item"><div class="sum-value" id="s_benef" style="color:#27ae60">0 €</div><div class="sum-label">Beneficio total</div></div>
+<div class="sum-item"><div class="sum-value" id="s_margen" style="color:#d09703">0%</div><div class="sum-label">Margen promedio</div></div>
+</div>
+<div class="ranking" id="ranking"></div>
+<div class="verdict" id="verdict"></div>
+</div>
+
+<div class="tip">
+<strong>La decisión inteligente:</strong>
+<p>Potencia lo que te da más margen por hora. Reduce o elimina lo que te da poco margen aunque venda mucho. A veces hacer menos te hace ganar más.</p>
+</div>
+<button class="download-btn" onclick="window.print()">Descargar en PDF</button>
+<div class="footer">Team Leader Academy © 2026 • Bloque 5: Indicadores de Dirección</div>
+</div>
+<script>
+let lc=0;
+function addLine(){
+    lc++;
+    let d=document.createElement('div');d.className='line';d.id='l'+lc;
+    d.innerHTML=`<div class="line-top"><span class="line-num">Línea ${lc}</span><button class="line-del" onclick="this.parentElement.parentElement.remove();calc()">×</button></div>
+    <input class="line-name" placeholder="Nombre del producto o servicio" oninput="calc()">
+    <div class="line-grid">
+    <div class="field"><div class="field-label">Precio venta €</div><input class="field-input" type="number" placeholder="0" oninput="calc()"></div>
+    <div class="field"><div class="field-label">Coste directo €</div><input class="field-input" type="number" placeholder="0" oninput="calc()"></div>
+    <div class="field"><div class="field-label">Ventas/mes</div><input class="field-input" type="number" placeholder="0" oninput="calc()"></div>
+    <div class="field"><div class="field-label">Horas/unidad</div><input class="field-input" type="number" step="0.5" placeholder="0" oninput="calc()"></div>
+    <div class="field"><div class="field-label">Margen bruto</div><div class="field-result" style="color:#d09703">—</div></div>
+    <div class="field"><div class="field-label">% Margen</div><div class="field-result" style="color:#27ae60">—</div></div>
+    </div>
+    <div class="line-bar"><div class="line-bar-fill"></div></div>`;
+    document.getElementById('lines').appendChild(d);
+}
+function calc(){
+    let lines=document.querySelectorAll('.line');
+    let data=[];let totalFact=0;let totalBenef=0;
+    lines.forEach(l=>{
+        let ins=l.querySelectorAll('.field-input');
+        let res=l.querySelectorAll('.field-result');
+        let name=l.querySelector('.line-name').value||'Sin nombre';
+        let p=parseFloat(ins[0].value)||0,c=parseFloat(ins[1].value)||0,v=parseFloat(ins[2].value)||0,h=parseFloat(ins[3].value)||0;
+        let mb=p-c,pct=p>0?(mb/p*100):0,benef=mb*v,eh=h>0?mb/h:0,fact=p*v;
+        res[0].textContent=Math.round(mb)+' €';res[1].textContent=pct.toFixed(1)+'%';
+        res[0].style.color=mb>0?'#d09703':'#e74c3c';res[1].style.color=pct>30?'#27ae60':pct>15?'#d09703':'#e74c3c';
+        let bar=l.querySelector('.line-bar-fill');
+        bar.style.width=Math.min(pct,100)+'%';bar.style.background=pct>30?'#27ae60':pct>15?'#d09703':'#e74c3c';
+        l.style.borderLeftColor=pct>30?'#27ae60':pct>15?'#d09703':'#e74c3c';
+        totalFact+=fact;totalBenef+=benef;
+        data.push({name,mb,pct,benef,fact,eh});
+    });
+    let sm=document.getElementById('summary');
+    if(data.length===0){sm.style.display='none';return}
+    sm.style.display='block';
+    document.getElementById('s_fact').textContent=Math.round(totalFact).toLocaleString('es-ES')+' €';
+    document.getElementById('s_benef').textContent=Math.round(totalBenef).toLocaleString('es-ES')+' €';
+    let avgM=totalFact>0?(totalBenef/totalFact*100):0;
+    document.getElementById('s_margen').textContent=avgM.toFixed(1)+'%';
+    document.getElementById('s_margen').style.color=avgM>30?'#27ae60':avgM>15?'#d09703':'#e74c3c';
+    data.sort((a,b)=>b.pct-a.pct);
+    let rk=document.getElementById('ranking');rk.innerHTML='';
+    data.forEach((d,i)=>{
+        let color=d.pct>30?'#27ae60':d.pct>15?'#d09703':'#e74c3c';
+        rk.innerHTML+=`<div class="rank-item"><div class="rank-left"><div class="rank-pos" style="background:${color};color:#1a2b1f">${i+1}</div><span class="rank-name">${d.name}</span></div><div class="rank-right"><div class="rank-margin" style="color:${color}">${d.pct.toFixed(1)}%</div><div class="rank-type">${Math.round(d.benef)} €/mes</div></div></div>`;
+    });
+    let v=document.getElementById('verdict');
+    if(data.length>=2){
+        let best=data[0],worst=data[data.length-1];
+        v.innerHTML=`<span style="color:#27ae60"><b>${best.name}</b></span> es tu línea más rentable (${best.pct.toFixed(1)}% margen). <span style="color:#e74c3c"><b>${worst.name}</b></span> es la menos rentable (${worst.pct.toFixed(1)}%). Pregúntate: ¿el tiempo que dedicas a cada una es proporcional a lo que te da?`;
+        v.style.color='#ccc';
+    }else{v.innerHTML='Añade al menos 2 líneas para ver la comparativa.';}
+}
+addLine();addLine();addLine();
+</script>
+</body>
+</html>

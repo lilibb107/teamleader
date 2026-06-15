@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Herramienta 04: Scorecard de KPIs</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#1a2b1f;color:#e8ede9;min-height:100vh;padding:20px}
+.container{max-width:600px;margin:0 auto}
+.header{text-align:center;padding:30px 0;border-bottom:2px solid #d09703}
+.header h1{font-size:1.4em;color:#d09703;margin-bottom:8px}
+.header p{font-size:0.85em;color:#999;letter-spacing:1px;text-transform:uppercase}
+.score-section{text-align:center;padding:25px 0}
+.score-label{font-size:0.8em;color:#999;margin-bottom:8px}
+.score-value{font-size:2.8em;font-weight:700;transition:all 0.3s}
+.score-sub{font-size:0.78em;color:#999;margin-top:6px}
+.lights{display:flex;justify-content:center;gap:15px;margin-top:15px}
+.light{width:12px;height:12px;border-radius:50%;background:#333;transition:all 0.3s}
+.intro{background:#2e4033;border-radius:10px;padding:16px;margin:20px 0;font-size:0.9em;line-height:1.6;color:#ccc;text-align:center}
+.kpi{background:#2e4033;border-radius:10px;padding:18px;margin-bottom:12px;border-left:4px solid #555;transition:all 0.3s}
+.kpi.green{border-left-color:#27ae60}
+.kpi.yellow{border-left-color:#d09703}
+.kpi.red{border-left-color:#e74c3c}
+.kpi-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}
+.kpi-info{flex:1}
+.kpi-name{font-weight:700;font-size:0.95em;margin-bottom:4px}
+.kpi-desc{font-size:0.8em;color:#999;line-height:1.4}
+.kpi-indicator{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.9em;flex-shrink:0;transition:all 0.3s;background:#333;color:#999}
+.kpi.green .kpi-indicator{background:#27ae60;color:#1a2b1f}
+.kpi.yellow .kpi-indicator{background:#d09703;color:#1a2b1f}
+.kpi.red .kpi-indicator{background:#e74c3c;color:#fff}
+.kpi-input-row{display:flex;gap:10px;align-items:center;margin-bottom:8px}
+.kpi-input{flex:1;background:#1a2b1f;border:1px solid #555;color:#e8ede9;border-radius:6px;padding:8px;font-size:0.9em;text-align:right;font-family:inherit}
+.kpi-input:focus{border-color:#d09703;outline:none}
+.kpi-unit{font-size:0.85em;color:#999;width:40px}
+.kpi-ranges{display:flex;gap:6px;margin-top:8px}
+.range{flex:1;text-align:center;padding:4px;border-radius:4px;font-size:0.68em}
+.range.g{background:rgba(39,174,96,0.15);color:#27ae60}
+.range.y{background:rgba(208,151,3,0.15);color:#d09703}
+.range.r{background:rgba(231,76,60,0.15);color:#e74c3c}
+.summary{background:#2e4033;border:2px solid #d09703;border-radius:12px;padding:20px;margin:25px 0;text-align:center}
+.summary h3{color:#d09703;font-size:1em;margin-bottom:15px}
+.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.sum-item{background:#1a2b1f;border-radius:8px;padding:12px;text-align:center}
+.sum-count{font-size:2em;font-weight:700;margin-bottom:2px}
+.sum-label{font-size:0.68em;color:#999}
+.verdict{margin-top:15px;padding:14px;border-radius:8px;font-size:0.88em;line-height:1.6}
+.tip{background:#2e4033;border-radius:10px;padding:16px;margin:20px 0;border-left:3px solid #d09703}
+.tip strong{color:#d09703;font-size:0.85em}
+.tip p{font-size:0.82em;color:#999;margin-top:6px;line-height:1.5}
+.download-btn{display:block;margin:20px auto;padding:12px 30px;background:#d09703;color:#1a2b1f;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.9em;font-family:inherit}
+.download-btn:hover{background:#e8b830}
+.footer{text-align:center;padding:25px 0;font-size:0.7em;color:#666;border-top:1px solid #2e4033;margin-top:30px}
+@media print{body{background:#fff;color:#333;padding:10px}.header{border-bottom-color:#d09703}.header h1{color:#2e4033}.score-section,.download-btn{display:none}.intro,.kpi,.summary,.tip,.sum-item{background:#f5f5f5}.kpi-input{background:#fff;border-color:#ccc;color:#333}.summary{border-color:#d09703}.footer{color:#999}}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>Scorecard de KPIs</h1>
+<p>Bloque 5 · Tu semáforo financiero</p>
+</div>
+<div class="score-section">
+<div class="score-label">Salud financiera global</div>
+<div class="score-value" id="globalScore" style="color:#999">—</div>
+<div class="score-sub">Introduce tus datos para ver tu diagnóstico</div>
+<div class="lights" id="lights"><div class="light"></div><div class="light"></div><div class="light"></div><div class="light"></div><div class="light"></div><div class="light"></div></div>
+</div>
+<div class="intro">Introduce el valor real de cada KPI. El semáforo se calcula automáticamente. Verde = sano. Amarillo = atención. Rojo = urgente.</div>
+
+<div class="kpi" id="k0">
+<div class="kpi-top"><div class="kpi-info"><div class="kpi-name">Margen Neto</div><div class="kpi-desc">% de cada euro facturado que es ganancia real</div></div><div class="kpi-indicator" id="ki0">—</div></div>
+<div class="kpi-input-row"><input class="kpi-input" type="number" id="v0" placeholder="0" oninput="calc()"><span class="kpi-unit">%</span></div>
+<div class="kpi-ranges"><span class="range r">&lt;15%</span><span class="range y">15-30%</span><span class="range g">&gt;30%</span></div>
+</div>
+
+<div class="kpi" id="k1">
+<div class="kpi-top"><div class="kpi-info"><div class="kpi-name">Liquidez</div><div class="kpi-desc">Meses que puedes cubrir gastos fijos sin ingresos nuevos</div></div><div class="kpi-indicator" id="ki1">—</div></div>
+<div class="kpi-input-row"><input class="kpi-input" type="number" step="0.1" id="v1" placeholder="0" oninput="calc()"><span class="kpi-unit">meses</span></div>
+<div class="kpi-ranges"><span class="range r">&lt;1 mes</span><span class="range y">1-3 meses</span><span class="range g">&gt;3 meses</span></div>
+</div>
+
+<div class="kpi" id="k2">
+<div class="kpi-top"><div class="kpi-info"><div class="kpi-name">€/Hora Real</div><div class="kpi-desc">Lo que ganas realmente por cada hora de trabajo</div></div><div class="kpi-indicator" id="ki2">—</div></div>
+<div class="kpi-input-row"><input class="kpi-input" type="number" id="v2" placeholder="0" oninput="calc()"><span class="kpi-unit">€/h</span></div>
+<div class="kpi-ranges"><span class="range r">&lt;10€</span><span class="range y">10-25€</span><span class="range g">&gt;25€</span></div>
+</div>
+
+<div class="kpi" id="k3">
+<div class="kpi-top"><div class="kpi-info"><div class="kpi-name">Dependencia del Mejor Cliente</div><div class="kpi-desc">% de facturación que representa un solo cliente</div></div><div class="kpi-indicator" id="ki3">—</div></div>
+<div class="kpi-input-row"><input class="kpi-input" type="number" id="v3" placeholder="0" oninput="calc()"><span class="kpi-unit">%</span></div>
+<div class="kpi-ranges"><span class="range g">&lt;20%</span><span class="range y">20-40%</span><span class="range r">&gt;40%</span></div>
+</div>
+
+<div class="kpi" id="k4">
+<div class="kpi-top"><div class="kpi-info"><div class="kpi-name">Rotación de Cobro</div><div class="kpi-desc">Días promedio que tardas en cobrar después de facturar</div></div><div class="kpi-indicator" id="ki4">—</div></div>
+<div class="kpi-input-row"><input class="kpi-input" type="number" id="v4" placeholder="0" oninput="calc()"><span class="kpi-unit">días</span></div>
+<div class="kpi-ranges"><span class="range g">&lt;15 días</span><span class="range y">15-30 días</span><span class="range r">&gt;30 días</span></div>
+</div>
+
+<div class="kpi" id="k5">
+<div class="kpi-top"><div class="kpi-info"><div class="kpi-name">Tasa de Retención</div><div class="kpi-desc">% de clientes que repiten o se mantienen</div></div><div class="kpi-indicator" id="ki5">—</div></div>
+<div class="kpi-input-row"><input class="kpi-input" type="number" id="v5" placeholder="0" oninput="calc()"><span class="kpi-unit">%</span></div>
+<div class="kpi-ranges"><span class="range r">&lt;40%</span><span class="range y">40-70%</span><span class="range g">&gt;70%</span></div>
+</div>
+
+<div class="summary">
+<h3>Resumen del semáforo</h3>
+<div class="summary-grid">
+<div class="sum-item"><div class="sum-count" id="sg" style="color:#27ae60">0</div><div class="sum-label">Verdes</div></div>
+<div class="sum-item"><div class="sum-count" id="sy" style="color:#d09703">0</div><div class="sum-label">Amarillos</div></div>
+<div class="sum-item"><div class="sum-count" id="sr" style="color:#e74c3c">0</div><div class="sum-label">Rojos</div></div>
+</div>
+<div class="verdict" id="verdict"></div>
+</div>
+
+<div class="tip">
+<strong>Actualiza cada mes:</strong>
+<p>30 minutos. Estos 6 números. Y sabes exactamente cómo va tu negocio sin depender de sensaciones. Lo que no se mide, no se mejora. Lo que no se entiende, no se dirige.</p>
+</div>
+<button class="download-btn" onclick="window.print()">Descargar en PDF</button>
+<div class="footer">Team Leader Academy © 2026 • Bloque 5: Indicadores de Dirección</div>
+</div>
+<script>
+function getColor(i,v){
+    if(v===''||isNaN(v))return'';
+    v=parseFloat(v);
+    // [green_min, yellow_min, inverted]
+    let rules=[[30,15,false],[3,1,false],[25,10,false],[20,40,true],[15,30,true],[70,40,false]];
+    let r=rules[i];
+    if(r[2]){return v<r[0]?'green':v<=r[1]?'yellow':'red'}
+    return v>r[0]?'green':v>=r[1]?'yellow':'red';
+}
+function calc(){
+    let g=0,y=0,r=0,filled=0;
+    for(let i=0;i<6;i++){
+        let val=document.getElementById('v'+i).value;
+        let c=getColor(i,val);
+        let kpi=document.getElementById('k'+i);
+        let ind=document.getElementById('ki'+i);
+        let light=document.getElementById('lights').children[i];
+        kpi.className='kpi';ind.textContent='—';light.style.background='#333';
+        if(c){
+            filled++;
+            kpi.classList.add(c);
+            ind.textContent=c==='green'?'✓':c==='yellow'?'!':'✗';
+            light.style.background=c==='green'?'#27ae60':c==='yellow'?'#d09703':'#e74c3c';
+            if(c==='green')g++;if(c==='yellow')y++;if(c==='red')r++;
+        }
+    }
+    document.getElementById('sg').textContent=g;
+    document.getElementById('sy').textContent=y;
+    document.getElementById('sr').textContent=r;
+    let gs=document.getElementById('globalScore');
+    let v=document.getElementById('verdict');
+    if(filled===0){gs.textContent='—';gs.style.color='#999';v.textContent='';v.style.background='transparent';return}
+    let score=Math.round((g*100+y*50)/(filled)*1);
+    gs.textContent=score+'/100';
+    gs.style.color=score>=70?'#27ae60':score>=40?'#d09703':'#e74c3c';
+    if(r>=3){v.textContent='Tu negocio tiene señales de alarma. Los KPIs en rojo necesitan atención urgente. Empieza por el que más impacta tu flujo de caja.';v.style.background='rgba(231,76,60,0.1)';v.style.color='#e74c3c'}
+    else if(y>=3){v.textContent='Tu negocio funciona pero hay margen de mejora. Los KPIs en amarillo son oportunidades: con ajustes pequeños puedes pasar a verde.';v.style.background='rgba(208,151,3,0.1)';v.style.color='#d09703'}
+    else{v.textContent='Tu negocio tiene una base financiera sólida. Mantén estos indicadores y revísalos cada mes para asegurarte de que se mantienen.';v.style.background='rgba(39,174,96,0.1)';v.style.color='#27ae60'}
+}
+</script>
+</body>
+</html>
