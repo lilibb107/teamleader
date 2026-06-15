@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Herramienta 04: Ejercicio de Pricing</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#1a2b1f;color:#e8ede9;min-height:100vh;padding:20px}
+.container{max-width:600px;margin:0 auto}
+.header{text-align:center;padding:30px 0;border-bottom:2px solid #d09703}
+.header h1{font-size:1.4em;color:#d09703;margin-bottom:8px}
+.header p{font-size:0.85em;color:#999;letter-spacing:1px;text-transform:uppercase}
+.intro{background:#2e4033;border-radius:10px;padding:16px;margin:20px 0;font-size:0.9em;line-height:1.6;color:#ccc;text-align:center}
+.step{margin:25px 0}
+.step-header{display:flex;align-items:center;gap:12px;margin-bottom:15px}
+.step-number{width:32px;height:32px;border-radius:50%;background:#d09703;color:#1a2b1f;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.9em;flex-shrink:0}
+.step-title{font-weight:700;font-size:1em}
+.step-desc{font-size:0.85em;color:#999;margin-bottom:12px;line-height:1.5}
+.input-card{background:#2e4033;border-radius:10px;padding:16px;margin-bottom:10px}
+.input-label{font-size:0.9em;font-weight:600;margin-bottom:8px}
+.input-hint{font-size:0.78em;color:#999;margin-bottom:8px}
+.input-row{display:flex;gap:10px;align-items:center}
+.pr-input{flex:1;background:#1a2b1f;border:1px solid #555;color:#e8ede9;border-radius:6px;padding:10px;font-size:0.9em;font-family:inherit;text-align:right}
+.pr-input:focus{border-color:#d09703;outline:none}
+.input-unit{font-size:0.85em;color:#999;width:30px}
+.formula-box{background:#2e4033;border:1px solid #d09703;border-radius:10px;padding:18px;margin:15px 0;text-align:center}
+.formula-label{font-size:0.72em;color:#d09703;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.formula{font-size:1em;color:#e8ede9;line-height:1.8}
+.formula b{color:#d09703}
+.result-card{background:#2e4033;border:2px solid #d09703;border-radius:12px;padding:25px;margin:25px 0;text-align:center}
+.result-card h3{color:#d09703;font-size:1em;margin-bottom:15px}
+.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:15px}
+.result-item{background:#1a2b1f;border-radius:8px;padding:12px;text-align:center}
+.result-value{font-size:1.3em;font-weight:700;margin-bottom:2px}
+.result-label{font-size:0.7em;color:#999}
+.verdict{padding:15px;border-radius:8px;font-size:0.9em;font-weight:600;line-height:1.5}
+.verdict.bajo{background:rgba(231,76,60,0.15);color:#e74c3c;border:1px solid rgba(231,76,60,0.3)}
+.verdict.ok{background:rgba(208,151,3,0.15);color:#d09703;border:1px solid rgba(208,151,3,0.3)}
+.verdict.bien{background:rgba(39,174,96,0.15);color:#27ae60;border:1px solid rgba(39,174,96,0.3)}
+.checklist{margin:20px 0}
+.check-item{background:#2e4033;border-radius:10px;padding:14px;margin-bottom:8px;cursor:pointer;display:flex;align-items:flex-start;gap:12px;border-left:3px solid #333;transition:all 0.2s}
+.check-item.checked{border-left-color:#27ae60}
+.checkbox{width:20px;height:20px;border:2px solid #555;border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.2s;margin-top:2px}
+.check-item.checked .checkbox{background:#27ae60;border-color:#27ae60}
+.check-item.checked .checkbox::after{content:'✓';color:#1a2b1f;font-weight:700;font-size:12px}
+.check-text{font-size:0.88em;line-height:1.5}
+.tip{background:#2e4033;border-radius:10px;padding:16px;margin:20px 0;border-left:3px solid #d09703}
+.tip strong{color:#d09703;font-size:0.85em}
+.tip p{font-size:0.82em;color:#999;margin-top:6px;line-height:1.5}
+.download-btn{display:block;margin:20px auto;padding:12px 30px;background:#d09703;color:#1a2b1f;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.9em;font-family:inherit}
+.download-btn:hover{background:#e8b830}
+.footer{text-align:center;padding:25px 0;font-size:0.7em;color:#666;border-top:1px solid #2e4033;margin-top:30px}
+@media print{body{background:#fff;color:#333;padding:10px}.header{border-bottom-color:#d09703}.header h1{color:#2e4033}.intro,.input-card,.formula-box,.result-card,.check-item,.tip,.result-item{background:#f5f5f5}.pr-input{background:#fff;border-color:#ccc;color:#333}.download-btn{display:none}.result-card{border-color:#d09703}.footer{color:#999}}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>Ejercicio de Pricing</h1>
+<p>Bloque 2 · ¿Tus precios cubren lo que deben?</p>
+</div>
+<div class="intro">Evalúa paso a paso si tu precio actual cubre costes + margen + el valor que aportas. Al final sabrás si necesitas ajustar y cuánto.</div>
+
+<div class="step">
+<div class="step-header"><div class="step-number">1</div><div class="step-title">Tu coste real por unidad</div></div>
+<div class="step-desc">Suma todo lo que te cuesta entregar una unidad de tu producto o servicio, incluyendo lo que normalmente no cuentas.</div>
+<div class="input-card">
+<div class="input-label">Coste de materiales/producción</div>
+<div class="input-row"><input class="pr-input" type="number" id="p1" placeholder="0" oninput="calcular()"><span class="input-unit">€</span></div>
+</div>
+<div class="input-card">
+<div class="input-label">Tu tiempo invertido (horas × valor de tu hora)</div>
+<div class="input-hint">Si dedicas 2h y tu hora vale 20€, pon 40€</div>
+<div class="input-row"><input class="pr-input" type="number" id="p2" placeholder="0" oninput="calcular()"><span class="input-unit">€</span></div>
+</div>
+<div class="input-card">
+<div class="input-label">Otros costes (envío, comisiones, desplazamiento)</div>
+<div class="input-row"><input class="pr-input" type="number" id="p3" placeholder="0" oninput="calcular()"><span class="input-unit">€</span></div>
+</div>
+<div class="input-card">
+<div class="input-label">Parte proporcional de costes fijos por unidad</div>
+<div class="input-hint">Tus costes fijos ÷ número de ventas al mes. Ej: 500€ fijos ÷ 20 ventas = 25€</div>
+<div class="input-row"><input class="pr-input" type="number" id="p4" placeholder="0" oninput="calcular()"><span class="input-unit">€</span></div>
+</div>
+</div>
+
+<div class="step">
+<div class="step-header"><div class="step-number">2</div><div class="step-title">Tu margen objetivo</div></div>
+<div class="step-desc">¿Qué porcentaje de beneficio quieres obtener por encima de tus costes? Un margen sano para servicios está entre 40-60%.</div>
+<div class="input-card">
+<div class="input-label">Margen de beneficio deseado</div>
+<div class="input-row"><input class="pr-input" type="number" id="p5" placeholder="40" value="40" oninput="calcular()"><span class="input-unit">%</span></div>
+</div>
+</div>
+
+<div class="step">
+<div class="step-header"><div class="step-number">3</div><div class="step-title">Tu precio actual</div></div>
+<div class="input-card">
+<div class="input-label">¿Cuánto cobras actualmente?</div>
+<div class="input-row"><input class="pr-input" type="number" id="p6" placeholder="0" oninput="calcular()"><span class="input-unit">€</span></div>
+</div>
+</div>
+
+<div class="formula-box">
+<div class="formula-label">Fórmula de precio mínimo rentable</div>
+<div class="formula"><b>Precio mínimo</b> = Coste total por unidad ÷ (1 - margen deseado)<br>Si tu coste es 60€ y quieres 40% margen: 60 ÷ 0.60 = <b>100€</b></div>
+</div>
+
+<div class="result-card">
+<h3>Tu diagnóstico de pricing</h3>
+<div class="result-grid">
+<div class="result-item"><div class="result-value" id="r_coste" style="color:#e74c3c">0 €</div><div class="result-label">Tu coste real por unidad</div></div>
+<div class="result-item"><div class="result-value" id="r_minimo" style="color:#d09703">0 €</div><div class="result-label">Precio mínimo rentable</div></div>
+<div class="result-item"><div class="result-value" id="r_actual" style="color:#e8ede9">0 €</div><div class="result-label">Tu precio actual</div></div>
+<div class="result-item"><div class="result-value" id="r_margen_real">0%</div><div class="result-label">Tu margen real</div></div>
+</div>
+<div class="verdict" id="verdict"></div>
+</div>
+
+<div class="step">
+<div class="step-header"><div class="step-number">4</div><div class="step-title">Checklist: ¿estás cobrando como profesional?</div></div>
+<div class="checklist">
+<div class="check-item" onclick="this.classList.toggle('checked')"><div class="checkbox"></div><div class="check-text">Conozco mi coste real por unidad (incluyendo mi tiempo)</div></div>
+<div class="check-item" onclick="this.classList.toggle('checked')"><div class="checkbox"></div><div class="check-text">Mi precio cubre todos los costes + el margen que necesito</div></div>
+<div class="check-item" onclick="this.classList.toggle('checked')"><div class="checkbox"></div><div class="check-text">He subido precios en los últimos 6 meses basándome en datos</div></div>
+<div class="check-item" onclick="this.classList.toggle('checked')"><div class="checkbox"></div><div class="check-text">Mis descuentos son estrategia, no desesperación</div></div>
+<div class="check-item" onclick="this.classList.toggle('checked')"><div class="checkbox"></div><div class="check-text">Fijo precios basándome en el valor que aporto, no en lo que cobra la competencia</div></div>
+</div>
+</div>
+
+<div class="tip">
+<strong>Recuerda:</strong>
+<p>Si tu única ventaja competitiva es ser más barata, cualquiera que baje 1€ te roba el cliente. Eso no es un negocio, es una carrera al fondo. Compite por valor, no por precio.</p>
+</div>
+
+<button class="download-btn" onclick="window.print()">Descargar en PDF</button>
+<div class="footer">Team Leader Academy © 2026 • Bloque 2: Microeconomía Aplicada</div>
+</div>
+<script>
+function calcular(){
+    let c1=parseFloat(document.getElementById('p1').value)||0;
+    let c2=parseFloat(document.getElementById('p2').value)||0;
+    let c3=parseFloat(document.getElementById('p3').value)||0;
+    let c4=parseFloat(document.getElementById('p4').value)||0;
+    let margen=(parseFloat(document.getElementById('p5').value)||0)/100;
+    let actual=parseFloat(document.getElementById('p6').value)||0;
+    let coste=c1+c2+c3+c4;
+    let minimo=margen<1?coste/(1-margen):coste*2;
+    let margen_real=actual>0?((actual-coste)/actual*100):0;
+    document.getElementById('r_coste').textContent=Math.round(coste)+' €';
+    document.getElementById('r_minimo').textContent=Math.round(minimo)+' €';
+    document.getElementById('r_actual').textContent=Math.round(actual)+' €';
+    let mr=document.getElementById('r_margen_real');
+    mr.textContent=margen_real.toFixed(1)+'%';
+    if(margen_real<0)mr.style.color='#e74c3c';
+    else if(margen_real<30)mr.style.color='#d09703';
+    else mr.style.color='#27ae60';
+    let v=document.getElementById('verdict');
+    if(coste===0&&actual===0){v.textContent='Completa los datos para ver tu diagnóstico.';v.className='verdict';return}
+    if(actual<coste){v.textContent='Estás perdiendo dinero con cada venta. Tu precio ni siquiera cubre tus costes. Necesitas subir precios urgentemente o reducir costes.';v.className='verdict bajo'}
+    else if(actual<minimo){v.textContent='Tu precio cubre costes pero no alcanza el margen que necesitas. Deberías cobrar al menos '+Math.round(minimo)+'€ para alcanzar tu objetivo de '+Math.round(margen*100)+'% de margen. La diferencia son '+Math.round(minimo-actual)+'€ que estás dejando sobre la mesa.';v.className='verdict ok'}
+    else{v.textContent='Tu precio cubre costes y supera tu margen objetivo. Estás en buen camino. Revisa este ejercicio cada trimestre para asegurarte de que sigue siendo así.';v.className='verdict bien'}
+}
+</script>
+</body>
+</html>

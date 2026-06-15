@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Herramienta 02: Calculadora de Costes Ocultos</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#1a2b1f;color:#e8ede9;min-height:100vh;padding:20px}
+.container{max-width:600px;margin:0 auto}
+.header{text-align:center;padding:30px 0;border-bottom:2px solid #d09703}
+.header h1{font-size:1.4em;color:#d09703;margin-bottom:8px}
+.header p{font-size:0.85em;color:#999;letter-spacing:1px;text-transform:uppercase}
+.progress-section{text-align:center;padding:25px 0}
+.progress-label{font-size:0.8em;color:#999;margin-bottom:8px}
+.progress-value{font-size:2.5em;font-weight:700;color:#e74c3c;transition:all 0.3s}
+.progress-sub{font-size:0.75em;color:#999;margin-top:4px}
+.intro{background:#2e4033;border-radius:10px;padding:16px;margin:20px 0;font-size:0.9em;line-height:1.6;color:#ccc;text-align:center}
+.section{margin:25px 0}
+.section-title{font-size:0.75em;color:#d09703;text-transform:uppercase;letter-spacing:2px;margin-bottom:15px;padding-bottom:8px;border-bottom:1px solid #2e4033}
+.cost-item{background:#2e4033;border-radius:10px;padding:16px;margin-bottom:10px;border-left:3px solid #333}
+.cost-item.filled{border-left-color:#e74c3c}
+.cost-label{font-weight:600;font-size:0.92em;margin-bottom:4px}
+.cost-desc{font-size:0.8em;color:#999;margin-bottom:10px;line-height:1.4}
+.cost-row{display:flex;gap:10px;align-items:center}
+.cost-input{flex:1;background:#1a2b1f;border:1px solid #555;color:#e8ede9;border-radius:6px;padding:10px;font-size:0.9em;font-family:inherit;text-align:right}
+.cost-input:focus{border-color:#d09703;outline:none}
+.cost-unit{font-size:0.85em;color:#999;width:30px}
+.helper{background:#1a2b1f;border-radius:8px;padding:12px;margin-top:10px;display:none}
+.helper.show{display:block}
+.helper-label{font-size:0.72em;color:#d09703;margin-bottom:6px}
+.helper-calc{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.helper-input{background:#2e4033;border:1px solid #555;color:#e8ede9;border-radius:4px;padding:6px 8px;font-size:0.82em;width:70px;text-align:center;font-family:inherit}
+.helper-text{font-size:0.8em;color:#999}
+.result-box{background:#2e4033;border:2px solid #e74c3c;border-radius:12px;padding:25px;margin:25px 0;text-align:center}
+.result-box h3{color:#e74c3c;font-size:1em;margin-bottom:6px}
+.result-total{font-size:2.8em;font-weight:700;color:#e74c3c;margin:10px 0}
+.result-text{font-size:0.85em;color:#ccc;line-height:1.6;margin-top:10px}
+.comparison{display:flex;gap:15px;margin-top:15px;justify-content:center}
+.comp-item{background:#1a2b1f;border-radius:8px;padding:12px 18px;text-align:center}
+.comp-number{font-size:1.3em;font-weight:700}
+.comp-label{font-size:0.7em;color:#999;margin-top:4px}
+.tip{background:#2e4033;border-radius:10px;padding:16px;margin:20px 0;border-left:3px solid #d09703}
+.tip strong{color:#d09703;font-size:0.85em}
+.tip p{font-size:0.82em;color:#999;margin-top:6px;line-height:1.5}
+.download-btn{display:block;margin:20px auto;padding:12px 30px;background:#d09703;color:#1a2b1f;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.9em;font-family:inherit}
+.download-btn:hover{background:#e8b830}
+.footer{text-align:center;padding:25px 0;font-size:0.7em;color:#666;border-top:1px solid #2e4033;margin-top:30px}
+@media print{body{background:#fff;color:#333;padding:10px}.header{border-bottom-color:#d09703}.header h1{color:#2e4033}.progress-section,.download-btn{display:none}.intro,.cost-item,.result-box,.tip,.comp-item{background:#f5f5f5}.cost-input,.helper-input{background:#fff;border-color:#ccc;color:#333}.helper{display:block!important}.result-box{border-color:#e74c3c}.footer{color:#999}}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>Calculadora de Costes Ocultos</h1>
+<p>Bloque 2 · Microeconomía Aplicada</p>
+</div>
+<div class="progress-section">
+<div class="progress-label">Costes ocultos mensuales detectados</div>
+<div class="progress-value" id="totalOcultos">0 €</div>
+<div class="progress-sub">Esto es lo que pierdes cada mes sin saberlo</div>
+</div>
+<div class="intro">Identifica los gastos invisibles que te comen el margen. Completa cada campo con tu estimación mensual. Sé honesta: si no lo cuentas, no existe.</div>
+
+<div class="section">
+<div class="section-title">Tu tiempo no contabilizado</div>
+<div class="cost-item" id="c0">
+<div class="cost-label">Valor de tu tiempo</div>
+<div class="cost-desc">¿Cuántas horas trabajas al mes en tu negocio? ¿Cuánto vale tu hora? Multiplica.</div>
+<div class="helper show">
+<div class="helper-label">Calculadora rápida</div>
+<div class="helper-calc">
+<input class="helper-input" type="number" id="horas" placeholder="Horas" oninput="calcTiempo()">
+<span class="helper-text">horas/mes ×</span>
+<input class="helper-input" type="number" id="valorhora" placeholder="€/hora" oninput="calcTiempo()">
+<span class="helper-text">€/hora =</span>
+</div>
+</div>
+<div class="cost-row"><input class="cost-input" type="number" id="v0" placeholder="0" oninput="updateTotal()"><span class="cost-unit">€</span></div>
+</div>
+<div class="cost-item" id="c1">
+<div class="cost-label">Reuniones y llamadas que no cierran nada</div>
+<div class="cost-desc">Estima cuántas horas al mes pasas en reuniones con personas que nunca compran. Multiplica por el valor de tu hora.</div>
+<div class="cost-row"><input class="cost-input" type="number" id="v1" placeholder="0" oninput="updateTotal()"><span class="cost-unit">€</span></div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">Errores y pérdidas invisibles</div>
+<div class="cost-item" id="c2">
+<div class="cost-label">Desplazamientos improductivos</div>
+<div class="cost-desc">Transporte, gasolina, tiempo en desplazamientos que no generan ingresos directos.</div>
+<div class="cost-row"><input class="cost-input" type="number" id="v2" placeholder="0" oninput="updateTotal()"><span class="cost-unit">€</span></div>
+</div>
+<div class="cost-item" id="c3">
+<div class="cost-label">Pruebas, errores y prototipos que fallan</div>
+<div class="cost-desc">Dinero invertido en cosas que no funcionaron: diseños descartados, productos que no se vendieron, campañas que no convirtieron.</div>
+<div class="cost-row"><input class="cost-input" type="number" id="v3" placeholder="0" oninput="updateTotal()"><span class="cost-unit">€</span></div>
+</div>
+<div class="cost-item" id="c4">
+<div class="cost-label">Clientes que demandan más de lo que pagan</div>
+<div class="cost-desc">Clientes que piden revisiones extra, llaman fuera de horario, exigen más de lo acordado. Estima el coste mensual de ese tiempo extra.</div>
+<div class="cost-row"><input class="cost-input" type="number" id="v4" placeholder="0" oninput="updateTotal()"><span class="cost-unit">€</span></div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">Lo que nunca cuentas</div>
+<div class="cost-item" id="c5">
+<div class="cost-label">Formación y cursos no aplicados</div>
+<div class="cost-desc">¿Cuánto has gastado en cursos que compraste y nunca terminaste o aplicaste? Divide entre los meses desde que lo compraste.</div>
+<div class="cost-row"><input class="cost-input" type="number" id="v5" placeholder="0" oninput="updateTotal()"><span class="cost-unit">€</span></div>
+</div>
+<div class="cost-item" id="c6">
+<div class="cost-label">Admin y tareas que deberías delegar</div>
+<div class="cost-desc">Horas que dedicas a tareas administrativas, contabilidad, programación de redes, etc. que podrías pagar a alguien por menos del valor de tu hora.</div>
+<div class="cost-row"><input class="cost-input" type="number" id="v6" placeholder="0" oninput="updateTotal()"><span class="cost-unit">€</span></div>
+</div>
+<div class="cost-item" id="c7">
+<div class="cost-label">Otros costes que no cuentas</div>
+<div class="cost-desc">Cualquier otro gasto invisible que se te ocurra al pensar en esto.</div>
+<div class="cost-row"><input class="cost-input" type="number" id="v7" placeholder="0" oninput="updateTotal()"><span class="cost-unit">€</span></div>
+</div>
+</div>
+
+<div class="result-box">
+<h3>Total de costes ocultos mensuales</h3>
+<div class="result-total" id="resultTotal">0 €</div>
+<div class="comparison">
+<div class="comp-item"><div class="comp-number" id="anual" style="color:#e74c3c">0 €</div><div class="comp-label">Al año pierdes</div></div>
+<div class="comp-item"><div class="comp-number" id="diario" style="color:#d09703">0 €</div><div class="comp-label">Al día pierdes</div></div>
+</div>
+<div class="result-text" id="resultText">Completa los campos para ver tu diagnóstico.</div>
+</div>
+
+<div class="tip">
+<strong>Ahora que lo ves:</strong>
+<p>Cada euro de coste oculto es un euro que le restas a tu margen real. No necesitas ganar más, necesitas dejar de perder lo que ya ganas. Revisa esta calculadora cada trimestre.</p>
+</div>
+
+<button class="download-btn" onclick="window.print()">Descargar en PDF</button>
+<div class="footer">Team Leader Academy © 2026 • Bloque 2: Microeconomía Aplicada</div>
+</div>
+<script>
+function calcTiempo(){
+    let h=parseFloat(document.getElementById('horas').value)||0;
+    let v=parseFloat(document.getElementById('valorhora').value)||0;
+    document.getElementById('v0').value=Math.round(h*v);
+    updateTotal();
+}
+function updateTotal(){
+    let total=0;
+    for(let i=0;i<=7;i++){
+        let val=parseFloat(document.getElementById('v'+i).value)||0;
+        let item=document.getElementById('c'+i);
+        if(val>0)item.classList.add('filled');else item.classList.remove('filled');
+        total+=val;
+    }
+    document.getElementById('totalOcultos').textContent=total.toLocaleString('es-ES')+' €';
+    document.getElementById('resultTotal').textContent=total.toLocaleString('es-ES')+' €';
+    document.getElementById('anual').textContent=(total*12).toLocaleString('es-ES')+' €';
+    document.getElementById('diario').textContent=Math.round(total/30).toLocaleString('es-ES')+' €';
+    let rt=document.getElementById('resultText');
+    if(total===0)rt.textContent='Completa los campos para ver tu diagnóstico.';
+    else if(total<200)rt.textContent='Tus costes ocultos son relativamente bajos. Pero cada euro cuenta. Revisa si puedes reducir alguno.';
+    else if(total<500)rt.textContent='Tienes una fuga importante de dinero invisible. Esto equivale a perder '+Math.round(total/30)+'€ cada día que abres tu negocio sin saberlo.';
+    else rt.textContent='Tus costes ocultos son altos. Estás perdiendo '+(total*12).toLocaleString('es-ES')+'€ al año en gastos que ni siquiera contabas. Este es el punto de partida para cambiar.';
+}
+</script>
+</body>
+</html>

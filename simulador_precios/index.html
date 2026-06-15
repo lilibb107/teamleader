@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Herramienta 03: Simulador de Precios</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#1a2b1f;color:#e8ede9;min-height:100vh;padding:20px}
+.container{max-width:600px;margin:0 auto}
+.header{text-align:center;padding:30px 0;border-bottom:2px solid #d09703}
+.header h1{font-size:1.4em;color:#d09703;margin-bottom:8px}
+.header p{font-size:0.85em;color:#999;letter-spacing:1px;text-transform:uppercase}
+.intro{background:#2e4033;border-radius:10px;padding:16px;margin:20px 0;font-size:0.9em;line-height:1.6;color:#ccc;text-align:center}
+.section{margin:25px 0}
+.section-title{font-size:0.75em;color:#d09703;text-transform:uppercase;letter-spacing:2px;margin-bottom:15px;padding-bottom:8px;border-bottom:1px solid #2e4033}
+.input-group{background:#2e4033;border-radius:10px;padding:16px;margin-bottom:10px}
+.input-label{font-weight:600;font-size:0.9em;margin-bottom:8px}
+.input-desc{font-size:0.78em;color:#999;margin-bottom:10px}
+.input-row{display:flex;gap:10px;align-items:center}
+.sim-input{flex:1;background:#1a2b1f;border:1px solid #555;color:#e8ede9;border-radius:6px;padding:10px;font-size:0.9em;font-family:inherit;text-align:right}
+.sim-input:focus{border-color:#d09703;outline:none}
+.input-unit{font-size:0.85em;color:#999;width:60px}
+.scenarios{display:flex;flex-direction:column;gap:12px;margin-top:20px}
+.scenario{background:#2e4033;border-radius:10px;padding:18px;border-left:3px solid #555}
+.scenario.best{border-left-color:#27ae60}
+.scenario.current{border-left-color:#d09703}
+.scenario.worst{border-left-color:#e74c3c}
+.sc-title{font-weight:700;font-size:0.9em;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.sc-badge{font-size:0.65em;padding:2px 8px;border-radius:4px;text-transform:uppercase;letter-spacing:1px}
+.best .sc-badge{background:rgba(39,174,96,0.2);color:#27ae60}
+.current .sc-badge{background:rgba(208,151,3,0.2);color:#d09703}
+.worst .sc-badge{background:rgba(231,76,60,0.2);color:#e74c3c}
+.sc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sc-item{background:#1a2b1f;border-radius:6px;padding:10px;text-align:center}
+.sc-value{font-size:1.1em;font-weight:700;margin-bottom:2px}
+.sc-label{font-size:0.7em;color:#999}
+.sc-diff{text-align:center;margin-top:10px;font-size:0.85em;font-weight:600;padding:8px;border-radius:6px}
+.best .sc-diff{background:rgba(39,174,96,0.1);color:#27ae60}
+.worst .sc-diff{background:rgba(231,76,60,0.1);color:#e74c3c}
+.tip{background:#2e4033;border-radius:10px;padding:16px;margin:20px 0;border-left:3px solid #d09703}
+.tip strong{color:#d09703;font-size:0.85em}
+.tip p{font-size:0.82em;color:#999;margin-top:6px;line-height:1.5}
+.download-btn{display:block;margin:20px auto;padding:12px 30px;background:#d09703;color:#1a2b1f;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.9em;font-family:inherit}
+.download-btn:hover{background:#e8b830}
+.footer{text-align:center;padding:25px 0;font-size:0.7em;color:#666;border-top:1px solid #2e4033;margin-top:30px}
+@media print{body{background:#fff;color:#333;padding:10px}.header{border-bottom-color:#d09703}.header h1{color:#2e4033}.intro,.input-group,.scenario,.tip,.sc-item{background:#f5f5f5}.sim-input{background:#fff;border-color:#ccc;color:#333}.download-btn{display:none}.footer{color:#999}}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>Simulador de Precios</h1>
+<p>Bloque 2 · Microeconomía Aplicada</p>
+</div>
+<div class="intro">Introduce tus datos actuales y mira qué pasa si subes precios un 20% (aunque pierdas un 15% de clientes) o si reduces costes un 15%. Los números hablan.</div>
+
+<div class="section">
+<div class="section-title">Tus datos actuales</div>
+<div class="input-group">
+<div class="input-label">Precio actual por unidad/servicio</div>
+<div class="input-row"><input class="sim-input" type="number" id="precio" placeholder="0" oninput="simular()"><span class="input-unit">€</span></div>
+</div>
+<div class="input-group">
+<div class="input-label">Clientes o ventas al mes</div>
+<div class="input-row"><input class="sim-input" type="number" id="clientes" placeholder="0" oninput="simular()"><span class="input-unit">unidades</span></div>
+</div>
+<div class="input-group">
+<div class="input-label">Coste variable por unidad</div>
+<div class="input-desc">Materiales, comisiones, envíos... lo que te cuesta cada venta.</div>
+<div class="input-row"><input class="sim-input" type="number" id="coste" placeholder="0" oninput="simular()"><span class="input-unit">€</span></div>
+</div>
+<div class="input-group">
+<div class="input-label">Costes fijos mensuales totales</div>
+<div class="input-desc">Alquiler, suscripciones, seguros, todo lo que pagas vendas o no.</div>
+<div class="input-row"><input class="sim-input" type="number" id="fijos" placeholder="0" oninput="simular()"><span class="input-unit">€</span></div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">Comparación de escenarios</div>
+<div class="scenarios" id="scenarios">
+<div class="scenario current" id="sc_actual">
+<div class="sc-title">Tu situación actual <span class="sc-badge">Hoy</span></div>
+<div class="sc-grid">
+<div class="sc-item"><div class="sc-value" id="a_fact" style="color:#d09703">0 €</div><div class="sc-label">Facturación</div></div>
+<div class="sc-item"><div class="sc-value" id="a_margen" style="color:#d09703">0 €</div><div class="sc-label">Margen bruto</div></div>
+<div class="sc-item"><div class="sc-value" id="a_benef" style="color:#d09703">0 €</div><div class="sc-label">Beneficio neto</div></div>
+<div class="sc-item"><div class="sc-value" id="a_pct" style="color:#d09703">0%</div><div class="sc-label">% Margen</div></div>
+</div>
+</div>
+<div class="scenario best" id="sc_subir">
+<div class="sc-title">Subes precio 20% (pierdes 15% clientes) <span class="sc-badge">Escenario A</span></div>
+<div class="sc-grid">
+<div class="sc-item"><div class="sc-value" id="b_fact" style="color:#27ae60">0 €</div><div class="sc-label">Facturación</div></div>
+<div class="sc-item"><div class="sc-value" id="b_margen" style="color:#27ae60">0 €</div><div class="sc-label">Margen bruto</div></div>
+<div class="sc-item"><div class="sc-value" id="b_benef" style="color:#27ae60">0 €</div><div class="sc-label">Beneficio neto</div></div>
+<div class="sc-item"><div class="sc-value" id="b_pct" style="color:#27ae60">0%</div><div class="sc-label">% Margen</div></div>
+</div>
+<div class="sc-diff" id="b_diff"></div>
+</div>
+<div class="scenario worst" id="sc_reducir">
+<div class="sc-title">Reduces costes 15% (mismos clientes) <span class="sc-badge">Escenario B</span></div>
+<div class="sc-grid">
+<div class="sc-item"><div class="sc-value" id="c_fact" style="color:#e74c3c">0 €</div><div class="sc-label">Facturación</div></div>
+<div class="sc-item"><div class="sc-value" id="c_margen" style="color:#e74c3c">0 €</div><div class="sc-label">Margen bruto</div></div>
+<div class="sc-item"><div class="sc-value" id="c_benef" style="color:#e74c3c">0 €</div><div class="sc-label">Beneficio neto</div></div>
+<div class="sc-item"><div class="sc-value" id="c_pct" style="color:#e74c3c">0%</div><div class="sc-label">% Margen</div></div>
+</div>
+<div class="sc-diff" id="c_diff"></div>
+</div>
+</div>
+</div>
+
+<div class="tip">
+<strong>Lo que dicen los números:</strong>
+<p>En la mayoría de los casos, subir precios un 20% y perder un 15% de clientes te deja con más beneficio, menos trabajo y mejores clientes. Haz la simulación con tus datos reales y deja que los números hablen.</p>
+</div>
+
+<button class="download-btn" onclick="window.print()">Descargar en PDF</button>
+<div class="footer">Team Leader Academy © 2026 • Bloque 2: Microeconomía Aplicada</div>
+</div>
+<script>
+function fmt(n){return Math.round(n).toLocaleString('es-ES')}
+function simular(){
+    let p=parseFloat(document.getElementById('precio').value)||0;
+    let cl=parseFloat(document.getElementById('clientes').value)||0;
+    let cv=parseFloat(document.getElementById('coste').value)||0;
+    let cf=parseFloat(document.getElementById('fijos').value)||0;
+    // Actual
+    let a_f=p*cl, a_m=(p-cv)*cl, a_b=a_m-cf, a_p=a_f>0?((a_b/a_f)*100):0;
+    document.getElementById('a_fact').textContent=fmt(a_f)+' €';
+    document.getElementById('a_margen').textContent=fmt(a_m)+' €';
+    document.getElementById('a_benef').textContent=fmt(a_b)+' €';
+    document.getElementById('a_pct').textContent=a_p.toFixed(1)+'%';
+    // Subir 20%, perder 15%
+    let bp=p*1.2, bcl=Math.round(cl*0.85);
+    let b_f=bp*bcl, b_m=(bp-cv)*bcl, b_b=b_m-cf, b_p=b_f>0?((b_b/b_f)*100):0;
+    document.getElementById('b_fact').textContent=fmt(b_f)+' €';
+    document.getElementById('b_margen').textContent=fmt(b_m)+' €';
+    document.getElementById('b_benef').textContent=fmt(b_b)+' €';
+    document.getElementById('b_pct').textContent=b_p.toFixed(1)+'%';
+    let bdiff=b_b-a_b;
+    document.getElementById('b_diff').textContent=bdiff>=0?'Ganas '+fmt(bdiff)+' € más al mes con menos clientes':'Pierdes '+fmt(Math.abs(bdiff))+' € al mes';
+    // Reducir costes 15%
+    let ccv=cv*0.85, ccf=cf*0.85;
+    let c_f=p*cl, c_m=(p-ccv)*cl, c_b=c_m-ccf, c_p=c_f>0?((c_b/c_f)*100):0;
+    document.getElementById('c_fact').textContent=fmt(c_f)+' €';
+    document.getElementById('c_margen').textContent=fmt(c_m)+' €';
+    document.getElementById('c_benef').textContent=fmt(c_b)+' €';
+    document.getElementById('c_pct').textContent=c_p.toFixed(1)+'%';
+    let cdiff=c_b-a_b;
+    document.getElementById('c_diff').textContent=cdiff>=0?'Ganas '+fmt(cdiff)+' € más al mes sin tocar precios':'Sin cambio significativo';
+}
+</script>
+</body>
+</html>
