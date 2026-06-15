@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Herramienta 03: Test de Mentalidad Financiera</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#1a2b1f;color:#e8ede9;min-height:100vh;padding:20px}
+.container{max-width:600px;margin:0 auto}
+.header{text-align:center;padding:30px 0;border-bottom:2px solid #d09703}
+.header h1{font-size:1.4em;color:#d09703;margin-bottom:8px}
+.header p{font-size:0.85em;color:#999;letter-spacing:1px;text-transform:uppercase}
+.progress-section{text-align:center;padding:25px 0}
+.progress-label{font-size:0.8em;color:#999;margin-bottom:8px}
+.progress-value{font-size:2.5em;font-weight:700;color:#d09703;transition:all 0.3s}
+.progress-sub{font-size:0.75em;color:#999;margin-top:4px}
+.progress-bar{width:100%;height:6px;background:#2e4033;border-radius:3px;margin-top:12px;overflow:hidden}
+.progress-fill{height:100%;border-radius:3px;transition:width 0.4s;width:0}
+.intro{background:#2e4033;border-radius:10px;padding:16px;margin:20px 0;font-size:0.9em;line-height:1.6;color:#ccc;text-align:center}
+.question{background:#2e4033;border-radius:10px;padding:18px;margin-bottom:12px;border-left:3px solid #333}
+.question.answered{border-left-color:#d09703}
+.q-number{font-size:0.7em;color:#d09703;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
+.q-text{font-size:0.95em;font-weight:600;margin-bottom:14px;line-height:1.5}
+.q-options{display:flex;gap:10px}
+.q-btn{flex:1;padding:12px;border:2px solid #555;border-radius:8px;background:transparent;color:#e8ede9;font-size:0.9em;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:inherit}
+.q-btn:hover{border-color:#d09703}
+.q-btn.yes{border-color:#27ae60;background:rgba(39,174,96,0.15);color:#27ae60}
+.q-btn.no{border-color:#e74c3c;background:rgba(231,76,60,0.15);color:#e74c3c}
+.result-box{background:#2e4033;border:2px solid #d09703;border-radius:12px;padding:25px;margin:25px 0;text-align:center;display:none}
+.result-box h3{color:#d09703;font-size:1.1em;margin-bottom:6px}
+.result-score{font-size:3em;font-weight:700;margin:10px 0}
+.result-score.low{color:#e74c3c}
+.result-score.mid{color:#d09703}
+.result-score.high{color:#27ae60}
+.result-text{font-size:0.88em;color:#ccc;line-height:1.6;margin-top:10px}
+.result-action{background:#1a2b1f;border-radius:8px;padding:14px;margin-top:15px;font-size:0.82em;color:#d09703;line-height:1.5}
+.repeat-info{text-align:center;margin:20px 0;padding:16px;background:#2e4033;border-radius:10px;border-left:3px solid #d09703}
+.repeat-info strong{color:#d09703;font-size:0.85em}
+.repeat-info p{font-size:0.82em;color:#999;margin-top:6px;line-height:1.5}
+.reset-btn{display:block;margin:20px auto;padding:10px 25px;background:#d09703;color:#1a2b1f;border:none;border-radius:8px;font-weight:600;cursor:pointer;font-size:0.85em;font-family:inherit}
+.reset-btn:hover{background:#e8b830}
+.footer{text-align:center;padding:25px 0;font-size:0.7em;color:#666;border-top:1px solid #2e4033;margin-top:30px}
+.download-btn{display:block;margin:20px auto;padding:12px 30px;background:#d09703;color:#1a2b1f;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.9em;font-family:inherit;letter-spacing:0.5px}
+.download-btn:hover{background:#e8b830}
+@media print{
+body{background:#fff;color:#333;padding:10px}
+.container{max-width:100%}
+.header{border-bottom-color:#d09703}
+.header h1{color:#2e4033}
+.header p{color:#666}
+.progress-section,.download-btn,.reset-btn{display:none}
+.intro{background:#f5f5f5;color:#333}
+.question{background:#f5f5f5;border-left-color:#d09703;page-break-inside:avoid}
+.q-number{color:#d09703}
+.q-text{color:#333}
+.q-btn{border-color:#ccc;color:#333}
+.q-btn.yes{border-color:#27ae60;color:#27ae60;background:rgba(39,174,96,0.1)}
+.q-btn.no{border-color:#e74c3c;color:#e74c3c;background:rgba(231,76,60,0.1)}
+.result-box{background:#f5f5f5;border-color:#d09703;display:block!important}
+.result-box h3{color:#2e4033}
+.result-text{color:#333}
+.result-action{background:#e8ede9;color:#2e4033}
+.repeat-info{background:#f5f5f5;border-left-color:#d09703}
+.repeat-info strong{color:#2e4033}
+.repeat-info p{color:#333}
+.footer{color:#999;border-top-color:#ccc}
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>Test de Mentalidad Financiera</h1>
+<p>Bloque 1 · Autodiagnóstico Trimestral</p>
+</div>
+
+<div class="progress-section">
+<div class="progress-label">Mentalidad Financiera</div>
+<div class="progress-value" id="scoreValue">0/6</div>
+<div class="progress-sub">Respuestas SÍ</div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill" style="background:linear-gradient(90deg,#e74c3c,#d09703,#27ae60)"></div></div>
+</div>
+
+<div class="intro">
+Responde con honestidad. No hay respuestas correctas, solo diagnóstico real. Repite este test cada trimestre para medir tu evolución.
+</div>
+
+<div id="questions">
+<div class="question" id="q0">
+<div class="q-number">Pregunta 1 de 6</div>
+<div class="q-text">¿Sabes exactamente cuánto te quedó neto el mes pasado (después de todos los gastos e impuestos)?</div>
+<div class="q-options">
+<button class="q-btn" onclick="answer(0,true,this)">SÍ</button>
+<button class="q-btn" onclick="answer(0,false,this)">NO</button>
+</div>
+</div>
+
+<div class="question" id="q1">
+<div class="q-number">Pregunta 2 de 6</div>
+<div class="q-text">¿Conoces de memoria tus costes fijos mensuales (alquiler, suscripciones, servicios, seguros)?</div>
+<div class="q-options">
+<button class="q-btn" onclick="answer(1,true,this)">SÍ</button>
+<button class="q-btn" onclick="answer(1,false,this)">NO</button>
+</div>
+</div>
+
+<div class="question" id="q2">
+<div class="q-number">Pregunta 3 de 6</div>
+<div class="q-text">¿Sabes cuál de tus servicios o productos te da más margen de beneficio?</div>
+<div class="q-options">
+<button class="q-btn" onclick="answer(2,true,this)">SÍ</button>
+<button class="q-btn" onclick="answer(2,false,this)">NO</button>
+</div>
+</div>
+
+<div class="question" id="q3">
+<div class="q-number">Pregunta 4 de 6</div>
+<div class="q-text">¿Has revisado o ajustado tus precios en los últimos 6 meses basándote en datos reales?</div>
+<div class="q-options">
+<button class="q-btn" onclick="answer(3,true,this)">SÍ</button>
+<button class="q-btn" onclick="answer(3,false,this)">NO</button>
+</div>
+</div>
+
+<div class="question" id="q4">
+<div class="q-number">Pregunta 5 de 6</div>
+<div class="q-text">¿Revisas tus números (ingresos, gastos, margen) al menos una vez por semana?</div>
+<div class="q-options">
+<button class="q-btn" onclick="answer(4,true,this)">SÍ</button>
+<button class="q-btn" onclick="answer(4,false,this)">NO</button>
+</div>
+</div>
+
+<div class="question" id="q5">
+<div class="q-number">Pregunta 6 de 6</div>
+<div class="q-text">¿Tomas tus decisiones financieras importantes basándote en datos y no en emociones o urgencia?</div>
+<div class="q-options">
+<button class="q-btn" onclick="answer(5,true,this)">SÍ</button>
+<button class="q-btn" onclick="answer(5,false,this)">NO</button>
+</div>
+</div>
+</div>
+
+<div class="result-box" id="resultBox">
+<h3>Tu Diagnóstico</h3>
+<div class="result-score" id="resultScore"></div>
+<div class="result-text" id="resultText"></div>
+<div class="result-action" id="resultAction"></div>
+</div>
+
+<div class="repeat-info">
+<strong>Repite este test cada trimestre</strong>
+<p>Guarda esta herramienta y vuelve a hacerla en 3 meses. Compara tu puntuación con la de hoy. Ese es el indicador más claro de tu evolución como empresaria.</p>
+</div>
+
+<button class="reset-btn" onclick="resetTest()">Repetir test</button>
+
+<button class="download-btn" onclick="window.print()">Descargar en PDF</button>
+
+<div class="footer">Team Leader Academy © 2026 • Bloque 1: Mentalidad Financiera</div>
+</div>
+
+<script>
+let answers=new Array(6).fill(null);
+function answer(i,val,btn){
+    answers[i]=val;
+    let q=document.getElementById('q'+i);
+    q.classList.add('answered');
+    let btns=q.querySelectorAll('.q-btn');
+    btns.forEach(b=>{b.classList.remove('yes','no')});
+    btn.classList.add(val?'yes':'no');
+    let yesCount=answers.filter(a=>a===true).length;
+    let answered=answers.filter(a=>a!==null).length;
+    document.getElementById('scoreValue').textContent=yesCount+'/6';
+    document.getElementById('progressFill').style.width=(answered/6*100)+'%';
+    if(answered===6)showResult(yesCount);
+}
+function showResult(score){
+    let rb=document.getElementById('resultBox');
+    let rs=document.getElementById('resultScore');
+    let rt=document.getElementById('resultText');
+    let ra=document.getElementById('resultAction');
+    rb.style.display='block';
+    rs.textContent=score+'/6';
+    if(score<=2){
+        rs.className='result-score low';
+        rt.textContent='Tu mentalidad financiera necesita trabajo. No estás fallando como persona, solo te falta la base que nadie te enseñó. La buena noticia: tiene solución y estás en el lugar correcto para aprenderlo.';
+        ra.textContent='Acción inmediata: esta semana calcula tu ingreso neto real con la calculadora del módulo. Es el primer paso para ver tu negocio con otros ojos.';
+    }else if(score<=4){
+        rs.className='result-score mid';
+        rt.textContent='Tienes algunas bases pero hay huecos importantes. Probablemente sabes que deberías mirar más tus números pero no lo haces con consistencia. El módulo te va a dar el sistema para que sea automático.';
+        ra.textContent='Acción inmediata: identifica las preguntas donde respondiste NO. Esas son exactamente las áreas que este módulo va a trabajar.';
+    }else{
+        rs.className='result-score high';
+        rt.textContent='Tu mentalidad financiera es sólida. Ya piensas como empresaria. El módulo te va a ayudar a afinar tu criterio y a construir herramientas más avanzadas de dirección financiera.';
+        ra.textContent='Acción inmediata: comparte este test con alguien de tu equipo. Que ellas también sepan dónde están. Un equipo con mentalidad financiera es un equipo que crece.';
+    }
+    rb.scrollIntoView({behavior:'smooth'});
+}
+function resetTest(){
+    answers=new Array(6).fill(null);
+    document.querySelectorAll('.question').forEach(q=>{q.classList.remove('answered')});
+    document.querySelectorAll('.q-btn').forEach(b=>{b.classList.remove('yes','no')});
+    document.getElementById('scoreValue').textContent='0/6';
+    document.getElementById('progressFill').style.width='0';
+    document.getElementById('resultBox').style.display='none';
+    window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

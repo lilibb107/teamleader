@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Herramienta 01: Auditoría de Decisiones Financieras</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#1a2b1f;color:#e8ede9;min-height:100vh;padding:20px}
+.container{max-width:600px;margin:0 auto}
+.header{text-align:center;padding:30px 0;border-bottom:2px solid #d09703}
+.header h1{font-size:1.4em;color:#d09703;margin-bottom:8px}
+.header p{font-size:0.85em;color:#999;letter-spacing:1px;text-transform:uppercase}
+.progress-section{text-align:center;padding:25px 0}
+.progress-label{font-size:0.8em;color:#999;margin-bottom:8px}
+.progress-value{font-size:2.5em;font-weight:700;color:#d09703;transition:all 0.3s}
+.progress-bar{width:100%;height:6px;background:#2e4033;border-radius:3px;margin-top:12px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,#d09703,#e8b830);border-radius:3px;transition:width 0.4s;width:0}
+.intro{background:#2e4033;border-radius:10px;padding:16px;margin:20px 0;font-size:0.9em;line-height:1.6;color:#ccc;text-align:center}
+.phase{margin:25px 0}
+.phase-title{font-size:0.75em;color:#d09703;text-transform:uppercase;letter-spacing:2px;margin-bottom:15px;padding-bottom:8px;border-bottom:1px solid #2e4033}
+.item{background:#2e4033;border-radius:10px;padding:16px;margin-bottom:10px;cursor:pointer;transition:all 0.2s;border-left:3px solid #333}
+.item:hover{background:#3a5443}
+.item.checked{border-left-color:#d09703;background:#3a5443}
+.item-header{display:flex;align-items:flex-start;gap:12px}
+.checkbox{width:22px;height:22px;border:2px solid #555;border-radius:5px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.2s;margin-top:2px}
+.item.checked .checkbox{background:#d09703;border-color:#d09703}
+.item.checked .checkbox::after{content:'✓';color:#1a2b1f;font-weight:700;font-size:14px}
+.item-content{flex:1}
+.item-title{font-weight:600;font-size:0.95em;margin-bottom:4px}
+.item-desc{font-size:0.82em;color:#999;line-height:1.5}
+.item-input{display:none;margin-top:12px}
+.item.checked .item-input{display:block}
+.item-input select,.item-input textarea{width:100%;background:#1a2b1f;border:1px solid #555;color:#e8ede9;border-radius:6px;padding:10px;font-size:0.85em;font-family:inherit;margin-top:6px}
+.item-input textarea{height:60px;resize:vertical}
+.item-input label{font-size:0.78em;color:#d09703;display:block;margin-top:8px}
+.result-box{background:#2e4033;border:1px solid #d09703;border-radius:10px;padding:20px;margin:25px 0;text-align:center}
+.result-box h3{color:#d09703;font-size:1em;margin-bottom:10px}
+.result-box p{font-size:0.85em;color:#ccc;line-height:1.6}
+.result-counts{display:flex;justify-content:center;gap:30px;margin:15px 0}
+.count-item{text-align:center}
+.count-number{font-size:1.8em;font-weight:700}
+.count-label{font-size:0.7em;color:#999;text-transform:uppercase;letter-spacing:1px}
+.emocional .count-number{color:#e74c3c}
+.estructurada .count-number{color:#27ae60}
+.tip{background:#2e4033;border-radius:10px;padding:16px;margin:20px 0;border-left:3px solid #d09703}
+.tip strong{color:#d09703;font-size:0.85em}
+.tip p{font-size:0.82em;color:#999;margin-top:6px;line-height:1.5}
+.footer{text-align:center;padding:25px 0;font-size:0.7em;color:#666;border-top:1px solid #2e4033;margin-top:30px}
+.download-btn{display:block;margin:20px auto;padding:12px 30px;background:#d09703;color:#1a2b1f;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.9em;font-family:inherit;letter-spacing:0.5px}
+.download-btn:hover{background:#e8b830}
+@media print{
+body{background:#fff;color:#333;padding:10px}
+.container{max-width:100%}
+.header{border-bottom-color:#d09703}
+.header h1{color:#2e4033}
+.header p{color:#666}
+.progress-section,.download-btn{display:none}
+.intro{background:#f5f5f5;color:#333}
+.item{background:#f5f5f5;border-left-color:#d09703;page-break-inside:avoid}
+.item-title{color:#2e4033}
+.item-desc{color:#666}
+.item-input{display:block!important}
+.item-input select,.item-input textarea{background:#fff;border-color:#ccc;color:#333}
+.item-input label{color:#d09703}
+.result-box{background:#f5f5f5;border-color:#d09703}
+.result-box h3{color:#2e4033}
+.result-box p{color:#333}
+.count-number{font-size:1.5em}
+.tip{background:#f5f5f5;border-left-color:#d09703}
+.tip strong{color:#2e4033}
+.tip p{color:#333}
+.footer{color:#999;border-top-color:#ccc}
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>Auditoría de Decisiones Financieras</h1>
+<p>Bloque 1 · Mentalidad Financiera</p>
+</div>
+
+<div class="progress-section">
+<div class="progress-label">Decisiones Analizadas</div>
+<div class="progress-value" id="progressValue">0/5</div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+
+<div class="intro">
+Analiza tus últimas 5 decisiones financieras importantes. Para cada una, identifica si fue tomada desde la emoción o desde los datos. Sin juicio, solo diagnóstico.
+</div>
+
+<div class="phase">
+<div class="phase-title">Tus 5 decisiones financieras más recientes</div>
+
+<div class="item" onclick="toggleItem(this,0)">
+<div class="item-header">
+<div class="checkbox"></div>
+<div class="item-content">
+<div class="item-title">Decisión 1</div>
+<div class="item-desc">¿Cuál fue la decisión financiera más importante que tomaste recientemente?</div>
+</div>
+</div>
+<div class="item-input">
+<label>Describe la decisión:</label>
+<textarea placeholder="Ej: Bajé mis precios para competir con otra persona..."></textarea>
+<label>¿Fue emocional o estructurada?</label>
+<select onchange="updateCounts()">
+<option value="">Selecciona</option>
+<option value="emocional">Emocional (miedo, urgencia, impulso)</option>
+<option value="estructurada">Estructurada (datos, análisis, estrategia)</option>
+</select>
+</div>
+</div>
+
+<div class="item" onclick="toggleItem(this,1)">
+<div class="item-header">
+<div class="checkbox"></div>
+<div class="item-content">
+<div class="item-title">Decisión 2</div>
+<div class="item-desc">La segunda decisión financiera más relevante de los últimos meses.</div>
+</div>
+</div>
+<div class="item-input">
+<label>Describe la decisión:</label>
+<textarea placeholder="Ej: Invertí en publicidad sin medir resultados..."></textarea>
+<label>¿Fue emocional o estructurada?</label>
+<select onchange="updateCounts()">
+<option value="">Selecciona</option>
+<option value="emocional">Emocional (miedo, urgencia, impulso)</option>
+<option value="estructurada">Estructurada (datos, análisis, estrategia)</option>
+</select>
+</div>
+</div>
+
+<div class="item" onclick="toggleItem(this,2)">
+<div class="item-header">
+<div class="checkbox"></div>
+<div class="item-content">
+<div class="item-title">Decisión 3</div>
+<div class="item-desc">Otra decisión que afectó directamente tus ingresos o gastos.</div>
+</div>
+</div>
+<div class="item-input">
+<label>Describe la decisión:</label>
+<textarea placeholder="Ej: Acepté un cliente que sabía que no me convenía..."></textarea>
+<label>¿Fue emocional o estructurada?</label>
+<select onchange="updateCounts()">
+<option value="">Selecciona</option>
+<option value="emocional">Emocional (miedo, urgencia, impulso)</option>
+<option value="estructurada">Estructurada (datos, análisis, estrategia)</option>
+</select>
+</div>
+</div>
+
+<div class="item" onclick="toggleItem(this,3)">
+<div class="item-header">
+<div class="checkbox"></div>
+<div class="item-content">
+<div class="item-title">Decisión 4</div>
+<div class="item-desc">Una decisión sobre precios, inversión, contratación o gastos.</div>
+</div>
+</div>
+<div class="item-input">
+<label>Describe la decisión:</label>
+<textarea placeholder="Ej: No subí precios por miedo a perder clientes..."></textarea>
+<label>¿Fue emocional o estructurada?</label>
+<select onchange="updateCounts()">
+<option value="">Selecciona</option>
+<option value="emocional">Emocional (miedo, urgencia, impulso)</option>
+<option value="estructurada">Estructurada (datos, análisis, estrategia)</option>
+</select>
+</div>
+</div>
+
+<div class="item" onclick="toggleItem(this,4)">
+<div class="item-header">
+<div class="checkbox"></div>
+<div class="item-content">
+<div class="item-title">Decisión 5</div>
+<div class="item-desc">La última decisión financiera relevante que recuerdes.</div>
+</div>
+</div>
+<div class="item-input">
+<label>Describe la decisión:</label>
+<textarea placeholder="Ej: Cancelé una suscripción que no usaba..."></textarea>
+<label>¿Fue emocional o estructurada?</label>
+<select onchange="updateCounts()">
+<option value="">Selecciona</option>
+<option value="emocional">Emocional (miedo, urgencia, impulso)</option>
+<option value="estructurada">Estructurada (datos, análisis, estrategia)</option>
+</select>
+</div>
+</div>
+</div>
+
+<div class="result-box" id="resultBox" style="display:none">
+<h3>Tu Diagnóstico</h3>
+<div class="result-counts">
+<div class="count-item emocional"><div class="count-number" id="emocionalCount">0</div><div class="count-label">Emocionales</div></div>
+<div class="count-item estructurada"><div class="count-number" id="estructuradaCount">0</div><div class="count-label">Estructuradas</div></div>
+</div>
+<p id="resultText"></p>
+</div>
+
+<div class="tip">
+<strong>Consejo del módulo:</strong>
+<p>No se trata de eliminar las emociones. Se trata de que los datos hablen primero y las emociones después. La próxima vez que tomes una decisión financiera, pregúntate: ¿tengo datos que respalden esto o estoy reaccionando?</p>
+</div>
+
+<button class="download-btn" onclick="window.print()">Descargar en PDF</button>
+
+<div class="footer">Team Leader Academy © 2026 • Bloque 1: Mentalidad Financiera</div>
+</div>
+
+<script>
+let checked=[false,false,false,false,false];
+function toggleItem(el,i){
+    if(event.target.tagName==='SELECT'||event.target.tagName==='TEXTAREA')return;
+    checked[i]=!checked[i];
+    el.classList.toggle('checked');
+    let count=checked.filter(Boolean).length;
+    document.getElementById('progressValue').textContent=count+'/5';
+    document.getElementById('progressFill').style.width=(count/5*100)+'%';
+    updateCounts();
+}
+function updateCounts(){
+    let selects=document.querySelectorAll('.item select');
+    let e=0,s=0,total=0;
+    selects.forEach(sel=>{
+        if(sel.value==='emocional'){e++;total++}
+        if(sel.value==='estructurada'){s++;total++}
+    });
+    document.getElementById('emocionalCount').textContent=e;
+    document.getElementById('estructuradaCount').textContent=s;
+    let rb=document.getElementById('resultBox');
+    let rt=document.getElementById('resultText');
+    if(total>=3){
+        rb.style.display='block';
+        if(e>s)rt.textContent='La mayoría de tus decisiones fueron emocionales. No estás fallando, solo te falta la base para decidir con datos. Eso es exactamente lo que trabajamos en este módulo.';
+        else if(s>e)rt.textContent='La mayoría de tus decisiones fueron estructuradas. Vas por buen camino. El módulo te va a ayudar a afinar aún más tu criterio financiero.';
+        else rt.textContent='Estás en equilibrio entre emociones y datos. El objetivo es que cada vez más decisiones pasen por los números antes que por el instinto.';
+    }
+}
+</script>
+</body>
+</html>

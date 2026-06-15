@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Herramienta 04: Vocabulario Financiero</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#1a2b1f;color:#e8ede9;min-height:100vh;padding:20px}
+.container{max-width:600px;margin:0 auto}
+.header{text-align:center;padding:30px 0;border-bottom:2px solid #d09703}
+.header h1{font-size:1.4em;color:#d09703;margin-bottom:8px}
+.header p{font-size:0.85em;color:#999;letter-spacing:1px;text-transform:uppercase}
+.progress-section{text-align:center;padding:25px 0}
+.progress-label{font-size:0.8em;color:#999;margin-bottom:8px}
+.progress-value{font-size:2.5em;font-weight:700;color:#d09703;transition:all 0.3s}
+.progress-sub{font-size:0.75em;color:#999;margin-top:4px}
+.progress-bar{width:100%;height:6px;background:#2e4033;border-radius:3px;margin-top:12px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,#d09703,#e8b830);border-radius:3px;transition:width 0.4s;width:0}
+.intro{background:#2e4033;border-radius:10px;padding:16px;margin:20px 0;font-size:0.9em;line-height:1.6;color:#ccc;text-align:center}
+.term{background:#2e4033;border-radius:10px;margin-bottom:10px;overflow:hidden;border-left:3px solid #333;transition:all 0.2s}
+.term.learned{border-left-color:#d09703}
+.term-header{padding:16px;cursor:pointer;display:flex;align-items:center;gap:12px}
+.term-header:hover{background:#3a5443}
+.term-number{width:28px;height:28px;border-radius:50%;background:#333;display:flex;align-items:center;justify-content:center;font-size:0.8em;font-weight:700;flex-shrink:0;transition:all 0.2s}
+.term.learned .term-number{background:#d09703;color:#1a2b1f}
+.term-name{font-weight:600;font-size:0.95em;flex:1}
+.term-arrow{color:#555;transition:transform 0.2s;font-size:0.8em}
+.term.open .term-arrow{transform:rotate(180deg)}
+.term-body{display:none;padding:0 16px 16px 56px}
+.term.open .term-body{display:block}
+.term-def{font-size:0.88em;color:#ccc;line-height:1.6;margin-bottom:12px}
+.term-example{background:#1a2b1f;border-radius:8px;padding:12px;margin-bottom:12px}
+.term-example-label{font-size:0.72em;color:#d09703;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.term-example-text{font-size:0.85em;color:#e8ede9;line-height:1.5}
+.term-tip{font-size:0.82em;color:#999;font-style:italic;line-height:1.5}
+.mark-btn{display:inline-block;margin-top:10px;padding:6px 14px;background:transparent;border:1px solid #d09703;color:#d09703;border-radius:6px;font-size:0.78em;cursor:pointer;font-family:inherit;transition:all 0.2s}
+.mark-btn:hover{background:#d09703;color:#1a2b1f}
+.term.learned .mark-btn{background:#d09703;color:#1a2b1f}
+.tip-box{background:#2e4033;border-radius:10px;padding:16px;margin:20px 0;border-left:3px solid #d09703}
+.tip-box strong{color:#d09703;font-size:0.85em}
+.tip-box p{font-size:0.82em;color:#999;margin-top:6px;line-height:1.5}
+.footer{text-align:center;padding:25px 0;font-size:0.7em;color:#666;border-top:1px solid #2e4033;margin-top:30px}
+.download-btn{display:block;margin:20px auto;padding:12px 30px;background:#d09703;color:#1a2b1f;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.9em;font-family:inherit;letter-spacing:0.5px}
+.download-btn:hover{background:#e8b830}
+@media print{
+body{background:#fff;color:#333;padding:10px}
+.container{max-width:100%}
+.header{border-bottom-color:#d09703}
+.header h1{color:#2e4033}
+.header p{color:#666}
+.progress-section,.download-btn,.mark-btn{display:none}
+.intro{background:#f5f5f5;color:#333}
+.term{background:#f5f5f5;border-left-color:#d09703;page-break-inside:avoid}
+.term-name{color:#2e4033}
+.term-arrow{display:none}
+.term-body{display:block!important;padding-left:40px}
+.term-def{color:#333}
+.term-example{background:#e8ede9}
+.term-example-label{color:#d09703}
+.term-example-text{color:#333}
+.term-tip{color:#666}
+.term-number{background:#d09703;color:#1a2b1f}
+.tip-box{background:#f5f5f5;border-left-color:#d09703}
+.tip-box strong{color:#2e4033}
+.tip-box p{color:#333}
+.footer{color:#999;border-top-color:#ccc}
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>Vocabulario Financiero</h1>
+<p>Bloque 1 · Los 7 conceptos clave</p>
+</div>
+
+<div class="progress-section">
+<div class="progress-label">Conceptos Dominados</div>
+<div class="progress-value" id="progressValue">0/7</div>
+<div class="progress-sub">Marca los que ya dominas</div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+
+<div class="intro">
+Estos son los 7 conceptos que usaremos en todo el módulo. Toca cada uno para ver su definición, ejemplo práctico y por qué importa. Márcalos cuando los domines.
+</div>
+
+<div id="terms">
+
+<div class="term" id="t0">
+<div class="term-header" onclick="toggleTerm(0)">
+<div class="term-number">1</div>
+<div class="term-name">Facturación vs Ingreso Neto</div>
+<div class="term-arrow">▼</div>
+</div>
+<div class="term-body">
+<div class="term-def">La facturación es todo lo que entra. El ingreso neto es lo que queda después de restar todos los gastos, costes e impuestos. La mayoría de emprendedoras solo mira la facturación y cree que le va bien.</div>
+<div class="term-example">
+<div class="term-example-label">Ejemplo práctico</div>
+<div class="term-example-text">María factura 2,500€/mes. Después de costes directos (400€), fijos (300€), ocultos (600€) e impuestos (525€), su ingreso neto real es 675€. Menos que un salario mínimo.</div>
+</div>
+<div class="term-tip">Pregúntate: ¿cuánto facturo vs cuánto me queda? Si no sabes la diferencia exacta, ese es tu primer problema.</div>
+<button class="mark-btn" onclick="markLearned(0,event)">Dominado ✓</button>
+</div>
+</div>
+
+<div class="term" id="t1">
+<div class="term-header" onclick="toggleTerm(1)">
+<div class="term-number">2</div>
+<div class="term-name">Margen de Beneficio</div>
+<div class="term-arrow">▼</div>
+</div>
+<div class="term-body">
+<div class="term-def">Es el porcentaje de cada euro facturado que realmente te queda como ganancia. Se calcula: (Ingreso Neto ÷ Facturación) × 100. Te dice qué tan rentable es tu negocio realmente.</div>
+<div class="term-example">
+<div class="term-example-label">Ejemplo práctico</div>
+<div class="term-example-text">Si facturas 2,000€ y te quedan 600€, tu margen es del 30%. Eso significa que de cada euro que entra, solo 0.30€ son tuyos. El resto se va en costes.</div>
+</div>
+<div class="term-tip">Un margen sano para servicios está entre 40-60%. Si estás por debajo del 30%, algo en tu estructura necesita cambiar.</div>
+<button class="mark-btn" onclick="markLearned(1,event)">Dominado ✓</button>
+</div>
+</div>
+
+<div class="term" id="t2">
+<div class="term-header" onclick="toggleTerm(2)">
+<div class="term-number">3</div>
+<div class="term-name">Costes Fijos vs Costes Variables</div>
+<div class="term-arrow">▼</div>
+</div>
+<div class="term-body">
+<div class="term-def">Los costes fijos se pagan siempre, vendas o no (alquiler, internet, seguros). Los variables cambian según cuánto vendas (materiales, comisiones, envíos). Conocer la diferencia te permite saber cuánto necesitas vender para no perder dinero.</div>
+<div class="term-example">
+<div class="term-example-label">Ejemplo práctico</div>
+<div class="term-example-text">Tus costes fijos son 500€/mes. Si tu margen por venta es de 50€, necesitas hacer mínimo 10 ventas al mes solo para cubrir los fijos. Todo lo que venga después es ganancia.</div>
+</div>
+<div class="term-tip">Haz la lista de tus fijos ahora mismo. Es el número que tienes que cubrir sí o sí cada mes, vendas mucho o vendas poco.</div>
+<button class="mark-btn" onclick="markLearned(2,event)">Dominado ✓</button>
+</div>
+</div>
+
+<div class="term" id="t3">
+<div class="term-header" onclick="toggleTerm(3)">
+<div class="term-number">4</div>
+<div class="term-name">Punto de Equilibrio</div>
+<div class="term-arrow">▼</div>
+</div>
+<div class="term-body">
+<div class="term-def">Es la cantidad mínima que necesitas facturar para cubrir todos tus costes. Por debajo de este número, pierdes dinero. Por encima, ganas. Es la línea entre sobrevivir y crecer.</div>
+<div class="term-example">
+<div class="term-example-label">Ejemplo práctico</div>
+<div class="term-example-text">Tus costes totales mensuales son 1,200€. Tu margen de beneficio es del 40%. Tu punto de equilibrio es: 1,200€ ÷ 0.40 = 3,000€. Necesitas facturar al menos 3,000€ para no perder dinero.</div>
+</div>
+<div class="term-tip">¿Conoces tu punto de equilibrio? Si no, no sabes cuándo empiezas a ganar de verdad. Es el primer número que toda empresaria debe conocer.</div>
+<button class="mark-btn" onclick="markLearned(3,event)">Dominado ✓</button>
+</div>
+</div>
+
+<div class="term" id="t4">
+<div class="term-header" onclick="toggleTerm(4)">
+<div class="term-number">5</div>
+<div class="term-name">Flujo de Caja</div>
+<div class="term-arrow">▼</div>
+</div>
+<div class="term-body">
+<div class="term-def">Es el movimiento real de dinero: cuándo entra y cuándo sale. Puedes facturar mucho y tener el flujo de caja roto si cobras tarde y pagas pronto. Negocios rentables quiebran por falta de flujo de caja.</div>
+<div class="term-example">
+<div class="term-example-label">Ejemplo práctico</div>
+<div class="term-example-text">Facturas 5,000€ en enero pero los clientes te pagan en marzo. Mientras tanto, tus gastos de febrero (1,500€) los tienes que cubrir con dinero que aún no tienes. Eso es un problema de flujo de caja.</div>
+</div>
+<div class="term-tip">La regla: cobra lo antes posible y paga lo más tarde que puedas (sin incumplir). El timing del dinero importa tanto como la cantidad.</div>
+<button class="mark-btn" onclick="markLearned(4,event)">Dominado ✓</button>
+</div>
+</div>
+
+<div class="term" id="t5">
+<div class="term-header" onclick="toggleTerm(5)">
+<div class="term-number">6</div>
+<div class="term-name">Coste de Oportunidad</div>
+<div class="term-arrow">▼</div>
+</div>
+<div class="term-body">
+<div class="term-def">Es lo que pierdes por elegir una opción en vez de otra. Cada hora que dedicas a una tarea de bajo valor es una hora que no dedicas a lo que realmente hace crecer tu negocio. Tu tiempo tiene precio, aunque no lo cobres.</div>
+<div class="term-example">
+<div class="term-example-label">Ejemplo práctico</div>
+<div class="term-example-text">Pasas 3 horas diseñando un post de Instagram. Si tu hora vale 25€, ese post te costó 75€. ¿Podrías haber pagado 15€ a alguien para que lo hiciera y usar esas 3 horas para cerrar una venta de 200€?</div>
+</div>
+<div class="term-tip">Pregúntate con cada tarea: ¿esto lo tengo que hacer yo o alguien puede hacerlo por menos de lo que vale mi hora?</div>
+<button class="mark-btn" onclick="markLearned(5,event)">Dominado ✓</button>
+</div>
+</div>
+
+<div class="term" id="t6">
+<div class="term-header" onclick="toggleTerm(6)">
+<div class="term-number">7</div>
+<div class="term-name">ROI (Retorno sobre la Inversión)</div>
+<div class="term-arrow">▼</div>
+</div>
+<div class="term-body">
+<div class="term-def">Mide cuánto ganas por cada euro que inviertes. Fórmula: (Ganancia - Inversión) ÷ Inversión × 100. Si el ROI es positivo, la inversión funcionó. Si es negativo, perdiste dinero.</div>
+<div class="term-example">
+<div class="term-example-label">Ejemplo práctico</div>
+<div class="term-example-text">Inviertes 100€ en publicidad y generas 400€ en ventas con un margen del 50% (200€ de ganancia). ROI = (200 - 100) ÷ 100 × 100 = 100%. Por cada euro invertido, ganaste otro euro.</div>
+</div>
+<div class="term-tip">Cada vez que gastes dinero en tu negocio, pregúntate: ¿cuánto me va a devolver esto? Si no puedes responder, probablemente no es una inversión. Es un gasto.</div>
+<button class="mark-btn" onclick="markLearned(6,event)">Dominado ✓</button>
+</div>
+</div>
+
+</div>
+
+<div class="tip-box">
+<strong>Guarda esta herramienta</strong>
+<p>Cada vez que encuentres estos términos en las próximas clases, vuelve aquí. Al final del módulo deberías tener los 7 marcados como dominados.</p>
+</div>
+
+<button class="download-btn" onclick="window.print()">Descargar en PDF</button>
+
+<div class="footer">Team Leader Academy © 2026 • Bloque 1: Mentalidad Financiera</div>
+</div>
+
+<script>
+let learned=new Array(7).fill(false);
+function toggleTerm(i){
+    let t=document.getElementById('t'+i);
+    if(event.target.classList.contains('mark-btn'))return;
+    t.classList.toggle('open');
+}
+function markLearned(i,e){
+    e.stopPropagation();
+    learned[i]=!learned[i];
+    let t=document.getElementById('t'+i);
+    t.classList.toggle('learned');
+    let count=learned.filter(Boolean).length;
+    document.getElementById('progressValue').textContent=count+'/7';
+    document.getElementById('progressFill').style.width=(count/7*100)+'%';
+}
+</script>
+</body>
+</html>
