@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Herramienta 04: Calculadora de Impacto de Inflación</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#1a2b1f;color:#e8ede9;min-height:100vh;padding:20px}
+.container{max-width:600px;margin:0 auto}
+.header{text-align:center;padding:30px 0;border-bottom:2px solid #d09703}
+.header h1{font-size:1.3em;color:#d09703;margin-bottom:8px}
+.header p{font-size:0.85em;color:#999;letter-spacing:1px;text-transform:uppercase}
+.intro{background:#2e4033;border-radius:10px;padding:16px;margin:20px 0;font-size:0.9em;line-height:1.6;color:#ccc;text-align:center}
+.section-title{font-size:0.75em;color:#d09703;text-transform:uppercase;letter-spacing:2px;margin:25px 0 15px;padding-bottom:8px;border-bottom:1px solid #2e4033}
+.input-card{background:#2e4033;border-radius:10px;padding:16px;margin-bottom:10px}
+.input-label{font-size:0.9em;font-weight:600;margin-bottom:4px}
+.input-hint{font-size:0.78em;color:#999;margin-bottom:8px}
+.input-row{display:flex;gap:10px;align-items:center}
+.calc-input{flex:1;background:#1a2b1f;border:1px solid #555;color:#e8ede9;border-radius:6px;padding:10px;font-size:0.9em;text-align:right;font-family:inherit}
+.calc-input:focus{border-color:#d09703;outline:none}
+.input-unit{font-size:0.85em;color:#999;width:50px}
+.cost-row{background:#2e4033;border-radius:10px;padding:14px;margin-bottom:8px;display:grid;grid-template-columns:1fr 100px 100px;gap:10px;align-items:center}
+.cost-name{background:#1a2b1f;border:1px solid #555;color:#e8ede9;border-radius:6px;padding:8px;font-size:0.85em;font-family:inherit}
+.cost-val{background:#1a2b1f;border:1px solid #555;color:#e8ede9;border-radius:6px;padding:8px;font-size:0.85em;text-align:right;font-family:inherit}
+.cost-name:focus,.cost-val:focus{border-color:#d09703;outline:none}
+.cost-header{display:grid;grid-template-columns:1fr 100px 100px;gap:10px;margin-bottom:8px;padding:0 14px}
+.cost-header span{font-size:0.72em;color:#d09703;text-transform:uppercase;letter-spacing:1px}
+.add-btn{display:block;width:100%;padding:10px;background:transparent;border:2px dashed #555;color:#999;border-radius:8px;cursor:pointer;font-size:0.85em;font-family:inherit;margin:10px 0}
+.add-btn:hover{border-color:#d09703;color:#d09703}
+.result-box{background:#2e4033;border:2px solid #e74c3c;border-radius:12px;padding:25px;margin:25px 0;text-align:center}
+.result-box h3{color:#e74c3c;font-size:1em;margin-bottom:15px}
+.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:15px}
+.result-item{background:#1a2b1f;border-radius:8px;padding:12px;text-align:center}
+.result-value{font-size:1.3em;font-weight:700;margin-bottom:2px}
+.result-label{font-size:0.7em;color:#999}
+.action-box{background:#1a2b1f;border-radius:8px;padding:15px;margin-top:15px;text-align:left}
+.action-title{font-size:0.8em;color:#d09703;margin-bottom:8px;font-weight:600}
+.action-text{font-size:0.85em;color:#ccc;line-height:1.6}
+.timeline{margin-top:15px}
+.timeline-item{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid #333}
+.timeline-item:last-child{border:none}
+.timeline-year{font-weight:700;color:#d09703;font-size:0.9em;width:50px;flex-shrink:0}
+.timeline-val{font-size:0.88em;flex:1}
+.tip{background:#2e4033;border-radius:10px;padding:16px;margin:20px 0;border-left:3px solid #d09703}
+.tip strong{color:#d09703;font-size:0.85em}
+.tip p{font-size:0.82em;color:#999;margin-top:6px;line-height:1.5}
+.download-btn{display:block;margin:20px auto;padding:12px 30px;background:#d09703;color:#1a2b1f;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.9em;font-family:inherit}
+.download-btn:hover{background:#e8b830}
+.footer{text-align:center;padding:25px 0;font-size:0.7em;color:#666;border-top:1px solid #2e4033;margin-top:30px}
+@media print{body{background:#fff;color:#333;padding:10px}.header{border-bottom-color:#d09703}.header h1{color:#2e4033}.intro,.input-card,.cost-row,.result-box,.tip,.result-item,.action-box{background:#f5f5f5}.calc-input,.cost-name,.cost-val{background:#fff;border-color:#ccc;color:#333}.download-btn,.add-btn{display:none}.result-box{border-color:#e74c3c}.footer{color:#999}}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>Calculadora de Impacto de Inflación</h1>
+<p>Bloque 4 · ¿Cuánto te está comiendo la inflación?</p>
+</div>
+<div class="intro">Si tus costes suben y tus precios siguen igual, tu margen se encoge sin que hagas nada mal. Calcula cuánto te está afectando y cuánto deberías ajustar.</div>
+
+<div class="section-title">Tu precio actual</div>
+<div class="input-card">
+<div class="input-label">Precio medio de tu servicio/producto</div>
+<div class="input-row"><input class="calc-input" type="number" id="precio" placeholder="0" oninput="calcular()"><span class="input-unit">€</span></div>
+</div>
+<div class="input-card">
+<div class="input-label">¿Hace cuántos meses que no subes este precio?</div>
+<div class="input-row"><input class="calc-input" type="number" id="meses_sin" placeholder="0" oninput="calcular()"><span class="input-unit">meses</span></div>
+</div>
+<div class="input-card">
+<div class="input-label">Inflación anual estimada de tu país</div>
+<div class="input-hint">España ~3%, LATAM varía. Pon tu estimación.</div>
+<div class="input-row"><input class="calc-input" type="number" id="inflacion" placeholder="3" value="3" oninput="calcular()"><span class="input-unit">%</span></div>
+</div>
+
+<div class="section-title">Tus costes: antes vs ahora</div>
+<div class="cost-header"><span>Concepto</span><span>Hace 12 meses</span><span>Hoy</span></div>
+<div id="costes"></div>
+<button class="add-btn" onclick="addCost()">+ Añadir coste</button>
+
+<div class="result-box">
+<h3>Impacto de la inflación en tu negocio</h3>
+<div class="result-grid">
+<div class="result-item"><div class="result-value" id="r_poder" style="color:#e74c3c">0 €</div><div class="result-label">Tu precio vale hoy en poder real</div></div>
+<div class="result-item"><div class="result-value" id="r_perdido" style="color:#e74c3c">0%</div><div class="result-label">Has perdido sin darte cuenta</div></div>
+<div class="result-item"><div class="result-value" id="r_costes_antes" style="color:#999">0 €</div><div class="result-label">Costes hace 12 meses</div></div>
+<div class="result-item"><div class="result-value" id="r_costes_hoy" style="color:#e74c3c">0 €</div><div class="result-label">Costes hoy</div></div>
+</div>
+<div class="action-box">
+<div class="action-title">¿Cuánto deberías cobrar hoy?</div>
+<div class="action-text">Para mantener el mismo poder adquisitivo, tu precio debería ser: <strong id="r_ajustado" style="color:#27ae60">0 €</strong></div>
+<div class="action-text" style="margin-top:8px">Subida necesaria: <strong id="r_subida" style="color:#d09703">0 €</strong> (<span id="r_subida_pct">0%</span>)</div>
+</div>
+<div class="action-box" style="margin-top:10px">
+<div class="action-title">Si no subes precios, esto es lo que pasa en 3 años:</div>
+<div class="timeline" id="timeline"></div>
+</div>
+</div>
+
+<div class="tip">
+<strong>La regla:</strong>
+<p>Revisa precios al menos cada 6 meses. Compara costes de hoy vs hace 12 meses. Comunica las subidas con transparencia. No subir precios no es ser buena. Es empobrecer tu negocio en silencio.</p>
+</div>
+
+<button class="download-btn" onclick="window.print()">Descargar en PDF</button>
+<div class="footer">Team Leader Academy © 2026 • Bloque 4: Visión Económica Global</div>
+</div>
+<script>
+let costCount=0;
+let defaultCosts=["Alquiler / espacio","Herramientas y suscripciones","Materiales / productos","Transporte","Internet y servicios"];
+function addCost(name){
+    costCount++;
+    let div=document.createElement('div');
+    div.className='cost-row';div.id='cost'+costCount;
+    div.innerHTML=`<input class="cost-name" placeholder="Concepto" value="${name||''}" oninput="calcular()"><input class="cost-val" type="number" placeholder="Antes" oninput="calcular()"><input class="cost-val" type="number" placeholder="Hoy" oninput="calcular()">`;
+    document.getElementById('costes').appendChild(div);
+}
+defaultCosts.forEach(n=>addCost(n));
+function calcular(){
+    let precio=parseFloat(document.getElementById('precio').value)||0;
+    let meses=parseFloat(document.getElementById('meses_sin').value)||0;
+    let infl=(parseFloat(document.getElementById('inflacion').value)||0)/100;
+    let inflMensual=infl/12;
+    let perdido=inflMensual*meses;
+    let poderReal=precio*(1-perdido);
+    let ajustado=precio*(1+perdido);
+    document.getElementById('r_poder').textContent=Math.round(poderReal)+' €';
+    document.getElementById('r_perdido').textContent=(perdido*100).toFixed(1)+'%';
+    document.getElementById('r_ajustado').textContent=Math.round(ajustado)+' €';
+    document.getElementById('r_subida').textContent=Math.round(ajustado-precio)+' €';
+    document.getElementById('r_subida_pct').textContent=(perdido*100).toFixed(1)+'%';
+    let totalAntes=0,totalHoy=0;
+    document.querySelectorAll('.cost-row').forEach(row=>{
+        let vals=row.querySelectorAll('.cost-val');
+        totalAntes+=parseFloat(vals[0].value)||0;
+        totalHoy+=parseFloat(vals[1].value)||0;
+    });
+    document.getElementById('r_costes_antes').textContent=Math.round(totalAntes)+' €';
+    document.getElementById('r_costes_hoy').textContent=Math.round(totalHoy)+' €';
+    // Timeline 3 años
+    let tl=document.getElementById('timeline');
+    tl.innerHTML='';
+    for(let y=0;y<=3;y++){
+        let val=precio*Math.pow(1-infl,y);
+        let pct=((1-Math.pow(1-infl,y))*100).toFixed(1);
+        let color=y===0?'#e8ede9':y===1?'#d09703':y===2?'#e67e22':'#e74c3c';
+        tl.innerHTML+=`<div class="timeline-item"><span class="timeline-year" style="color:${color}">Año ${y}</span><span class="timeline-val">Tu precio "vale" <strong style="color:${color}">${Math.round(val)} €</strong> en poder real ${y>0?'(-'+pct+'%)':''}</span></div>`;
+    }
+}
+calcular();
+</script>
+</body>
+</html>

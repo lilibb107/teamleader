@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Herramienta 03: Checklist Trimestral del Entorno</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#1a2b1f;color:#e8ede9;min-height:100vh;padding:20px}
+.container{max-width:600px;margin:0 auto}
+.header{text-align:center;padding:30px 0;border-bottom:2px solid #d09703}
+.header h1{font-size:1.4em;color:#d09703;margin-bottom:8px}
+.header p{font-size:0.85em;color:#999;letter-spacing:1px;text-transform:uppercase}
+.quarter{text-align:center;padding:20px 0}
+.quarter-label{font-size:0.8em;color:#999;margin-bottom:8px}
+.quarter-input{background:#2e4033;border:1px solid #555;color:#d09703;border-radius:6px;padding:10px 20px;font-size:1em;font-weight:700;font-family:inherit;text-align:center}
+.quarter-input:focus{border-color:#d09703;outline:none}
+.progress-section{text-align:center;padding:15px 0}
+.progress-value{font-size:2.5em;font-weight:700;color:#d09703}
+.progress-bar{width:100%;height:6px;background:#2e4033;border-radius:3px;margin-top:12px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,#d09703,#27ae60);border-radius:3px;transition:width 0.4s;width:0}
+.intro{background:#2e4033;border-radius:10px;padding:16px;margin:20px 0;font-size:0.9em;line-height:1.6;color:#ccc;text-align:center}
+.check-item{background:#2e4033;border-radius:10px;padding:18px;margin-bottom:12px;border-left:3px solid #333;transition:all 0.2s}
+.check-item.done{border-left-color:#27ae60}
+.check-header{display:flex;align-items:flex-start;gap:12px;cursor:pointer}
+.checkbox{width:24px;height:24px;border:2px solid #555;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.2s;margin-top:2px}
+.check-item.done .checkbox{background:#27ae60;border-color:#27ae60}
+.check-item.done .checkbox::after{content:'✓';color:#1a2b1f;font-weight:700;font-size:14px}
+.check-content{flex:1}
+.check-number{font-size:0.7em;color:#d09703;margin-bottom:4px}
+.check-question{font-weight:700;font-size:0.95em;margin-bottom:6px;line-height:1.4}
+.check-why{font-size:0.82em;color:#999;line-height:1.5}
+.check-answer{display:none;margin-top:12px}
+.check-item.done .check-answer{display:block}
+.answer-label{font-size:0.75em;color:#d09703;margin-bottom:4px}
+.answer-textarea{width:100%;background:#1a2b1f;border:1px solid #555;color:#e8ede9;border-radius:6px;padding:10px;font-size:0.85em;font-family:inherit;height:60px;resize:vertical;margin-bottom:8px}
+.answer-textarea:focus{border-color:#d09703;outline:none}
+.signal-btns{display:flex;gap:8px;margin-top:8px}
+.signal-btn{flex:1;padding:8px;border:1px solid #555;border-radius:6px;background:transparent;color:#999;font-size:0.78em;cursor:pointer;font-family:inherit;transition:all 0.2s}
+.signal-btn.selected{font-weight:700}
+.signal-btn.pos.selected{border-color:#27ae60;color:#27ae60;background:rgba(39,174,96,0.1)}
+.signal-btn.neu.selected{border-color:#d09703;color:#d09703;background:rgba(208,151,3,0.1)}
+.signal-btn.neg.selected{border-color:#e74c3c;color:#e74c3c;background:rgba(231,76,60,0.1)}
+.result-box{background:#2e4033;border:2px solid #27ae60;border-radius:12px;padding:25px;margin:25px 0;text-align:center;display:none}
+.result-box h3{color:#27ae60;font-size:1.1em;margin-bottom:10px}
+.result-text{font-size:0.9em;color:#ccc;line-height:1.6}
+.tip{background:#2e4033;border-radius:10px;padding:16px;margin:20px 0;border-left:3px solid #d09703}
+.tip strong{color:#d09703;font-size:0.85em}
+.tip p{font-size:0.82em;color:#999;margin-top:6px;line-height:1.5}
+.reset-btn{display:block;margin:10px auto;padding:8px 20px;background:transparent;border:1px solid #555;color:#999;border-radius:6px;cursor:pointer;font-size:0.8em;font-family:inherit}
+.reset-btn:hover{border-color:#d09703;color:#d09703}
+.download-btn{display:block;margin:15px auto;padding:12px 30px;background:#d09703;color:#1a2b1f;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.9em;font-family:inherit}
+.download-btn:hover{background:#e8b830}
+.footer{text-align:center;padding:25px 0;font-size:0.7em;color:#666;border-top:1px solid #2e4033;margin-top:30px}
+@media print{body{background:#fff;color:#333;padding:10px}.header{border-bottom-color:#d09703}.header h1{color:#2e4033}.progress-section,.download-btn,.reset-btn{display:none}.intro,.check-item,.result-box,.tip{background:#f5f5f5}.check-answer{display:block!important}.answer-textarea,.quarter-input{background:#fff;border-color:#ccc;color:#333}.result-box{display:block!important;border-color:#27ae60}.footer{color:#999}}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>Checklist Trimestral del Entorno</h1>
+<p>Bloque 4 · Lee tu entorno sin ser economista</p>
+</div>
+<div class="quarter">
+<div class="quarter-label">Trimestre que estás analizando:</div>
+<input class="quarter-input" type="text" placeholder="Ej: Q2 2026">
+</div>
+<div class="progress-section">
+<div class="progress-value" id="progressValue">0/5</div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+<div class="intro">5 preguntas cada trimestre. No necesitas informes económicos de 50 páginas. Solo observar tu negocio con ojos de empresaria.</div>
+
+<div class="check-item" id="q0">
+<div class="check-header" onclick="toggleCheck(0)">
+<div class="checkbox"></div>
+<div class="check-content">
+<div class="check-number">Pregunta 1</div>
+<div class="check-question">¿Mis clientes están tardando más en pagar o en decidir?</div>
+<div class="check-why">Si la respuesta es sí, puede ser señal de que el entorno económico está apretando.</div>
+</div>
+</div>
+<div class="check-answer">
+<div class="answer-label">¿Qué estás observando?</div>
+<textarea class="answer-textarea" placeholder="Describe lo que notas con tus clientes..."></textarea>
+<div class="signal-btns">
+<button class="signal-btn pos" onclick="selectSignal(this)">Mejor que antes</button>
+<button class="signal-btn neu" onclick="selectSignal(this)">Igual que antes</button>
+<button class="signal-btn neg" onclick="selectSignal(this)">Peor que antes</button>
+</div>
+</div>
+</div>
+
+<div class="check-item" id="q1">
+<div class="check-header" onclick="toggleCheck(1)">
+<div class="checkbox"></div>
+<div class="check-content">
+<div class="check-number">Pregunta 2</div>
+<div class="check-question">¿Mis costes han subido en los últimos 6 meses?</div>
+<div class="check-why">Compara facturas de proveedores, herramientas y servicios con hace 6 meses. Cualquier diferencia no trasladada a precios es margen perdido.</div>
+</div>
+</div>
+<div class="check-answer">
+<div class="answer-label">¿Qué costes subieron y cuánto?</div>
+<textarea class="answer-textarea" placeholder="Lista los costes que subieron..."></textarea>
+<div class="signal-btns">
+<button class="signal-btn pos" onclick="selectSignal(this)">Bajaron o igual</button>
+<button class="signal-btn neu" onclick="selectSignal(this)">Subieron poco (1-5%)</button>
+<button class="signal-btn neg" onclick="selectSignal(this)">Subieron mucho (+5%)</button>
+</div>
+</div>
+</div>
+
+<div class="check-item" id="q2">
+<div class="check-header" onclick="toggleCheck(2)">
+<div class="checkbox"></div>
+<div class="check-content">
+<div class="check-number">Pregunta 3</div>
+<div class="check-question">¿Ha cambiado la forma en que mi cliente busca o compra?</div>
+<div class="check-why">Si antes te encontraban por Instagram y ahora por TikTok, si antes compraban rápido y ahora comparan, tu estrategia tiene que adaptarse.</div>
+</div>
+</div>
+<div class="check-answer">
+<div class="answer-label">¿Qué cambios notas?</div>
+<textarea class="answer-textarea" placeholder="¿Dónde te buscan? ¿Cómo compran? ¿Qué preguntan antes de comprar?"></textarea>
+<div class="signal-btns">
+<button class="signal-btn pos" onclick="selectSignal(this)">Compran más fácil</button>
+<button class="signal-btn neu" onclick="selectSignal(this)">Sin cambios</button>
+<button class="signal-btn neg" onclick="selectSignal(this)">Comparan más / tardan más</button>
+</div>
+</div>
+</div>
+
+<div class="check-item" id="q3">
+<div class="check-header" onclick="toggleCheck(3)">
+<div class="checkbox"></div>
+<div class="check-content">
+<div class="check-number">Pregunta 4</div>
+<div class="check-question">¿Hay competidores nuevos o competidores que han cerrado?</div>
+<div class="check-why">Nuevos competidores = mercado atractivo pero más competencia. Cierres = mercado difícil pero menos competencia. Ambos son señales.</div>
+</div>
+</div>
+<div class="check-answer">
+<div class="answer-label">¿Qué observas en tu competencia?</div>
+<textarea class="answer-textarea" placeholder="¿Han aparecido nuevos? ¿Han cerrado algunos? ¿Han cambiado precios?"></textarea>
+<div class="signal-btns">
+<button class="signal-btn pos" onclick="selectSignal(this)">Menos competencia</button>
+<button class="signal-btn neu" onclick="selectSignal(this)">Sin cambios</button>
+<button class="signal-btn neg" onclick="selectSignal(this)">Más competencia</button>
+</div>
+</div>
+</div>
+
+<div class="check-item" id="q4">
+<div class="check-header" onclick="toggleCheck(4)">
+<div class="checkbox"></div>
+<div class="check-content">
+<div class="check-number">Pregunta 5</div>
+<div class="check-question">¿Yo estoy creciendo, estancada o cayendo?</div>
+<div class="check-why">Compara tu facturación de este trimestre vs el anterior. A veces culpamos al mercado cuando el problema es interno. Y viceversa.</div>
+</div>
+</div>
+<div class="check-answer">
+<div class="answer-label">¿Cuál es tu tendencia?</div>
+<textarea class="answer-textarea" placeholder="Compara números: facturación, clientes, margen..."></textarea>
+<div class="signal-btns">
+<button class="signal-btn pos" onclick="selectSignal(this)">Creciendo</button>
+<button class="signal-btn neu" onclick="selectSignal(this)">Estancada</button>
+<button class="signal-btn neg" onclick="selectSignal(this)">Cayendo</button>
+</div>
+</div>
+</div>
+
+<div class="result-box" id="resultBox">
+<h3>Análisis trimestral completado ✓</h3>
+<div class="result-text">Este ejercicio te da más visión que cualquier informe económico. Guárdalo y compáralo con el del próximo trimestre. Las tendencias se ven con perspectiva, no con un solo dato.</div>
+</div>
+
+<div class="tip">
+<strong>Hazlo cada trimestre:</strong>
+<p>Primer lunes de enero, abril, julio y octubre. 20 minutos. Estas 5 preguntas. Con el tiempo vas a ver patrones que te permiten anticiparte en vez de reaccionar.</p>
+</div>
+
+<button class="reset-btn" onclick="resetChecklist()">Nuevo trimestre</button>
+<button class="download-btn" onclick="window.print()">Descargar en PDF</button>
+<div class="footer">Team Leader Academy © 2026 • Bloque 4: Visión Económica Global</div>
+</div>
+<script>
+let checked=[false,false,false,false,false];
+function toggleCheck(i){
+    if(event.target.tagName==='TEXTAREA'||event.target.classList.contains('signal-btn'))return;
+    checked[i]=!checked[i];
+    document.getElementById('q'+i).classList.toggle('done');
+    let count=checked.filter(Boolean).length;
+    document.getElementById('progressValue').textContent=count+'/5';
+    document.getElementById('progressFill').style.width=(count/5*100)+'%';
+    document.getElementById('resultBox').style.display=count===5?'block':'none';
+}
+function selectSignal(btn){
+    btn.parentElement.querySelectorAll('.signal-btn').forEach(b=>b.classList.remove('selected'));
+    btn.classList.add('selected');
+}
+function resetChecklist(){
+    checked=[false,false,false,false,false];
+    for(let i=0;i<5;i++)document.getElementById('q'+i).classList.remove('done');
+    document.querySelectorAll('.answer-textarea').forEach(el=>el.value='');
+    document.querySelectorAll('.signal-btn').forEach(b=>b.classList.remove('selected'));
+    document.getElementById('progressValue').textContent='0/5';
+    document.getElementById('progressFill').style.width='0';
+    document.getElementById('resultBox').style.display='none';
+    window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Herramienta 02: Diagnóstico de Vulnerabilidad</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#1a2b1f;color:#e8ede9;min-height:100vh;padding:20px}
+.container{max-width:600px;margin:0 auto}
+.header{text-align:center;padding:30px 0;border-bottom:2px solid #d09703}
+.header h1{font-size:1.4em;color:#d09703;margin-bottom:8px}
+.header p{font-size:0.85em;color:#999;letter-spacing:1px;text-transform:uppercase}
+.progress-section{text-align:center;padding:25px 0}
+.progress-label{font-size:0.8em;color:#999;margin-bottom:8px}
+.progress-value{font-size:2.5em;font-weight:700;color:#d09703;transition:all 0.3s}
+.progress-sub{font-size:0.75em;color:#999;margin-top:4px}
+.progress-bar{width:100%;height:6px;background:#2e4033;border-radius:3px;margin-top:12px;overflow:hidden}
+.progress-fill{height:100%;border-radius:3px;transition:width 0.4s;width:0;background:linear-gradient(90deg,#e74c3c,#d09703,#27ae60)}
+.intro{background:#2e4033;border-radius:10px;padding:16px;margin:20px 0;font-size:0.9em;line-height:1.6;color:#ccc;text-align:center}
+.question{background:#2e4033;border-radius:10px;padding:18px;margin-bottom:12px;border-left:3px solid #333}
+.question.answered{border-left-color:#d09703}
+.q-number{font-size:0.7em;color:#d09703;text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
+.q-text{font-size:0.95em;font-weight:600;margin-bottom:6px;line-height:1.5}
+.q-hint{font-size:0.8em;color:#999;margin-bottom:12px;line-height:1.4}
+.q-options{display:flex;gap:10px}
+.q-btn{flex:1;padding:12px;border:2px solid #555;border-radius:8px;background:transparent;color:#e8ede9;font-size:0.9em;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:inherit}
+.q-btn:hover{border-color:#d09703}
+.q-btn.yes{border-color:#27ae60;background:rgba(39,174,96,0.15);color:#27ae60}
+.q-btn.no{border-color:#e74c3c;background:rgba(231,76,60,0.15);color:#e74c3c}
+.result-box{background:#2e4033;border:2px solid #d09703;border-radius:12px;padding:25px;margin:25px 0;text-align:center;display:none}
+.result-box h3{color:#d09703;font-size:1.1em;margin-bottom:6px}
+.result-score{font-size:3em;font-weight:700;margin:10px 0}
+.result-score.low{color:#e74c3c}
+.result-score.mid{color:#d09703}
+.result-score.high{color:#27ae60}
+.result-text{font-size:0.88em;color:#ccc;line-height:1.6;margin-top:10px}
+.result-action{background:#1a2b1f;border-radius:8px;padding:14px;margin-top:15px;font-size:0.82em;color:#d09703;line-height:1.5}
+.vulnerabilities{margin-top:15px;text-align:left}
+.vuln-item{padding:8px 12px;margin:4px 0;background:rgba(231,76,60,0.1);border-radius:6px;font-size:0.82em;color:#e74c3c;border-left:3px solid #e74c3c}
+.repeat-info{text-align:center;margin:20px 0;padding:16px;background:#2e4033;border-radius:10px;border-left:3px solid #d09703}
+.repeat-info strong{color:#d09703;font-size:0.85em}
+.repeat-info p{font-size:0.82em;color:#999;margin-top:6px;line-height:1.5}
+.reset-btn{display:block;margin:10px auto;padding:8px 20px;background:transparent;border:1px solid #555;color:#999;border-radius:6px;cursor:pointer;font-size:0.8em;font-family:inherit}
+.reset-btn:hover{border-color:#d09703;color:#d09703}
+.download-btn{display:block;margin:15px auto;padding:12px 30px;background:#d09703;color:#1a2b1f;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.9em;font-family:inherit}
+.download-btn:hover{background:#e8b830}
+.footer{text-align:center;padding:25px 0;font-size:0.7em;color:#666;border-top:1px solid #2e4033;margin-top:30px}
+@media print{body{background:#fff;color:#333;padding:10px}.header{border-bottom-color:#d09703}.header h1{color:#2e4033}.progress-section,.download-btn,.reset-btn{display:none}.intro,.question,.result-box,.repeat-info{background:#f5f5f5}.q-text{color:#333}.q-hint{color:#666}.result-box{display:block!important;border-color:#d09703}.result-text{color:#333}.result-action{background:#e8ede9;color:#2e4033}.footer{color:#999}}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>Diagnóstico de Vulnerabilidad</h1>
+<p>Bloque 4 · ¿Qué tan preparado está tu negocio?</p>
+</div>
+<div class="progress-section">
+<div class="progress-label">Nivel de preparación</div>
+<div class="progress-value" id="scoreValue">0/7</div>
+<div class="progress-sub">Respuestas SÍ</div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+<div class="intro">Marca SÍ o NO con honestidad. Cada NO es un punto de vulnerabilidad que necesitas resolver. Repite este diagnóstico cada 6 meses.</div>
+
+<div id="questions">
+<div class="question" id="q0">
+<div class="q-number">Pregunta 1 de 7</div>
+<div class="q-text">¿Tienes liquidez para cubrir al menos 3 meses de gastos fijos sin ingresos nuevos?</div>
+<div class="q-hint">Si mañana dejas de facturar, ¿cuántos meses aguantas?</div>
+<div class="q-options"><button class="q-btn" onclick="answer(0,true,this)">SÍ</button><button class="q-btn" onclick="answer(0,false,this)">NO</button></div>
+</div>
+<div class="question" id="q1">
+<div class="q-number">Pregunta 2 de 7</div>
+<div class="q-text">¿Ninguno de tus clientes representa más del 30% de tu facturación?</div>
+<div class="q-hint">Si tu mejor cliente se va mañana, ¿tu negocio sobrevive?</div>
+<div class="q-options"><button class="q-btn" onclick="answer(1,true,this)">SÍ</button><button class="q-btn" onclick="answer(1,false,this)">NO</button></div>
+</div>
+<div class="question" id="q2">
+<div class="q-number">Pregunta 3 de 7</div>
+<div class="q-text">¿Tienes al menos 2 fuentes de ingreso diferentes?</div>
+<div class="q-hint">Si una fuente falla, ¿tienes otra que te sostenga?</div>
+<div class="q-options"><button class="q-btn" onclick="answer(2,true,this)">SÍ</button><button class="q-btn" onclick="answer(2,false,this)">NO</button></div>
+</div>
+<div class="question" id="q3">
+<div class="q-number">Pregunta 4 de 7</div>
+<div class="q-text">¿Has revisado y ajustado tus precios en los últimos 6 meses?</div>
+<div class="q-hint">La inflación te come el margen si no subes precios. ¿Lo has hecho?</div>
+<div class="q-options"><button class="q-btn" onclick="answer(3,true,this)">SÍ</button><button class="q-btn" onclick="answer(3,false,this)">NO</button></div>
+</div>
+<div class="question" id="q4">
+<div class="q-number">Pregunta 5 de 7</div>
+<div class="q-text">¿Revisas tus costes al menos cada trimestre?</div>
+<div class="q-hint">Suscripciones, proveedores, servicios. ¿Sabes si sigues pagando cosas que ya no necesitas?</div>
+<div class="q-options"><button class="q-btn" onclick="answer(4,true,this)">SÍ</button><button class="q-btn" onclick="answer(4,false,this)">NO</button></div>
+</div>
+<div class="question" id="q5">
+<div class="q-number">Pregunta 6 de 7</div>
+<div class="q-text">¿Has negociado condiciones con tus proveedores en el último año?</div>
+<div class="q-hint">Precios, plazos de pago, condiciones. Si nunca negocias, probablemente estás pagando de más.</div>
+<div class="q-options"><button class="q-btn" onclick="answer(5,true,this)">SÍ</button><button class="q-btn" onclick="answer(5,false,this)">NO</button></div>
+</div>
+<div class="question" id="q6">
+<div class="q-number">Pregunta 7 de 7</div>
+<div class="q-text">¿Tienes un plan escrito de qué harías si tus ingresos bajan un 30% durante 3 meses?</div>
+<div class="q-hint">No en tu cabeza. Escrito. Con acciones concretas: qué cortar, qué proteger, qué hacer.</div>
+<div class="q-options"><button class="q-btn" onclick="answer(6,true,this)">SÍ</button><button class="q-btn" onclick="answer(6,false,this)">NO</button></div>
+</div>
+</div>
+
+<div class="result-box" id="resultBox">
+<h3>Tu Diagnóstico de Vulnerabilidad</h3>
+<div class="result-score" id="resultScore"></div>
+<div class="result-text" id="resultText"></div>
+<div class="vulnerabilities" id="vulnerabilities"></div>
+<div class="result-action" id="resultAction"></div>
+</div>
+
+<div class="repeat-info">
+<strong>Repite este diagnóstico cada 6 meses</strong>
+<p>Tu objetivo es llegar a 7/7. Cada punto de vulnerabilidad que resuelves es un riesgo menos para tu negocio. Las crisis no avisan, pero siempre hay señales antes.</p>
+</div>
+
+<button class="reset-btn" onclick="resetTest()">Repetir diagnóstico</button>
+<button class="download-btn" onclick="window.print()">Descargar en PDF</button>
+<div class="footer">Team Leader Academy © 2026 • Bloque 4: Visión Económica Global</div>
+</div>
+<script>
+let answers=new Array(7).fill(null);
+let labels=["Colchón de liquidez insuficiente","Dependencia de un solo cliente grande","Falta de diversificación de ingresos","Precios sin actualizar","Costes sin revisar","Proveedores sin negociar","Sin plan de crisis escrito"];
+function answer(i,val,btn){
+    answers[i]=val;
+    document.getElementById('q'+i).classList.add('answered');
+    let btns=document.getElementById('q'+i).querySelectorAll('.q-btn');
+    btns.forEach(b=>{b.classList.remove('yes','no')});
+    btn.classList.add(val?'yes':'no');
+    let yesCount=answers.filter(a=>a===true).length;
+    let answered=answers.filter(a=>a!==null).length;
+    document.getElementById('scoreValue').textContent=yesCount+'/7';
+    document.getElementById('progressFill').style.width=(answered/7*100)+'%';
+    if(answered===7)showResult(yesCount);
+}
+function showResult(score){
+    let rb=document.getElementById('resultBox');
+    let rs=document.getElementById('resultScore');
+    let rt=document.getElementById('resultText');
+    let ra=document.getElementById('resultAction');
+    let vl=document.getElementById('vulnerabilities');
+    rb.style.display='block';
+    rs.textContent=score+'/7';
+    if(score<=2){rs.className='result-score low';rt.textContent='Alto riesgo. Tu negocio tiene múltiples puntos de vulnerabilidad. Cualquier imprevisto puede ponerte en una situación crítica. Necesitas priorizar estos puntos ya.';ra.textContent='Acción inmediata: empieza por el colchón de liquidez. Es lo primero que necesitas. Sin liquidez, cualquier otro problema se convierte en crisis.';}
+    else if(score<=4){rs.className='result-score mid';rt.textContent='Vulnerable pero con margen para mejorar. Tienes algunas bases pero hay huecos importantes que resolver antes de que se conviertan en problemas reales.';ra.textContent='Acción inmediata: identifica los puntos en rojo abajo. Elige los 2 más urgentes y trabaja en ellos este mes.';}
+    else{rs.className='result-score high';rt.textContent='Tu negocio tiene bases sólidas. Estás mejor preparada que la mayoría. Sigue manteniendo estos hábitos y refuerza los puntos que aún no tienes cubiertos.';ra.textContent='Acción inmediata: mantén la revisión cada 6 meses. Lo que hoy es un SÍ puede cambiar. La preparación no es un destino, es un hábito.';}
+    vl.innerHTML='';
+    answers.forEach((a,i)=>{if(a===false)vl.innerHTML+=`<div class="vuln-item">${labels[i]}</div>`});
+    rb.scrollIntoView({behavior:'smooth'});
+}
+function resetTest(){
+    answers=new Array(7).fill(null);
+    document.querySelectorAll('.question').forEach(q=>q.classList.remove('answered'));
+    document.querySelectorAll('.q-btn').forEach(b=>{b.classList.remove('yes','no')});
+    document.getElementById('scoreValue').textContent='0/7';
+    document.getElementById('progressFill').style.width='0';
+    document.getElementById('resultBox').style.display='none';
+    window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
