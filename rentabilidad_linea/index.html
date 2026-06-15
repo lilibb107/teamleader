@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Herramienta 02: Análisis de Rentabilidad por Línea</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#1a2b1f;color:#e8ede9;min-height:100vh;padding:20px}
+.container{max-width:640px;margin:0 auto}
+.header{text-align:center;padding:30px 0;border-bottom:2px solid #d09703}
+.header h1{font-size:1.3em;color:#d09703;margin-bottom:8px}
+.header p{font-size:0.85em;color:#999;letter-spacing:1px;text-transform:uppercase}
+.intro{background:#2e4033;border-radius:10px;padding:16px;margin:20px 0;font-size:0.9em;line-height:1.6;color:#ccc;text-align:center}
+.section-title{font-size:0.75em;color:#d09703;text-transform:uppercase;letter-spacing:2px;margin:25px 0 15px;padding-bottom:8px;border-bottom:1px solid #2e4033}
+.line-card{background:#2e4033;border-radius:10px;padding:18px;margin-bottom:12px;border-left:3px solid #555}
+.line-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.line-number{font-size:0.7em;color:#d09703;text-transform:uppercase;letter-spacing:1px}
+.line-remove{background:none;border:none;color:#555;cursor:pointer;font-size:1.2em}
+.line-name{width:100%;background:#1a2b1f;border:1px solid #555;color:#e8ede9;border-radius:6px;padding:10px;font-size:0.9em;font-family:inherit;margin-bottom:10px}
+.line-name:focus{border-color:#d09703;outline:none}
+.line-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.line-field{background:#1a2b1f;border-radius:6px;padding:10px}
+.field-label{font-size:0.72em;color:#999;margin-bottom:4px}
+.field-input{width:100%;background:transparent;border:1px solid #555;color:#e8ede9;border-radius:4px;padding:6px;font-size:0.9em;text-align:right;font-family:inherit}
+.field-input:focus{border-color:#d09703;outline:none}
+.field-result{font-size:1.1em;font-weight:700;text-align:right}
+.add-btn{display:block;width:100%;padding:12px;background:transparent;border:2px dashed #555;color:#999;border-radius:10px;cursor:pointer;font-size:0.9em;font-family:inherit;margin:15px 0}
+.add-btn:hover{border-color:#d09703;color:#d09703}
+.result-box{background:#2e4033;border:2px solid #d09703;border-radius:12px;padding:20px;margin:25px 0;text-align:center}
+.result-box h3{color:#d09703;font-size:1em;margin-bottom:15px}
+.ranking{text-align:left}
+.rank-item{display:flex;justify-content:space-between;align-items:center;padding:10px;border-bottom:1px solid #333}
+.rank-item:last-child{border-bottom:none}
+.rank-pos{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8em;margin-right:10px;flex-shrink:0}
+.rank-name{flex:1;font-size:0.9em}
+.rank-margin{font-weight:700;font-size:0.95em}
+.tip{background:#2e4033;border-radius:10px;padding:16px;margin:20px 0;border-left:3px solid #d09703}
+.tip strong{color:#d09703;font-size:0.85em}
+.tip p{font-size:0.82em;color:#999;margin-top:6px;line-height:1.5}
+.download-btn{display:block;margin:20px auto;padding:12px 30px;background:#d09703;color:#1a2b1f;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.9em;font-family:inherit}
+.download-btn:hover{background:#e8b830}
+.footer{text-align:center;padding:25px 0;font-size:0.7em;color:#666;border-top:1px solid #2e4033;margin-top:30px}
+@media print{body{background:#fff;color:#333;padding:10px}.header{border-bottom-color:#d09703}.header h1{color:#2e4033}.intro,.line-card,.result-box,.tip,.line-field,.rank-item{background:#f5f5f5}.line-name,.field-input{background:#fff;border-color:#ccc;color:#333}.download-btn,.add-btn,.line-remove{display:none}.result-box{border-color:#d09703}.footer{color:#999}}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>Análisis de Rentabilidad por Línea</h1>
+<p>Bloque 3 · Dirección Financiera</p>
+</div>
+<div class="intro">Añade cada producto o servicio que ofreces. Descubre cuál te da más margen real y cuál te está costando más de lo que te da. A veces, dejar de ofrecer algo te hace ganar más.</div>
+
+<div class="section-title">Tus productos o servicios</div>
+<div id="lines"></div>
+<button class="add-btn" onclick="addLine()">+ Añadir producto o servicio</button>
+
+<div class="result-box" id="resultBox" style="display:none">
+<h3>Ranking de rentabilidad</h3>
+<div class="ranking" id="ranking"></div>
+</div>
+
+<div class="tip">
+<strong>Lo que dicen los números:</strong>
+<p>Lo que más vendes no siempre es lo que más te da. Enfócate en lo que te deja más margen por hora invertida. A veces eliminar un servicio poco rentable te libera tiempo para vender más del que sí te da dinero.</p>
+</div>
+
+<button class="download-btn" onclick="window.print()">Descargar en PDF</button>
+<div class="footer">Team Leader Academy © 2026 • Bloque 3: Dirección Financiera</div>
+</div>
+<script>
+let lineCount=0;
+function addLine(){
+    lineCount++;
+    let div=document.createElement('div');
+    div.className='line-card';div.id='line'+lineCount;
+    div.innerHTML=`
+    <div class="line-header"><span class="line-number">Línea ${lineCount}</span><button class="line-remove" onclick="removeLine(${lineCount})">×</button></div>
+    <input class="line-name" placeholder="Nombre del producto o servicio" oninput="updateRanking()">
+    <div class="line-grid">
+    <div class="line-field"><div class="field-label">Precio de venta (€)</div><input class="field-input" type="number" placeholder="0" oninput="calcLine(${lineCount})"></div>
+    <div class="line-field"><div class="field-label">Coste directo (€)</div><input class="field-input" type="number" placeholder="0" oninput="calcLine(${lineCount})"></div>
+    <div class="line-field"><div class="field-label">Ventas/mes</div><input class="field-input" type="number" placeholder="0" oninput="calcLine(${lineCount})"></div>
+    <div class="line-field"><div class="field-label">Horas/unidad</div><input class="field-input" type="number" step="0.5" placeholder="0" oninput="calcLine(${lineCount})"></div>
+    <div class="line-field"><div class="field-label">Margen unitario</div><div class="field-result" id="mu${lineCount}" style="color:#d09703">0 €</div></div>
+    <div class="line-field"><div class="field-label">Beneficio mensual</div><div class="field-result" id="bm${lineCount}" style="color:#27ae60">0 €</div></div>
+    <div class="line-field"><div class="field-label">% del total ventas</div><div class="field-result" id="pv${lineCount}" style="color:#e8ede9">0%</div></div>
+    <div class="line-field"><div class="field-label">€/hora real</div><div class="field-result" id="eh${lineCount}" style="color:#d09703">0 €</div></div>
+    </div>`;
+    document.getElementById('lines').appendChild(div);
+}
+function removeLine(n){document.getElementById('line'+n).remove();updateRanking()}
+function calcLine(n){
+    let card=document.getElementById('line'+n);
+    if(!card)return;
+    let inputs=card.querySelectorAll('.field-input');
+    let precio=parseFloat(inputs[0].value)||0;
+    let coste=parseFloat(inputs[1].value)||0;
+    let ventas=parseFloat(inputs[2].value)||0;
+    let horas=parseFloat(inputs[3].value)||0;
+    let margen=precio-coste;
+    let beneficio=margen*ventas;
+    let eurohora=horas>0?margen/horas:0;
+    document.getElementById('mu'+n).textContent=Math.round(margen)+' €';
+    document.getElementById('bm'+n).textContent=Math.round(beneficio)+' €';
+    document.getElementById('eh'+n).textContent=Math.round(eurohora)+' €/h';
+    updateRanking();
+}
+function updateRanking(){
+    let cards=document.querySelectorAll('.line-card');
+    let data=[];
+    let totalVentas=0;
+    cards.forEach(card=>{
+        let inputs=card.querySelectorAll('.field-input');
+        let name=card.querySelector('.line-name').value||'Sin nombre';
+        let precio=parseFloat(inputs[0].value)||0;
+        let coste=parseFloat(inputs[1].value)||0;
+        let ventas=parseFloat(inputs[2].value)||0;
+        let horas=parseFloat(inputs[3].value)||0;
+        let margen=precio-coste;
+        let beneficio=margen*ventas;
+        let facturacion=precio*ventas;
+        totalVentas+=facturacion;
+        data.push({name,beneficio,facturacion,eurohora:horas>0?margen/horas:0});
+    });
+    cards.forEach((card,i)=>{
+        let id=card.id.replace('line','');
+        let pct=totalVentas>0?(data[i].facturacion/totalVentas*100):0;
+        let el=document.getElementById('pv'+id);
+        if(el)el.textContent=pct.toFixed(1)+'%';
+    });
+    data.sort((a,b)=>b.eurohora-a.eurohora);
+    let rb=document.getElementById('resultBox');
+    let rk=document.getElementById('ranking');
+    if(data.length===0){rb.style.display='none';return}
+    rb.style.display='block';
+    rk.innerHTML='';
+    data.forEach((d,i)=>{
+        let color=i===0?'#27ae60':i===data.length-1&&data.length>1?'#e74c3c':'#d09703';
+        rk.innerHTML+=`<div class="rank-item"><div class="rank-pos" style="background:${color};color:#1a2b1f">${i+1}</div><span class="rank-name">${d.name}</span><span class="rank-margin" style="color:${color}">${Math.round(d.eurohora)} €/h</span></div>`;
+    });
+}
+addLine();addLine();addLine();
+</script>
+</body>
+</html>

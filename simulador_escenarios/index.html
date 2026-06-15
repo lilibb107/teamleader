@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Herramienta 03: Simulador de Escenarios</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#1a2b1f;color:#e8ede9;min-height:100vh;padding:20px}
+.container{max-width:600px;margin:0 auto}
+.header{text-align:center;padding:30px 0;border-bottom:2px solid #d09703}
+.header h1{font-size:1.4em;color:#d09703;margin-bottom:8px}
+.header p{font-size:0.85em;color:#999;letter-spacing:1px;text-transform:uppercase}
+.intro{background:#2e4033;border-radius:10px;padding:16px;margin:20px 0;font-size:0.9em;line-height:1.6;color:#ccc;text-align:center}
+.section-title{font-size:0.75em;color:#d09703;text-transform:uppercase;letter-spacing:2px;margin:25px 0 15px;padding-bottom:8px;border-bottom:1px solid #2e4033}
+.base-card{background:#2e4033;border-radius:10px;padding:16px;margin-bottom:10px}
+.base-label{font-size:0.88em;font-weight:600;margin-bottom:8px}
+.base-row{display:flex;gap:10px;align-items:center}
+.base-input{flex:1;background:#1a2b1f;border:1px solid #555;color:#e8ede9;border-radius:6px;padding:10px;font-size:0.9em;text-align:right;font-family:inherit}
+.base-input:focus{border-color:#d09703;outline:none}
+.base-unit{font-size:0.85em;color:#999;width:50px}
+.scenario{background:#2e4033;border-radius:10px;padding:18px;margin-bottom:12px;border-left:3px solid #555}
+.sc-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.sc-num{font-size:0.7em;color:#d09703;text-transform:uppercase;letter-spacing:1px}
+.sc-title{font-weight:700;font-size:0.95em;margin-bottom:6px}
+.sc-desc{font-size:0.82em;color:#999;margin-bottom:12px;line-height:1.4}
+.sc-result{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.sc-item{background:#1a2b1f;border-radius:6px;padding:10px;text-align:center}
+.sc-value{font-size:1.1em;font-weight:700;margin-bottom:2px}
+.sc-label{font-size:0.68em;color:#999}
+.sc-plan{margin-top:10px}
+.sc-plan-label{font-size:0.75em;color:#d09703;margin-bottom:6px}
+.sc-textarea{width:100%;background:#1a2b1f;border:1px solid #555;color:#e8ede9;border-radius:6px;padding:10px;font-size:0.85em;font-family:inherit;height:60px;resize:vertical}
+.sc-textarea:focus{border-color:#d09703;outline:none}
+.tip{background:#2e4033;border-radius:10px;padding:16px;margin:20px 0;border-left:3px solid #d09703}
+.tip strong{color:#d09703;font-size:0.85em}
+.tip p{font-size:0.82em;color:#999;margin-top:6px;line-height:1.5}
+.download-btn{display:block;margin:20px auto;padding:12px 30px;background:#d09703;color:#1a2b1f;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.9em;font-family:inherit}
+.download-btn:hover{background:#e8b830}
+.footer{text-align:center;padding:25px 0;font-size:0.7em;color:#666;border-top:1px solid #2e4033;margin-top:30px}
+@media print{body{background:#fff;color:#333;padding:10px}.header{border-bottom-color:#d09703}.header h1{color:#2e4033}.intro,.base-card,.scenario,.tip,.sc-item{background:#f5f5f5}.base-input,.sc-textarea{background:#fff;border-color:#ccc;color:#333}.download-btn{display:none}.footer{color:#999}}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>Simulador de Escenarios</h1>
+<p>Bloque 3 · Piensa como CEO</p>
+</div>
+<div class="intro">Una empresaria no reacciona. Se prepara. Introduce tus datos actuales y mira qué pasaría en 4 situaciones reales. Escribe tu plan de acción para cada una.</div>
+
+<div class="section-title">Tus datos actuales</div>
+<div class="base-card"><div class="base-label">Facturación mensual</div><div class="base-row"><input class="base-input" type="number" id="fact" placeholder="0" oninput="simular()"><span class="base-unit">€/mes</span></div></div>
+<div class="base-card"><div class="base-label">Costes fijos mensuales</div><div class="base-row"><input class="base-input" type="number" id="fijos" placeholder="0" oninput="simular()"><span class="base-unit">€/mes</span></div></div>
+<div class="base-card"><div class="base-label">Beneficio neto mensual</div><div class="base-row"><input class="base-input" type="number" id="benef" placeholder="0" oninput="simular()"><span class="base-unit">€/mes</span></div></div>
+<div class="base-card"><div class="base-label">Ahorros o liquidez disponible</div><div class="base-row"><input class="base-input" type="number" id="liquid" placeholder="0" oninput="simular()"><span class="base-unit">€</span></div></div>
+
+<div class="section-title">¿Qué pasaría si...?</div>
+
+<div class="scenario" id="esc1" style="border-left-color:#e74c3c">
+<div class="sc-num">Escenario 1</div>
+<div class="sc-title">Tus ventas bajan un 30% durante 3 meses</div>
+<div class="sc-desc">Una crisis, una temporada baja, un cambio de algoritmo. Pasa.</div>
+<div class="sc-result">
+<div class="sc-item"><div class="sc-value" id="e1_fact" style="color:#e74c3c">0 €</div><div class="sc-label">Facturación reducida</div></div>
+<div class="sc-item"><div class="sc-value" id="e1_perdida" style="color:#e74c3c">0 €</div><div class="sc-label">Pérdida en 3 meses</div></div>
+<div class="sc-item"><div class="sc-value" id="e1_meses" style="color:#d09703">0</div><div class="sc-label">Meses que aguantas</div></div>
+<div class="sc-item"><div class="sc-value" id="e1_estado" style="color:#999">-</div><div class="sc-label">Estado</div></div>
+</div>
+<div class="sc-plan"><div class="sc-plan-label">Tu plan de acción:</div><textarea class="sc-textarea" placeholder="¿Qué costes cortarías primero? ¿Qué harías para compensar?"></textarea></div>
+</div>
+
+<div class="scenario" id="esc2" style="border-left-color:#e67e22">
+<div class="sc-num">Escenario 2</div>
+<div class="sc-title">Tu mejor cliente se va sin aviso</div>
+<div class="sc-desc">¿Qué porcentaje de tu facturación representa un solo cliente?</div>
+<div class="sc-result">
+<div class="sc-item"><div class="sc-value" style="color:#e67e22"><input class="base-input" type="number" id="e2_pct" placeholder="%" style="width:60px;text-align:center;font-size:0.9em" oninput="simular()"></div><div class="sc-label">% que representa</div></div>
+<div class="sc-item"><div class="sc-value" id="e2_pierde" style="color:#e67e22">0 €</div><div class="sc-label">Pierdes al mes</div></div>
+<div class="sc-item"><div class="sc-value" id="e2_queda" style="color:#d09703">0 €</div><div class="sc-label">Te queda</div></div>
+<div class="sc-item"><div class="sc-value" id="e2_riesgo" style="color:#999">-</div><div class="sc-label">Nivel de riesgo</div></div>
+</div>
+<div class="sc-plan"><div class="sc-plan-label">Tu plan de acción:</div><textarea class="sc-textarea" placeholder="¿Cómo diversificarías tu cartera de clientes?"></textarea></div>
+</div>
+
+<div class="scenario" id="esc3" style="border-left-color:#d09703">
+<div class="sc-num">Escenario 3</div>
+<div class="sc-title">Un coste fijo sube un 25%</div>
+<div class="sc-desc">Alquiler, herramienta clave, proveedor. ¿Lo absorbes o lo trasladas?</div>
+<div class="sc-result">
+<div class="sc-item"><div class="sc-value" id="e3_aumento" style="color:#d09703">0 €</div><div class="sc-label">Aumento mensual</div></div>
+<div class="sc-item"><div class="sc-value" id="e3_anual" style="color:#d09703">0 €</div><div class="sc-label">Impacto anual</div></div>
+<div class="sc-item"><div class="sc-value" id="e3_margen" style="color:#d09703">0%</div><div class="sc-label">Reduce tu margen en</div></div>
+<div class="sc-item"><div class="sc-value" id="e3_subir" style="color:#d09703">0%</div><div class="sc-label">Subir precio para compensar</div></div>
+</div>
+<div class="sc-plan"><div class="sc-plan-label">Tu plan de acción:</div><textarea class="sc-textarea" placeholder="¿Lo absorbes, lo trasladas al precio o buscas alternativa?"></textarea></div>
+</div>
+
+<div class="scenario" id="esc4" style="border-left-color:#27ae60">
+<div class="sc-num">Escenario 4</div>
+<div class="sc-title">Aparece una oportunidad que requiere invertir 3,000€</div>
+<div class="sc-desc">Un curso, un equipo, una campaña, una expansión. ¿Puedes? ¿Debes?</div>
+<div class="sc-result">
+<div class="sc-item"><div class="sc-value" id="e4_tiene" style="color:#27ae60">-</div><div class="sc-label">¿Tienes liquidez?</div></div>
+<div class="sc-item"><div class="sc-value" id="e4_meses_rec" style="color:#27ae60">-</div><div class="sc-label">Meses para recuperar</div></div>
+<div class="sc-item"><div class="sc-value" id="e4_pct_liq" style="color:#27ae60">0%</div><div class="sc-label">% de tu liquidez</div></div>
+<div class="sc-item"><div class="sc-value" id="e4_reco" style="color:#999">-</div><div class="sc-label">Recomendación</div></div>
+</div>
+<div class="sc-plan"><div class="sc-plan-label">Tu plan de acción:</div><textarea class="sc-textarea" placeholder="¿Cómo calcularías si el retorno justifica la inversión?"></textarea></div>
+</div>
+
+<div class="tip">
+<strong>Sin plan, solo tienes pánico:</strong>
+<p>Estos escenarios no son para asustarte. Son para que cuando pasen (y alguno pasará), ya tengas un plan pensado en frío. Las decisiones tomadas con miedo siempre cuestan más.</p>
+</div>
+
+<button class="download-btn" onclick="window.print()">Descargar en PDF</button>
+<div class="footer">Team Leader Academy © 2026 • Bloque 3: Dirección Financiera</div>
+</div>
+<script>
+function fmt(n){return Math.round(n).toLocaleString('es-ES')}
+function simular(){
+    let f=parseFloat(document.getElementById('fact').value)||0;
+    let fj=parseFloat(document.getElementById('fijos').value)||0;
+    let b=parseFloat(document.getElementById('benef').value)||0;
+    let l=parseFloat(document.getElementById('liquid').value)||0;
+    // E1: ventas -30% x 3 meses
+    let e1f=f*0.7;let e1p=(f-e1f)*3;let e1m=fj>0?Math.floor(l/fj):0;
+    document.getElementById('e1_fact').textContent=fmt(e1f)+' €';
+    document.getElementById('e1_perdida').textContent=fmt(e1p)+' €';
+    document.getElementById('e1_meses').textContent=e1m;
+    document.getElementById('e1_estado').textContent=e1m>=3?'Aguantas':'Riesgo alto';
+    document.getElementById('e1_estado').style.color=e1m>=3?'#27ae60':'#e74c3c';
+    // E2: cliente grande se va
+    let pct=parseFloat(document.getElementById('e2_pct').value)||0;
+    let e2p=f*(pct/100);let e2q=f-e2p;
+    document.getElementById('e2_pierde').textContent=fmt(e2p)+' €';
+    document.getElementById('e2_queda').textContent=fmt(e2q)+' €';
+    let riesgo=pct>30?'ALTO':pct>15?'MEDIO':'BAJO';
+    document.getElementById('e2_riesgo').textContent=riesgo;
+    document.getElementById('e2_riesgo').style.color=pct>30?'#e74c3c':pct>15?'#e67e22':'#27ae60';
+    // E3: coste fijo +25%
+    let e3a=fj*0.25;let e3an=e3a*12;let e3m=f>0?(e3a/f*100):0;let e3s=f>0?(e3a/f*100):0;
+    document.getElementById('e3_aumento').textContent=fmt(e3a)+' €';
+    document.getElementById('e3_anual').textContent=fmt(e3an)+' €';
+    document.getElementById('e3_margen').textContent=e3m.toFixed(1)+'%';
+    document.getElementById('e3_subir').textContent=e3s.toFixed(1)+'%';
+    // E4: inversión 3000
+    let tiene=l>=3000;let meses_rec=b>0?Math.ceil(3000/b):99;let pct_liq=l>0?(3000/l*100):0;
+    document.getElementById('e4_tiene').textContent=tiene?'SÍ':'NO';
+    document.getElementById('e4_tiene').style.color=tiene?'#27ae60':'#e74c3c';
+    document.getElementById('e4_meses_rec').textContent=meses_rec<99?meses_rec+' meses':'N/A';
+    document.getElementById('e4_pct_liq').textContent=pct_liq.toFixed(0)+'%';
+    let reco=!tiene?'No tienes liquidez':pct_liq>50?'Arriesgado':meses_rec<=6?'Viable':'Evalúa bien';
+    document.getElementById('e4_reco').textContent=reco;
+    document.getElementById('e4_reco').style.color=!tiene||pct_liq>50?'#e74c3c':meses_rec<=6?'#27ae60':'#d09703';
+}
+</script>
+</body>
+</html>

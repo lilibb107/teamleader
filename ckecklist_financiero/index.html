@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Herramienta 04: Checklist Financiero Mensual</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#1a2b1f;color:#e8ede9;min-height:100vh;padding:20px}
+.container{max-width:600px;margin:0 auto}
+.header{text-align:center;padding:30px 0;border-bottom:2px solid #d09703}
+.header h1{font-size:1.4em;color:#d09703;margin-bottom:8px}
+.header p{font-size:0.85em;color:#999;letter-spacing:1px;text-transform:uppercase}
+.month-selector{text-align:center;padding:20px 0}
+.month-label{font-size:0.8em;color:#999;margin-bottom:8px}
+.month-input{background:#2e4033;border:1px solid #555;color:#d09703;border-radius:6px;padding:10px 20px;font-size:1em;font-weight:700;font-family:inherit;text-align:center}
+.month-input:focus{border-color:#d09703;outline:none}
+.progress-section{text-align:center;padding:15px 0}
+.progress-label{font-size:0.8em;color:#999;margin-bottom:8px}
+.progress-value{font-size:2.5em;font-weight:700;color:#d09703;transition:all 0.3s}
+.progress-bar{width:100%;height:6px;background:#2e4033;border-radius:3px;margin-top:12px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,#d09703,#27ae60);border-radius:3px;transition:width 0.4s;width:0}
+.intro{background:#2e4033;border-radius:10px;padding:16px;margin:20px 0;font-size:0.9em;line-height:1.6;color:#ccc;text-align:center}
+.check-item{background:#2e4033;border-radius:10px;padding:18px;margin-bottom:10px;border-left:3px solid #333;transition:all 0.2s}
+.check-item.done{border-left-color:#27ae60}
+.check-header{display:flex;align-items:flex-start;gap:12px;cursor:pointer}
+.checkbox{width:24px;height:24px;border:2px solid #555;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.2s;margin-top:2px}
+.check-item.done .checkbox{background:#27ae60;border-color:#27ae60}
+.check-item.done .checkbox::after{content:'✓';color:#1a2b1f;font-weight:700;font-size:14px}
+.check-content{flex:1}
+.check-number{font-size:0.7em;color:#d09703;margin-bottom:4px}
+.check-question{font-weight:700;font-size:0.95em;margin-bottom:6px;line-height:1.4}
+.check-why{font-size:0.82em;color:#999;line-height:1.5;margin-bottom:10px}
+.check-answer{display:none}
+.check-item.done .check-answer{display:block}
+.answer-label{font-size:0.75em;color:#d09703;margin-bottom:4px}
+.answer-input{width:100%;background:#1a2b1f;border:1px solid #555;color:#e8ede9;border-radius:6px;padding:10px;font-size:0.85em;font-family:inherit}
+.answer-input:focus{border-color:#d09703;outline:none}
+.answer-textarea{width:100%;background:#1a2b1f;border:1px solid #555;color:#e8ede9;border-radius:6px;padding:10px;font-size:0.85em;font-family:inherit;height:50px;resize:vertical;margin-top:6px}
+.answer-textarea:focus{border-color:#d09703;outline:none}
+.result-box{background:#2e4033;border:2px solid #27ae60;border-radius:12px;padding:25px;margin:25px 0;text-align:center;display:none}
+.result-box h3{color:#27ae60;font-size:1.1em;margin-bottom:10px}
+.result-text{font-size:0.9em;color:#ccc;line-height:1.6}
+.calendar-tip{background:#2e4033;border-radius:10px;padding:16px;margin:20px 0;border-left:3px solid #d09703;text-align:center}
+.calendar-tip strong{color:#d09703;font-size:0.95em}
+.calendar-tip p{font-size:0.82em;color:#999;margin-top:6px;line-height:1.5}
+.reset-btn{display:block;margin:10px auto;padding:8px 20px;background:transparent;border:1px solid #555;color:#999;border-radius:6px;cursor:pointer;font-size:0.8em;font-family:inherit}
+.reset-btn:hover{border-color:#d09703;color:#d09703}
+.download-btn{display:block;margin:15px auto;padding:12px 30px;background:#d09703;color:#1a2b1f;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.9em;font-family:inherit}
+.download-btn:hover{background:#e8b830}
+.footer{text-align:center;padding:25px 0;font-size:0.7em;color:#666;border-top:1px solid #2e4033;margin-top:30px}
+@media print{body{background:#fff;color:#333;padding:10px}.header{border-bottom-color:#d09703}.header h1{color:#2e4033}.intro,.check-item,.result-box,.calendar-tip{background:#f5f5f5}.month-input,.answer-input,.answer-textarea{background:#fff;border-color:#ccc;color:#333}.check-answer{display:block!important}.download-btn,.reset-btn{display:none}.result-box{display:block!important;border-color:#27ae60}.footer{color:#999}}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>Checklist Financiero Mensual</h1>
+<p>Bloque 3 · Primer lunes de cada mes</p>
+</div>
+
+<div class="month-selector">
+<div class="month-label">Mes que estás revisando:</div>
+<input class="month-input" type="month" id="mesActual">
+</div>
+
+<div class="progress-section">
+<div class="progress-label">Revisión completada</div>
+<div class="progress-value" id="progressValue">0/5</div>
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+
+<div class="intro">5 preguntas. 30 minutos. Primer lunes de cada mes. Sin excepción. Si no puedes responder alguna, ese ya es el primer problema a resolver.</div>
+
+<div class="check-item" id="q0">
+<div class="check-header" onclick="toggleCheck(0)">
+<div class="checkbox"></div>
+<div class="check-content">
+<div class="check-number">Pregunta 1</div>
+<div class="check-question">¿Cuánto facturé y cuánto cobré realmente?</div>
+<div class="check-why">Facturar no es cobrar. Mira tu cuenta bancaria, no tus presupuestos enviados.</div>
+</div>
+</div>
+<div class="check-answer">
+<div class="answer-label">Facturado este mes:</div>
+<input class="answer-input" type="text" placeholder="€">
+<div class="answer-label" style="margin-top:8px">Cobrado realmente:</div>
+<input class="answer-input" type="text" placeholder="€">
+<div class="answer-label" style="margin-top:8px">Diferencia / facturas pendientes:</div>
+<input class="answer-input" type="text" placeholder="€ pendientes de cobro">
+</div>
+</div>
+
+<div class="check-item" id="q1">
+<div class="check-header" onclick="toggleCheck(1)">
+<div class="checkbox"></div>
+<div class="check-content">
+<div class="check-number">Pregunta 2</div>
+<div class="check-question">¿Cuáles fueron mis 3 gastos más grandes?</div>
+<div class="check-why">¿Son todos necesarios? ¿Alguno se puede reducir, negociar o eliminar?</div>
+</div>
+</div>
+<div class="check-answer">
+<div class="answer-label">Gasto 1:</div>
+<input class="answer-input" type="text" placeholder="Concepto y monto">
+<div class="answer-label" style="margin-top:8px">Gasto 2:</div>
+<input class="answer-input" type="text" placeholder="Concepto y monto">
+<div class="answer-label" style="margin-top:8px">Gasto 3:</div>
+<input class="answer-input" type="text" placeholder="Concepto y monto">
+<div class="answer-label" style="margin-top:8px">¿Alguno se puede reducir o eliminar?</div>
+<textarea class="answer-textarea" placeholder="Escribe aquí..."></textarea>
+</div>
+</div>
+
+<div class="check-item" id="q2">
+<div class="check-header" onclick="toggleCheck(2)">
+<div class="checkbox"></div>
+<div class="check-content">
+<div class="check-number">Pregunta 3</div>
+<div class="check-question">¿Mi flujo de caja cubre los compromisos del próximo mes?</div>
+<div class="check-why">Autónomo, alquiler, proveedores, herramientas. ¿Llegas o vas justa?</div>
+</div>
+</div>
+<div class="check-answer">
+<div class="answer-label">Dinero disponible ahora:</div>
+<input class="answer-input" type="text" placeholder="€">
+<div class="answer-label" style="margin-top:8px">Compromisos del próximo mes:</div>
+<input class="answer-input" type="text" placeholder="€">
+<div class="answer-label" style="margin-top:8px">¿Llegas?</div>
+<textarea class="answer-textarea" placeholder="Sí / No / Justo / Necesito ajustar..."></textarea>
+</div>
+</div>
+
+<div class="check-item" id="q3">
+<div class="check-header" onclick="toggleCheck(3)">
+<div class="checkbox"></div>
+<div class="check-content">
+<div class="check-number">Pregunta 4</div>
+<div class="check-question">¿Qué línea fue la más rentable y cuál la menos?</div>
+<div class="check-why">No la que más vendiste. La que más margen te dejó por hora invertida.</div>
+</div>
+</div>
+<div class="check-answer">
+<div class="answer-label">Más rentable:</div>
+<input class="answer-input" type="text" placeholder="Producto/servicio y margen">
+<div class="answer-label" style="margin-top:8px">Menos rentable:</div>
+<input class="answer-input" type="text" placeholder="Producto/servicio y margen">
+<div class="answer-label" style="margin-top:8px">¿Qué vas a hacer con la menos rentable?</div>
+<textarea class="answer-textarea" placeholder="Eliminar / subir precio / reducir tiempo invertido..."></textarea>
+</div>
+</div>
+
+<div class="check-item" id="q4">
+<div class="check-header" onclick="toggleCheck(4)">
+<div class="checkbox"></div>
+<div class="check-content">
+<div class="check-number">Pregunta 5</div>
+<div class="check-question">¿Estoy dentro del presupuesto que me fijé?</div>
+<div class="check-why">Si no te fijaste presupuesto, esa es la respuesta. Empieza por ahí.</div>
+</div>
+</div>
+<div class="check-answer">
+<div class="answer-label">Presupuesto que tenía para este mes:</div>
+<input class="answer-input" type="text" placeholder="€ (si no tenías, escribe 'No tenía')">
+<div class="answer-label" style="margin-top:8px">¿Lo cumplí?</div>
+<textarea class="answer-textarea" placeholder="Sí / No / Por qué..."></textarea>
+<div class="answer-label" style="margin-top:8px">Presupuesto para el próximo mes:</div>
+<input class="answer-input" type="text" placeholder="€">
+</div>
+</div>
+
+<div class="result-box" id="resultBox">
+<h3>Revisión mensual completada ✓</h3>
+<div class="result-text">Acabas de hacer en 30 minutos lo que la mayoría de emprendedoras no hace nunca. Repite esto el primer lunes de cada mes. Con el tiempo, estas preguntas te van a dar una claridad financiera que cambia completamente cómo diriges tu negocio.</div>
+</div>
+
+<div class="calendar-tip">
+<strong>Ponlo en tu calendario ahora mismo</strong>
+<p>Primer lunes de cada mes. 30 minutos. Estas 5 preguntas. Es la mejor inversión de tiempo que puedes hacer por tu negocio.</p>
+</div>
+
+<button class="reset-btn" onclick="resetChecklist()">Nuevo mes</button>
+<button class="download-btn" onclick="window.print()">Descargar en PDF</button>
+<div class="footer">Team Leader Academy © 2026 • Bloque 3: Dirección Financiera</div>
+</div>
+<script>
+let checked=[false,false,false,false,false];
+function toggleCheck(i){
+    if(event.target.tagName==='INPUT'||event.target.tagName==='TEXTAREA')return;
+    checked[i]=!checked[i];
+    document.getElementById('q'+i).classList.toggle('done');
+    let count=checked.filter(Boolean).length;
+    document.getElementById('progressValue').textContent=count+'/5';
+    document.getElementById('progressFill').style.width=(count/5*100)+'%';
+    document.getElementById('resultBox').style.display=count===5?'block':'none';
+}
+function resetChecklist(){
+    checked=[false,false,false,false,false];
+    for(let i=0;i<5;i++)document.getElementById('q'+i).classList.remove('done');
+    document.querySelectorAll('.answer-input,.answer-textarea').forEach(el=>el.value='');
+    document.getElementById('progressValue').textContent='0/5';
+    document.getElementById('progressFill').style.width='0';
+    document.getElementById('resultBox').style.display='none';
+    window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
